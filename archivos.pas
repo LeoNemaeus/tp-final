@@ -21,6 +21,12 @@
 }
 unit archivos;
 interface
+procedure leerConfig(url:string; var dbUrl:string);
+procedure escribirDato();
+procedure leerDato();
+procedure leerBloque();
+
+
 
 
 implementation
