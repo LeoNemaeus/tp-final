@@ -21,6 +21,12 @@ begin
      arbolvacio:=(A=nil);
 end;
 
+{
+ *Insertar Artículo/Factura.
+}
+{
+ *Inserta una factura
+}
 procedure insertarArbol(var A:aFactura; x:tFactura; campo:char);
 begin
      if (A = nil) then
@@ -56,7 +62,7 @@ end;
 end;
 end;
 {
- *
+ *Inserta un articulo
 }
 procedure insertarArbol(var A:aArticulo; x:tArticulo; campo:char);
 begin
@@ -91,76 +97,103 @@ begin
 		end;
 	end;
 end;
+
 {
- *Busca un articulo/factura en el arbol dado
+ *Busca una factura en el arbol dado
 }
-procedure buscarArbol(A:aFactura;x:tFactura;var existe:boolean; var aux:aFactura; campo:char);
+procedure buscarArbol(	A:aFactura;
+					  x:tFactura;
+					  var existe:boolean;
+					  var aux:aFactura;
+					  campo:char);
 begin
-	
-	if not arbolvacio(A) then
+	if not arbolVacio(A) then
 	begin
-		aux := A;
-		case campo of
-			'1': begin
-				if aux^.info.nFactura=x.nFactura then existe := true
-				else buscarArbol(aux^.der,x,existe,aux, campo)
-				end;
-			'2': begin
-					if aux^.info.fecha=x.fecha then existe := true
-					else buscarArbol(aux^.der,x,existe,aux, campo)
-					end;
-			'3': begin
-				if aux^.info.nombre=x.nombre then existe := true
-				else buscarArbol(aux^.der,x,existe,aux, campo)
-				end;
+	aux := A;
+	
+	case campo of
+		'1': begin
+				if aux^.info.nFactura = x.nFactura then existe := true
+				else buscarArbol(aux^.der, x, existe, aux, campo);
+			end;
+		'2': begin
+			if aux^.info.fecha = x.fecha  then existe := true
+			else buscarArbol(aux^.der, x, existe, aux, campo);
+			end;
+		'3': begin
+			if aux^.info.nombre = x.nombre then existe := true
+			else buscarArbol(aux^.der, x, existe, aux, campo);
+			end;
+		end;
 	end
 	else
-		begin
+	begin
+		aux := A;
+		
+		case campo of
+			'1':begin
+				if aux^.info.nFactura = x.nFactura then existe := true
+				else buscarArbol(aux^.izq, x, existe, aux, campo);
+				end;
+			'2':begin
+				if aux^.info.fecha = x.fecha then existe := true
+				else buscarArbol(aux^.izq, x, existe, aux, campo);
+			end;
+			'3':begin
+				if aux^.info.nombre = x.nombre then existe := true
+				else buscarArbol(aux^.izq, x, existe, aux, campo);
+				end;
 		end;
 	end;
 end;
 
 {
-	if not vacioarbol(A) then
+ *Buscar un artículo
+}
+procedure buscarArbol(	A:aArticulo;
+						x:tArticulo;
+						var existe:boolean;
+						var aux:aArticulo;
+						campo:char);
+begin
+	if not arbolVacio(A) then
 	begin
-		aux:=A;
-		case campo of
-			'1': begin
-			if aux^.info.nFactura=x.nFactura then
-				existe := true
-			else
-				buscarArbol(aux^.der,x,existe,aux, campo);
-		end;
-			'2': begin
-			if aux^.info.fecha=x.fecha then
-				existe := true
-			else
-				buscarArbol(aux^.der,x,existe,aux, campo);
-		end;
-			'3': begin
-			if aux^.info.nombre=x.nombre then
-				existe := true
-			else
-				buscarArbol(aux^.der,x,existe,aux, campo);
+	aux := A;
+	
+	case campo of
+		'1': begin
+				if aux^.info.codigo = x.codigo then existe := true
+				else buscarArbol(aux^.der, x, existe, aux, campo);
+			end;
+		'2': begin
+			if aux^.info.descripcion = x.descripcion  then existe := true
+			else buscarArbol(aux^.der, x, existe, aux, campo);
+			end;
+		'3': begin
+			if aux^.info.proveedor = x.proveedor then existe := true
+			else buscarArbol(aux^.der, x, existe, aux, campo);
+			end;
 		end;
 	end
 	else
 	begin
+		aux := A;
+
 		case campo of
-			'1': begin
-			if aux^.info.nFactura=x.nFactura then existe := true
-			else buscarArbol(aux^.izq,x,existe,aux, campo);
-		end;
-			'2': begin
-			if aux^.info.fecha=x.fecha then existe := true
-			else buscarArbol(aux^.izq,x,existe,aux, campo);
-		end;
-			'3': begin
-			if aux^.info.nombre=x.nombre then existe := true
-			else buscarArbol(aux^.izq,x,existe,aux, campo);
+			'1':begin
+				if aux^.info.codigo = x.codigo then existe := true
+				else buscarArbol(aux^.izq, x, existe, aux, campo);
+				end;
+			'2':begin
+				if aux^.info.descripcion = x.descripcion then existe := true
+				else buscarArbol(aux^.izq, x, existe, aux, campo);
+			end;
+			'3':begin
+				if aux^.info.proveedor = x.proveedor then existe := true
+				else buscarArbol(aux^.izq, x, existe, aux, campo);
+				end;
 		end;
 	end;
 end;
-end;}
 
 end.
