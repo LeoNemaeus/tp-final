@@ -107,12 +107,6 @@ type
 					izq:aArticulo;
 					der:aArticulo;
 				end;
-	aFactura = ^hFactura;
-	hFactura = record
-					info:tFactura;
-					izq:aFactura;
-					der:aFactura;
-				end;
 {
  *Tipos pertinentes a los archivos.
  *Nomeclatura:
