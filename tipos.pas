@@ -3,6 +3,8 @@
  *Creado: 06/12/2014
  *Autor: Sandro Pastorini
  *
+ *Editado:	11/12/2014 (Giuly)
+ *
  *Comentario:
  ****Se pueden alojar una cantidad máxima de 65536 productos distintos (un word).
  ****Por cada producto, el stock máximo es de 65536 elementos (un word).
@@ -98,14 +100,19 @@ type
 
 {
  *Tipos referentes a arboles binarios
- ****aXxxxx: arbol
+ ****arXxxxx: arbol
  ****hXxxxx: hoja
+ ****aXxxxx: puntero
 }
 	aArticulo = ^hArticulo;
 	hArticulo = record
 					info:tArticulo;
 					izq:aArticulo;
 					der:aArticulo;
+				end;
+	arArticulo = Record
+					raiz: aArticulo;
+					tam: word;
 				end;
 {
  *Tipos pertinentes a los archivos.

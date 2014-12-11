@@ -2,7 +2,7 @@
  *Archivo: tp_final.pas
  *Creado: 08/12/2014
  *Editado: 08/12/2014
-			11/12/2014
+			11/12/2014 (Giuly)
  *Autor: Sandro Pastorini
  *Comentario: Perdon Sandro! Cambie varias cosas.. Giuly
 }
@@ -11,6 +11,16 @@ interface
 
 implementation
 uses tipos;
+
+Procedure listado (var raiz: aArticulo);
+	begin
+		if raiz <> nil then
+			begin
+				listado(raiz^.izq);
+				writeln('Codogo: ', codigo, '  Descripcion: ', descripcion, '  Precio de Venta: ', precio_venta);
+				listado(raiz^.der);
+			end;
+	end;
 
 function arbolvacio(A:aArticulo):boolean;
 begin
@@ -36,6 +46,7 @@ begin
 		else if A^.info.codigo>x.codigo then
 			insertarArbolCodigo(A^.izq,x)
 	end;
+	inc(tam);
 end;
 
 {
@@ -57,6 +68,7 @@ begin
 		else if A^.info.descripcion>x.descripcion then
 			insertarArbolDescripcion(A^.izq,x)
 	end;
+	inc(tam);
 end;
 
 {
