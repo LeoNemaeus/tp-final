@@ -16,7 +16,7 @@ uses tipos;
 {
 ** Para hacer el listado de los presios. Asi lo hizo la profe
 }
-Procedure listado (var raiz: aArticulo);
+Procedure listado (var raiz: paArticulo);
 	begin
 		if raiz <> nil then
 			begin
@@ -26,15 +26,16 @@ Procedure listado (var raiz: aArticulo);
 			end;
 	end;
 
-function arbolvacio(A:aArticulo):boolean;
+function arbolvacio(A:paArticulo):boolean;
 begin
      arbolvacio:=(A=nil);
 end;
 
 {
  *Inserta un articulo por el codigo
+ *** aCodigo = Arbol de codigo
 }
-procedure insertarArbolCodigo(var A:aArticulo; x:tArticulo);
+procedure insertarArbolCodigo(var A:paArticulo; x:tArticulo);
 begin
      if A=nil then
      begin
@@ -50,13 +51,14 @@ begin
 		else if A^.info.codigo>x.codigo then
 			insertarArbolCodigo(A^.izq,x)
 	end;
-	inc(tam);
+	inc(aCodigo^.tam);       ///determinar el nombre para los arboles a trabajar
 end;
 
 {
  *Inserta un articulo por la descripcion
+ ** aDescripcion = Arbol de descripcion
 }
-procedure insertarArbolDescripcion(var A:aArticulo; x:tArticulo);
+procedure insertarArbolDescripcion(var A:paArticulo; x:tArticulo);
 begin
      if A=nil then
      begin
@@ -72,13 +74,13 @@ begin
 		else if A^.info.descripcion>x.descripcion then
 			insertarArbolDescripcion(A^.izq,x)
 	end;
-	inc(tam);
+	inc(aDescripcion^.tam);				/// determinar el nombre para los arboles a trabajar
 end;
 
 {
  *Buscar un artículo por codigo
 }
-procedure buscarArbolCodigo(A:aArticulo; x:tArticulo; var existe:boolean; var aux:aArticulo);
+procedure buscarArbolCodigo(A:paArticulo; x:tArticulo; var existe:boolean; var aux:paArticulo);
 begin
 	if not arbolVacio(A) then
 	begin
@@ -97,7 +99,7 @@ end;
 {
  *Buscar un artículo por descripcion
 }
-procedure buscarArbolDescripcion(A:aArticulo; x:tArticulo; var existe:boolean; var aux:aArticulo);
+procedure buscarArbolDescripcion(A:paArticulo; x:tArticulo; var existe:boolean; var aux:paArticulo);
 begin
 	if not arbolVacio(A) then
 	begin

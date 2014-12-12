@@ -100,18 +100,18 @@ type
 
 {
  *Tipos referentes a arboles binarios
- ****arXxxxx: arbol
+ ****aXxxxx: arbol
  ****hXxxxx: hoja
- ****aXxxxx: puntero
+ ****paXxxxx: puntero
 }
-	aArticulo = ^hArticulo;
+	paArticulo = ^hArticulo;
 	hArticulo = record
 					info:tArticulo;
 					izq:aArticulo;
 					der:aArticulo;
 				end;
-	arArticulo = Record
-					raiz: aArticulo;
+	aArticulo = Record
+					raiz: paArticulo;
 					tam: word;
 				end;
 {
