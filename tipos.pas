@@ -71,7 +71,14 @@ type
                     fecha:tFecha;
                     nombre:string[50];
                     direccion:string[50];
-					iva:real;
+					iva:string;					// jnvgowrhohgoh
+												{Hay que poner que tipos de iva:
+															-Responsable inscripto
+															-Responsable monotributo
+															-Consumidor final
+												En la factura C hay que poner el tipo de iva, simpre es 21% pero ya esta agregado en el total
+												no se discrimina*
+												*Discriminar: no tenemos que sacar cuentas y sumarselas al total porque ya esta incluido}
                     condicion_venta:1..2;		// 1: Contado; 2: Crédito
                     venta:tVenta;
                     total:real;
