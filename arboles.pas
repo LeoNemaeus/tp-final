@@ -12,6 +12,10 @@ interface
 implementation
 uses tipos;
 
+
+{
+** Para hacer el listado de los presios. Asi lo hizo la profe
+}
 Procedure listado (var raiz: aArticulo);
 	begin
 		if raiz <> nil then
