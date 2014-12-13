@@ -6,10 +6,26 @@
  *Comentario:
 }
 unit arboles;
+
 interface
+uses tipos;
+
+procedure insertarArbol(var A:aFactura; x:tFactura; campo:char);
+procedure insertarArbol(var A:aArticulo; x:tArticulo; campo:char);
+
+procedure buscarArbol(	A:aFactura;
+						x:tFactura;
+						var existe:boolean;
+						var aux:aFactura;
+						campo:char);
+
+procedure buscarArbol(	A:aArticulo;
+						x:tArticulo;
+						var existe:boolean;
+						var aux:aArticulo;
+						campo:char);
 
 implementation
-uses tipos;
 
 function arbolvacio(A:aFactura):boolean;
 begin
@@ -19,6 +35,22 @@ end;
 function arbolvacio(A:aArticulo):boolean;
 begin
      arbolvacio:=(A=nil);
+end;
+
+{
+ *Crea un arbol
+}
+procedure crearArbol(var arbol:aArticulo);
+begin
+	arbol := nil;
+end;
+
+{
+ *Borra un arbol
+}
+destruirArbol(var arbol:aArticulo);
+begin
+	
 end;
 
 {
@@ -61,6 +93,7 @@ begin
 end;
 end;
 end;
+
 {
  *Inserta un articulo
 }
@@ -162,8 +195,8 @@ begin
 	
 	case campo of
 		'1': begin
-				if aux^.info.codigo = x.codigo then existe := true
-				else buscarArbol(aux^.der, x, existe, aux, campo);
+			if aux^.info.codigo = x.codigo then existe := true
+			else buscarArbol(aux^.der, x, existe, aux, campo);
 			end;
 		'2': begin
 			if aux^.info.descripcion = x.descripcion  then existe := true
