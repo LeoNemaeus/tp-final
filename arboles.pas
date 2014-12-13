@@ -9,6 +9,13 @@
 unit arboles;
 interface
 
+	Procedure listado (var raiz: paArticulo);
+	function arbolvacio(A:paArticulo):boolean;
+	procedure insertarArbolCodigo(var A:paArticulo; x:tArticulo);
+	procedure insertarArbolDescripcion(var A:paArticulo; x:tArticulo);
+	procedure buscarArbolCodigo(A:paArticulo; x:tArticulo; var existe:boolean; var aux:paArticulo);
+	procedure buscarArbolDescripcion(A:paArticulo; x:tArticulo; var existe:boolean; var aux:paArticulo);
+
 implementation
 uses tipos;
 
@@ -80,15 +87,15 @@ end;
 {
  *Buscar un artículo por codigo
 }
-procedure buscarArbolCodigo(A:paArticulo; x:tArticulo; var existe:boolean; var aux:paArticulo);
+procedure buscarArbolCodigo(A:paArticulo; x:{tArticulo} word; var existe:boolean; var aux:paArticulo);
 begin
 	if not arbolVacio(A) then
 	begin
 		aux := A;
-		if aux^.info.codigo = x.codigo then existe := true
+		if aux^.info.codigo = x{.codigo} then existe := true		///x ya seria el codigo que ingresamos para buscar
 		else
 		begin
-			if aux^.info.codigo <= x.codigo then
+			if aux^.info.codigo <= x{.codigo} then
 				buscarArbolCodigo(aux^.der, x, existe, aux);
 			else
 				buscarArbolCodigo(aux^.izq, x, existe, aux);
@@ -99,15 +106,15 @@ end;
 {
  *Buscar un artículo por descripcion
 }
-procedure buscarArbolDescripcion(A:paArticulo; x:tArticulo; var existe:boolean; var aux:paArticulo);
+procedure buscarArbolDescripcion(A:paArticulo; x:{tArticulo} string; var existe:boolean; var aux:paArticulo);
 begin
 	if not arbolVacio(A) then
 	begin
 		aux := A;
-		if aux^.info.descripcion = x.descripcion then existe := true
+		if aux^.info.descripcion = x{.descripcion} then existe := true		///x ya seria la descripcion que ingresamos para buscar
 		else
 		begin
-			if aux^.info.descripcion <= x.descripcion then
+			if aux^.info.descripcion <= x{.descripcion }then
 				buscarArbolDescripcion(aux^.der, x, existe, aux);
 			else
 				buscarArbolDescripcion(aux^.izq, x, existe, aux);
