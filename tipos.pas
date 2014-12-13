@@ -85,6 +85,11 @@ type
                 end;
 
 {
+***Vector para ir guardanto cada elemento vendido y al finalizar poder hacer la factura
+}
+	t_vector = Array [1..15] of tVenta;
+				
+{
  *Tipos pertinentes a la memoria dinámica
  *Nomeclatura:
  ** nXxxxx: nodo

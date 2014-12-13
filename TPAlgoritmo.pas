@@ -3,18 +3,22 @@
  **Giuly
  }
 Program TPAlgoritmo;
-Uses crt, tipos, frontend, archivos, arboles, estructuras_dinamicas, menu;
+Uses crt, tipos, frontend, archivos, arboles, estructuras_dinamicas, menu, Dos, system;
+//La libreria system es para el manejo de archivos y Dos la uso para obtener la hora
 
 var
 	op: char;
 Begin {Principal}
 	comienzo;
 	repeat
-		opciones;
-		read(op);
+		repeat
+			opciones;
+			read(op);
+		until op in [0..8]
 		case op of
 			'1': Begin
 					{venta/facturacion}
+					/// hecho con el nombre: venta.pas
 				end;
 			'2': Begin
 					{Actualizacion Stock}
@@ -40,3 +44,5 @@ Begin {Principal}
 					{pedido de articulos faltantes por proveedor}
 				end;
 	until op='0';
+	Finalizar;
+End.
