@@ -26,8 +26,8 @@ uses tipos;
 
 	procedure leerConfig(url:string; var dbUrl:string);
 	procedure escribirDato(var f:fArticulo; var dato:tArticulo);
-	function leerDato(var f:fArticulo; var dato:tArticulo; pos:word):boolean;
-	procedure leerBloque();									//Deprecated
+	function leerDato(var f:fArticulo; var dato:tArticulo; pos:word):byte;
+	function leerDato(var f:fFactura; var dato:tFactura; pos:word):byte;
 
 
 
@@ -68,7 +68,7 @@ procedure escribirDato(var f:fArticulo; var dato:tArticulo);
 var
 	aux:tArticulo;
 	pos:word;
-	bTemp:boolean;		//Variable temporal para guardar el resultado de leerDato()
+	bTemp:byte;	//Variable temporal para guardar el resultado de leerDato()
 begin
 	{$i-}
 	reset(f);
@@ -82,7 +82,9 @@ begin
 	repeat
 		inc(pos);
 		bTemp := leerDato(f, aux, pos);
-	until (aux.codigo < dato.codigo) OR NOT(bTemp);
+	until (aux.codigo < dato.codigo) OR (bTemp <> 1);
+	
+	if(bTemp = 1) then writeln('Error accediendo archivo');
 	
 	seek(f, pos);
 	if(IOresult <> 0) then
@@ -101,58 +103,96 @@ begin
 	{I+}
 end;
 
-function leerDato(var f:fArticulo; var dato:tArticulo; pos:word):boolean;
+procedure escribirDato(var f:fFactura; var dato:tFactura);
 var
-	resultado:boolean;
+	aux:tFactura;
+	pos:word;
+	bTemp:byte;	//Variable temporal para guardar el resultado de leerDato()
+begin
+	{$i-}
+	reset(f);
+	if(IOresult <> 0) then
+	begin
+		writeln('Error escribiendo dato');
+		exit;
+	end;
+
+	pos := 0;
+	repeat
+		inc(pos);
+		bTemp := leerDato(f, aux, pos);
+	until (aux.nFactura < dato.nFactura) OR (bTemp <> 1);
+	
+	if(bTemp = 1) then
+	begin
+		writeln('Error accediendo archivo');
+		exit();
+	end;
+	
+	seek(f, pos);
+	if(IOresult <> 0) then
+	begin
+		writeln('Error escribiendo dato');	//Informacion de debug, debe
+		exit;								//reemplazarse por una f. exit();
+	end;
+
+	write(f, dato);
+	if(IOresult <> 0) then
+	begin
+		writeln('Error escribiendo dato');
+		exit;
+	end;
+	close(f);
+	{I+}
+end;
+
+{
+ *Valores de retorno:
+ ** 0: error
+ ** 1: exito
+ ** 2: EOF (Fin del archivo)
+}
+
+function leerDato(var f:fArticulo; var dato:tArticulo; pos:word):byte;
 begin
 	{i-}
 	reset(f);						//Reset
-	if(IOresult <> 0) then exit(false);
+	if(IOresult <> 0) then exit(0);
 
 	seek(f, pos);					//Seek
-	if(IOresult <> 0) then exit(false);
+	if(IOresult <> 0) then exit(0);
 
 	read(f, dato);					//Read
-	if(IOresult <> 0) then exit(false);
+	if(IOresult <> 0) then exit(0);
+	
+	if eof(f) then exit(2);
 
 	close(f);						//Close
 	
-	exit(true);
+	exit(1);
 	{I+}
 end;
 
-procedure leerBloque();
-var
-	fArticulos:file of tArticulo;
-	buffer:array[1..256] of tArticulo;
-	pos:word;		//posicion donde comienza el bloque de datos.
-					//tamaño constante.
-	result:integer;
+function leerDato(var f:fFactura; var dato:tFactura; pos:word):byte;
 begin
 	{i-}
-	reset(fArticulos);
-	if(IOresult <> 0) then
-	begin
-		writeln('Error leyendo dato');
-		exit;
-	end;
+	reset(f);						//Reset
+	if(IOresult <> 0) then exit(0);
 
-	seek(fArticulos, pos);
-	if(IOresult <> 0) then
-	begin
-		writeln('Error leyendo dato');
-		exit;
-	end;
+	seek(f, pos);					//Seek
+	if(IOresult <> 0) then exit(0);
 
-	blockRead(fArticulos, buffer, 65535, result);
-	if(IOresult <> 0) then
-	begin
-		writeln('Error leyendo dato');
-		exit;
-	end;
+	read(f, dato);					//Read
+	if(IOresult <> 0) then exit(0);
+	
+	if eof(f) then exit(2);
 
+	close(f);						//Close
+	
+	exit(1);
 	{I+}
 end;
+
 var
 	temp:string;
 	{articulos:fArticulo;

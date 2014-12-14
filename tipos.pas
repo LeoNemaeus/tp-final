@@ -3,7 +3,7 @@
  *Creado: 06/12/2014
  *Autor: Sandro Pastorini
  *
- *Editado:	11/12/2014 (Giuly)
+ *Editado:	11/12/2014 (Giuly), 14/12/2014 (Sandro)
  *
  *Comentario:
  ****Se pueden alojar una cantidad máxima de 65536 productos distintos (un word).
@@ -66,20 +66,22 @@ type
 {
  *Representa una factura.
 }
+
+{Hay que poner que tipos de iva:
+			-Responsable inscripto
+			-Responsable monotributo
+			-Consumidor final
+En la factura C hay que poner el tipo de iva, simpre es 21% pero ya esta
+agregado en el total no se discrimina*
+*Discriminar: no tenemos que sacar cuentas y sumarselas al total porque ya esta
+*incluido}
     tFactura = record
                     nFactura:word;
                     fecha:tFecha;
                     nombre:string[50];
                     direccion:string[50];
 					iva:string;					// jnvgowrhohgoh
-												{Hay que poner que tipos de iva:
-															-Responsable inscripto
-															-Responsable monotributo
-															-Consumidor final
-												En la factura C hay que poner el tipo de iva, simpre es 21% pero ya esta agregado en el total
-												no se discrimina*
-												*Discriminar: no tenemos que sacar cuentas y sumarselas al total porque ya esta incluido}
-                    condicion_venta:1..2;		// 1: Contado; 2: Crédito
+			        condicion_venta:1..2;		// 1: Contado; 2: Crédito
                     venta:tVenta;
                     total:real;
                 end;
@@ -116,15 +118,18 @@ type
  ****hXxxxx: hoja
  ****paXxxxx: puntero
 }
-	paArticulo = ^hArticulo;
-	aArticulo = Record
-					raiz: paArticulo;
-					tam: word;
-				end;
+	aArticulo = ^hArticulo;
 	hArticulo = record
 					info:tArticulo;
 					izq:aArticulo;
 					der:aArticulo;
+				end;
+
+	aFactura = ^hFactura;
+	hFactura = record
+					info:tFactura;
+					izq:aFactura;
+					der:aFactura;
 				end;
 
 {
