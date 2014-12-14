@@ -54,19 +54,35 @@ fFact: fFactura;
 					until res = 'n';
 // FACTURACION
 					iva_comp (iv);
-					GetDate( anio, mes, dia); {para obtener la fecha desde Dos}
+					GetDate( anio, mes, dia); {para obtener la fecha desde Dos};
 					Cventa(cv);
 					{Para obtener el numero de factura}
-					nfac:= filepos(fFact);
+					nfac:=( filepos(fFact)+1); {+1 xq sino todas las facturas van a tener el mismo numero}
 					facturas (total, dia, mes, anio, cv, iv, nfac);	
-					escribirDato(/////////);
-		{Sandro!!!! aca necesito que lo completes}
-		Sandroooo necesito guardar la voleta que acabo de hacer, esta bien si pongo
-		escribirDato?? Pero las variables? que le pongo? jaja
-		
+					insertfac (dato, v, nfac, dia, mes, anio, iv, cv, total);
+					escribirDato(f, dato);
+					
 				end; {fin punto 1}
 
-				
+
+Procedure insertfac (var dato: tFactura, var v: t_vector, nfac: word, dia:word, mes:word, anio:word, iv: string, cv: string, total:real);
+Begin
+	dato.nFactura := nfac;
+	dato.fecha.d := dia;
+	dato.fecha.m := mes;
+	dato.fecha.a := anio;
+	dato.nombre := 'Don Justo S.A.';
+	dato.direccion := '12 de Abril 258-Colon-E.R.'
+	dato.iva :=iv;
+	dato.condicion_venta := cv;
+	dato.venta.codigo := v[lim].codigo;
+	dato.venta.cantidad := v[lim].cantidad;
+	dato.venta.descripcion := v[lim].descripcion;
+	dato.venta.precio_unitario := v[lim].precio_unitario;
+	dato.venta.precio_fila := v[lim].precio_fila;
+	dato.total := total;
+End;				
+
 Procedure insertelem (var v: t_vector, x: tVenta, lim: word);
 Begin
 	v[lim].codigo := x.codigo;

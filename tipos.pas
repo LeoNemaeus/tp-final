@@ -30,12 +30,12 @@ type
  **Procedimientos:
  **			Cadena a tFecha
 }
-    {tFecha = record
-                d:0..31;    // Días
-                m:0..12;    // Meses
+    tFecha = record
+                d:word;    // Días
+                m:word;    // Meses
                 a:word;     // Años
-            end;}
-	tFecha = string[8];
+            end;
+	{tFecha = string[8];}
 
 {
  *Representa un artículo.
