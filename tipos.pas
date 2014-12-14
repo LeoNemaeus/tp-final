@@ -3,6 +3,8 @@
  *Creado: 06/12/2014
  *Autor: Sandro Pastorini
  *
+ *Editado:	11/12/2014 (Giuly)
+ *
  *Comentario:
  ****Se pueden alojar una cantidad máxima de 65536 productos distintos (un word).
  ****Por cada producto, el stock máximo es de 65536 elementos (un word).
@@ -69,12 +71,24 @@ type
                     fecha:tFecha;
                     nombre:string[50];
                     direccion:string[50];
-					iva:real;
+					iva:string;					// jnvgowrhohgoh
+												{Hay que poner que tipos de iva:
+															-Responsable inscripto
+															-Responsable monotributo
+															-Consumidor final
+												En la factura C hay que poner el tipo de iva, simpre es 21% pero ya esta agregado en el total
+												no se discrimina*
+												*Discriminar: no tenemos que sacar cuentas y sumarselas al total porque ya esta incluido}
                     condicion_venta:1..2;		// 1: Contado; 2: Crédito
                     venta:tVenta;
                     total:real;
                 end;
 
+{
+***Vector para ir guardanto cada elemento vendido y al finalizar poder hacer la factura
+}
+	t_vector = Array [1..15] of tVenta;
+				
 {
  *Tipos pertinentes a la memoria dinámica
  *Nomeclatura:
@@ -100,18 +114,17 @@ type
  *Tipos referentes a arboles binarios
  ****aXxxxx: arbol
  ****hXxxxx: hoja
+ ****paXxxxx: puntero
 }
-	aArticulo = ^hArticulo;
+	paArticulo = ^hArticulo;
 	hArticulo = record
 					info:tArticulo;
 					izq:aArticulo;
 					der:aArticulo;
 				end;
-	aFactura = ^hFactura;
-	hFactura = record
-					info:tFactura;
-					izq:aFactura;
-					der:aFactura;
+	aArticulo = Record
+					raiz: paArticulo;
+					tam: word;
 				end;
 {
  *Tipos pertinentes a los archivos.
