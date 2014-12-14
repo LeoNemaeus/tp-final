@@ -52,3 +52,7 @@
 # Delphi history and backups
 __history/
 *.~*
+
+#Binarios generados por el compilador de pascal
+*.o
+*.ppu
