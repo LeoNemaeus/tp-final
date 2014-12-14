@@ -117,15 +117,16 @@ type
  ****paXxxxx: puntero
 }
 	paArticulo = ^hArticulo;
+	aArticulo = Record
+					raiz: paArticulo;
+					tam: word;
+				end;
 	hArticulo = record
 					info:tArticulo;
 					izq:aArticulo;
 					der:aArticulo;
 				end;
-	aArticulo = Record
-					raiz: paArticulo;
-					tam: word;
-				end;
+
 {
  *Tipos pertinentes a los archivos.
  *Nomeclatura:

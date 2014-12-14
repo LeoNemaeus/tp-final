@@ -59,7 +59,7 @@ fFact: fFactura;
 					{Para obtener el numero de factura}
 					nfac:= filepos(fFact);
 					facturas (total, dia, mes, anio, cv, iv, nfac);	
-					escribirDato(/////////)
+					escribirDato(/////////);
 		{Sandro!!!! aca necesito que lo completes}
 		Sandroooo necesito guardar la voleta que acabo de hacer, esta bien si pongo
 		escribirDato?? Pero las variables? que le pongo? jaja

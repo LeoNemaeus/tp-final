@@ -20,17 +20,19 @@
  ****Lectura/escritura de datos simples, bloques.
 }
 unit archivos;
+
 interface
-procedure leerConfig(url:string; var dbUrl:string);
-procedure escribirDato();
-procedure leerDato();
-procedure leerBloque();
+uses tipos;
+
+	procedure leerConfig(url:string; var dbUrl:string);
+	procedure escribirDato(var f:fArticulo; var dato:tArticulo);
+	function leerDato(var f:fArticulo; var dato:tArticulo; pos:word):boolean;
+	procedure leerBloque();									//Deprecated
 
 
 
 
 implementation
-uses tipos;
 {
  *leer la configuracion
  *leer bloque
@@ -62,66 +64,60 @@ begin
 	{I+}							//Desactiva el manejo automático de errores.
 end;
 
-procedure escribirDato();
+procedure escribirDato(var f:fArticulo; var dato:tArticulo);
 var
-	fArticulos:file of tArticulo;
-	dato:tArticulo;
+	aux:tArticulo;
 	pos:word;
+	bTemp:boolean;		//Variable temporal para guardar el resultado de leerDato()
 begin
 	{$i-}
-	reset(fArticulos);
+	reset(f);
 	if(IOresult <> 0) then
 	begin
 		writeln('Error escribiendo dato');
 		exit;
 	end;
 
-	seek(fArticulos, pos);
+	pos := 0;
+	repeat
+		inc(pos);
+		bTemp := leerDato(f, aux, pos);
+	until (aux.codigo < dato.codigo) OR NOT(bTemp);
+	
+	seek(f, pos);
 	if(IOresult <> 0) then
 	begin
-		writeln('Error escribiendo dato');
-		exit;
+		writeln('Error escribiendo dato');	//Informacion de debug, debe
+		exit;								//reemplazarse por una f. exit();
 	end;
 
-	write(fArticulos, dato);
+	write(f, dato);
 	if(IOresult <> 0) then
 	begin
 		writeln('Error escribiendo dato');
 		exit;
 	end;
-	close(fArticulos);
+	close(f);
 	{I+}
 end;
 
-procedure leerDato();
+function leerDato(var f:fArticulo; var dato:tArticulo; pos:word):boolean;
 var
-	fArticulos:file of tArticulo;
-	dato:tArticulo;
-	pos:word;
+	resultado:boolean;
 begin
 	{i-}
-	reset(fArticulos);						//Reset
-	if(IOresult <> 0) then
-	begin
-		writeln('Error leyendo dato');
-		exit;
-	end;
+	reset(f);						//Reset
+	if(IOresult <> 0) then exit(false);
 
-	seek(fArticulos, pos);					//Seek
-	if(IOresult <> 0) then
-	begin
-		writeln('Error leyendo dato');
-		exit;
-	end;
+	seek(f, pos);					//Seek
+	if(IOresult <> 0) then exit(false);
 
-	read(fArticulos, dato);					//Read
-	if(IOresult <> 0) then
-	begin
-		writeln('Error leyendo dato');
-		exit;
-	end;
+	read(f, dato);					//Read
+	if(IOresult <> 0) then exit(false);
 
-	close(fArticulos);						//Close
+	close(f);						//Close
+	
+	exit(true);
 	{I+}
 end;
 
