@@ -10,12 +10,14 @@ unit arboles;
 interface
 uses tipos;
 
-	Procedure listado (var raiz: paArticulo);
-	function arbolvacio(A:paArticulo):boolean;
-	procedure insertarArbolCodigo(var A:paArticulo; x:tArticulo);
-	procedure insertarArbolDescripcion(var A:paArticulo; x:tArticulo);
-	procedure buscarArbolCodigo(A:paArticulo; x:tArticulo; var existe:boolean; var aux:paArticulo);
-	procedure buscarArbolDescripcion(A:paArticulo; x:tArticulo; var existe:boolean; var aux:paArticulo);
+	Procedure listado (var raiz: aArticulo);
+	function arbolvacio(A:aArticulo):boolean;
+	procedure insertarArbolCodigo(var A:aArticulo; x:tArticulo);
+	procedure insertarArbolDescripcion(var A:aArticulo; x:tArticulo);
+	//procedure buscarArbolCodigo(A:aArticulo; x:tArticulo; var existe:boolean; var aux:aArticulo);
+	//procedure buscarArbolDescripcion(A:aArticulo; x:tArticulo; var existe:boolean; var aux:aArticulo);
+	procedure buscarArbolCodigo(A:aArticulo; x:{tArticulo} word; var existe:boolean; var aux:aArticulo);
+	procedure buscarArbolDescripcion(A:aArticulo; x:{tArticulo} string; var existe:boolean; var aux:aArticulo);
 
 implementation
 
@@ -25,20 +27,20 @@ implementation
 }
 Procedure listado (var raiz: aArticulo);
 	begin
-		if raiz.raiz <> nil then
+		if raiz <> nil then
 			begin
-				listado(raiz.raiz^.izq);
-				with raiz.raiz^.info do
+				listado(raiz^.izq);
+				with raiz^.info do
 				begin
 					writeln('Codigo: ', codigo,
 							'  Descripcion: ', descripcion,
 							'  Precio de Venta: ', precio_venta);
 				end;
-				listado(raiz.raiz^.der);
+				listado(raiz^.der);
 			end;
 	end;
 
-function arbolvacio(A:paArticulo):boolean;
+function arbolvacio(A:aArticulo):boolean;
 begin
      arbolvacio:=(A=nil);
 end;
@@ -47,7 +49,7 @@ end;
  *Inserta un articulo por el codigo
  *** aCodigo = Arbol de codigo
 }
-procedure insertarArbolCodigo(var A:paArticulo; x:tArticulo);
+procedure insertarArbolCodigo(var A:aArticulo; x:tArticulo);
 begin
      if A=nil then
      begin
@@ -63,14 +65,14 @@ begin
 		else if A^.info.codigo>x.codigo then
 			insertarArbolCodigo(A^.izq,x)
 	end;
-	inc(aCodigo^.tam);       ///determinar el nombre para los arboles a trabajar
+	//inc(aCodigo^.tam);       ///determinar el nombre para los arboles a trabajar
 end;
 
 {
  *Inserta un articulo por la descripcion
  ** aDescripcion = Arbol de descripcion
 }
-procedure insertarArbolDescripcion(var A:paArticulo; x:tArticulo);
+procedure insertarArbolDescripcion(var A:aArticulo; x:tArticulo);
 begin
      if A=nil then
      begin
@@ -86,13 +88,13 @@ begin
 		else if A^.info.descripcion>x.descripcion then
 			insertarArbolDescripcion(A^.izq,x)
 	end;
-	inc(aDescripcion^.tam);				/// determinar el nombre para los arboles a trabajar
+	//inc(aDescripcion^.tam);				/// determinar el nombre para los arboles a trabajar
 end;
 
 {
  *Buscar un artículo por codigo
 }
-procedure buscarArbolCodigo(A:paArticulo; x:{tArticulo} word; var existe:boolean; var aux:paArticulo);
+procedure buscarArbolCodigo(A:aArticulo; x:{tArticulo} word; var existe:boolean; var aux:aArticulo);
 begin
 	if not arbolVacio(A) then
 	begin
@@ -101,7 +103,7 @@ begin
 		else
 		begin
 			if aux^.info.codigo <= x{.codigo} then
-				buscarArbolCodigo(aux^.der, x, existe, aux);
+				buscarArbolCodigo(aux^.der, x, existe, aux)
 			else
 				buscarArbolCodigo(aux^.izq, x, existe, aux);
 		end;
@@ -111,7 +113,7 @@ end;
 {
  *Buscar un artículo por descripcion
 }
-procedure buscarArbolDescripcion(A:paArticulo; x:{tArticulo} string; var existe:boolean; var aux:paArticulo);
+procedure buscarArbolDescripcion(A:aArticulo; x:{tArticulo} string; var existe:boolean; var aux:aArticulo);
 begin
 	if not arbolVacio(A) then
 	begin
@@ -120,7 +122,7 @@ begin
 		else
 		begin
 			if aux^.info.descripcion <= x{.descripcion }then
-				buscarArbolDescripcion(aux^.der, x, existe, aux);
+				buscarArbolDescripcion(aux^.der, x, existe, aux)
 			else
 				buscarArbolDescripcion(aux^.izq, x, existe, aux);
 		end;
