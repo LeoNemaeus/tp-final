@@ -65,7 +65,6 @@ end;
 }
 function escribirDato(var f:fArticulo; var dato:tArticulo):longint;
 var
-    aux:tArticulo;
     pos:word;
 begin
     {$i-}
@@ -97,7 +96,6 @@ end;
 
 function escribirDato(var f:fFactura; var dato:tFactura):longint;
 var
-    aux:tFactura;
     pos:word;
 begin
     {$i-}
@@ -130,11 +128,11 @@ begin
 
     seek(f, pos);                    //Seek
     if(IOresult <> 0) then exit(0);
+    
+    if eof(f) then exit(2);
 
     read(f, dato);                    //Read
     if(IOresult <> 0) then exit(0);
-    
-    if eof(f) then exit(2);
 
     close(f);                        //Close
     
@@ -146,15 +144,15 @@ function leerDato(var f:fFactura; var dato:tFactura; pos:word):byte;
 begin
     {i-}
     reset(f);                        //Reset
-    if(IOresult <> 0) then exit(0);
+    if(IOresult <> 0) then exit(IOresult);
 
     seek(f, pos);                    //Seek
-    if(IOresult <> 0) then exit(0);
+    if(IOresult <> 0) then exit(IOresult);
+    
+    if eof(f) then exit(2);
 
     read(f, dato);                    //Read
-    if(IOresult <> 0) then exit(0);
-
-    if eof(f) then exit(2);
+    if(IOresult <> 0) then exit(IOresult);
 
     close(f);                        //Close
 

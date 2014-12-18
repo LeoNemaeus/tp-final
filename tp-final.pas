@@ -24,15 +24,82 @@
 }
 program tp_final;
 //uses crt, tipos, frontend, archivos, arboles, estructuras_dinamicas;
-uses tipos, archivos, arboles;
+uses crt, tipos, archivos, arboles, ventas, menu;
 var
     op:char;
+    
+    i:word;
+    resultadoLeer:word;
+    
+    archivoArticulo:fArticulo;
+    archivoFactura:fFactura;
+    
+    arbolArticulo:aArticulo;
+    arbolFactura:aFactura;
+    
+    articulo:tArticulo;
+    factura:tFactura;
+    
+    busquedaArticulo:taArticulo;
+    busquedaFactura:taFactura;
 begin
+    iniArchivos(archivoArticulo, archivoFactura);
+    
+    crearArbol(arbolArticulo);
+    crearArbol(arbolFactura);
+    
+    i := 0;
+    
     repeat
+        resultadoLeer := leerDato(archivoArticulo, articulo, i);
+        
+        busquedaArticulo.codigo := articulo.codigo;
+        busquedaArticulo.descripcion := articulo.descripcion;
+        busquedaArticulo.fpos := i;
+        
+        insertarArbol(arbolArticulo, busquedaArticulo, codigo);
+        insertarArbol(arbolArticulo, busquedaArticulo, descripcion);
+        
+        i := i + 1;
+    until resultadoLeer <> 1;
+    
+    if resultadoLeer = 0 then
+    begin
+        writeln('Se produjo un error al leer el archivo de articulos');
+        exit;
+    end;
+    
+    i := 0;
+    
+    repeat
+        resultadoLeer := leerDato(archivoFactura, factura, i);
+        
+        busquedaFactura.nFactura := factura.nFactura;
+        busquedaFactura.fpos := i;
+        
+        insertarArbol(arbolFactura, busquedaFactura, codigo);
+        
+        i := i + 1;
+    until resultadoLeer <> 1;
+    
+    if resultadoLeer = 0 then
+    begin
+        writeln('Se produjo un error al leer el archivo de facturas: ', resultadoLeer);
+        exit;
+    end;
+    
+    clrscr;
+    comienzo;
+    readkey;
+    
+    repeat
+        clrscr;
+        opciones;
         read(op);
         
         case op of
             '1':begin
+                venta(archivoArticulo, archivoFactura, arbolArticulo, arbolFactura);
             end;
             
             '2': begin

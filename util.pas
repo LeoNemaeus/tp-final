@@ -115,6 +115,6 @@ begin
                 end;
             end;
         until redraw;
-    until op = #27;
+    until op = '0';
     
 end.

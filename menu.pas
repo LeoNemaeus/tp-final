@@ -5,9 +5,9 @@ interface
 	Procedure opciones;
 	Procedure iva;
 	Procedure Finalizar;
-	Procedure verif_cod (aux: paArticulo);
-	Procedure ventas (lim: word, var v:t_vector);
-	Procedure facturas (total: real, dia:word, mes: word, anio:word, cv: string, iv:string, nfac:word);
+	//Procedure verif_cod (aux: paArticulo);
+	//Procedure ventas (lim: word, var v:t_vector);
+	//Procedure facturas (total: real, dia:word, mes: word, anio:word, cv: string, iv:string, nfac:word);
 	Procedure cond_venta;
 
 implementation
@@ -151,14 +151,16 @@ Procedure Finalizar;
 		readkey;
 	end;
 
+{
 Procedure verif_cod (aux: paArticulo);
 Begin
 	writeln('El codigo ingresado corresponde a: ');
 	witeln('                 ', aux^.info.descripcion);
 	writeln('¿Es correcto?: (s/n)');
 End;
-
-Procedure facturas (total: real, dia:word, mes: word, anio:word, cv: string, iv:string, nfac:word);
+}
+{
+Procedure facturas (total: real; dia:word, mes: word, anio:word, cv: string, iv:string, nfac:word);
 Begin
 	clrscr;
 	textcolor(8);
@@ -182,7 +184,8 @@ Begin
 	writeln('                                 Gracias por su compra!');
 	readkey;
 End;
-
+}
+{
 Procedure ventas (lim: word, var v:t_vector);
 var
 	I: word;
@@ -193,7 +196,7 @@ Begin
 		writeln('       ',v[I].codigo,'  ',v[I].descripcion);
 	end;
 End;
-
+}
 
 
 
