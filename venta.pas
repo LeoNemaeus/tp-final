@@ -4,6 +4,12 @@ Decripcion: Punto uno de venta y facturacion
 }
 
 {Variables para el cuerpo principal}
+unit venta;
+
+interface
+
+implementation
+
 v: t_vector;
 existe: boolena;
 A: paArticulo;
@@ -22,6 +28,8 @@ dia:word;
 cv: string;
 nfac: word;
 fFact: fFactura;
+
+
 			'1': Begin
 					{venta/facturacion}
 					{no puede haber objetos con codigo = 0}
@@ -36,7 +44,7 @@ fFact: fFactura;
 							verif_cod (aux);
 							read(res);
 							if res = 's' then
-							Begin			
+							Begin
 								writeln('Ingrese cantidad de unidades: ');
 								read(cant);
 								if cant >= aux^.info.stock then
@@ -46,7 +54,7 @@ fFact: fFactura;
 									writeln ('El stock no es sufuciente');
 									writeln('Usted solo posee ',aux^.info.stock,' unidades.');
 								End
-							end					
+							end
 						end	
 						else writeln('Codigo no encontrado');
 						writeln('¿Desea agregar otro producto?: (s/n) ');		
@@ -142,3 +150,4 @@ Begin
 	else cv:= 'Credito';
 End;
 
+end.

@@ -24,8 +24,19 @@
 }
 program tp_final;
 //uses crt, tipos, frontend, archivos, arboles, estructuras_dinamicas;
-uses tipos, archivos;
-
-//var
+uses tipos, archivos, arboles;
+var
+    op:char;
 begin
+    repeat
+        read(op);
+        
+        case op of
+            '1':begin
+            end;
+            
+            '2': begin
+            end;
+        end;
+    until op = '0';
 end.

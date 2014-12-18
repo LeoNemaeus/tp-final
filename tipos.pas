@@ -6,7 +6,7 @@
  *Editado:	11/12/2014 (Giuly), 14/12/2014 (Sandro)
  *
  *Comentario:
- ****Se pueden alojar una cantidad máxima de 65536 productos distintos (un word).
+ ****Se pueden alojar una cantidad máxima de 65536 productos distintos (un word)
  ****Por cada producto, el stock máximo es de 65536 elementos (un word).
  ****Stock mínimo: 1..256 (un byte).
  *
@@ -22,20 +22,10 @@
 }
 unit tipos;
 interface
-type
 
-{
- *tFecha representa una fecha. Se deben implementar procedimientos para su
- *modificación y acceso.
- **Procedimientos:
- **			Cadena a tFecha
-}
-    tFecha = record
-                d:word;    // Días
-                m:word;    // Meses
-                a:word;     // Años
-            end;
-	{tFecha = string[8];}
+uses sysutils;
+
+type
 
 {
  *Representa un artículo.
@@ -77,17 +67,18 @@ agregado en el total no se discrimina*
 *incluido}
     tFactura = record
                     nFactura:word;
-                    fecha:tFecha;
+                    fecha:tDateTime;			//Tipo de hora y fecha de system
                     nombre:string[50];
                     direccion:string[50];
 					iva:string;					// jnvgowrhohgoh
-			        condicion_venta:1..2;		// 1: Contado; 2: Crédito
+			        condicion_venta:(contado, credito);		// 1: Contado; 2: Crédito
                     venta:tVenta;
                     total:real;
                 end;
 
 {
-***Vector para ir guardanto cada elemento vendido y al finalizar poder hacer la factura
+***Vector para ir guardanto cada elemento vendido y al finalizar poder hacer la
+***factura
 }
 	t_vector = Array [1..15] of tVenta;
 				
@@ -116,70 +107,66 @@ agregado en el total no se discrimina*
  *Tipos referentes a arboles binarios
  ****aXxxxx: arbol
  ****hXxxxx: hoja
- ****paXxxxx: puntero
+ ****taXxxxx: tipo para el campo info
 }
+	taArticulo = record
+		codigo:word;
+		descripcion:string;
+		fpos:longint;
+	end;
+	taFactura = record
+		nFactura:word;
+		fpos:word;
+	end;
+
 	aArticulo = ^hArticulo;
 	hArticulo = record
-					info:tArticulo;
-					izq:aArticulo;
-					der:aArticulo;
-				end;
+		info:taArticulo;
+		altura:word;
+		izq:aArticulo;
+		der:aArticulo;
+	end;
 
 	aFactura = ^hFactura;
 	hFactura = record
-					info:tFactura;
-					izq:aFactura;
-					der:aFactura;
-				end;
+		info:taFactura;
+		altura:word;
+		izq:aFactura;
+		der:aFactura;
+	end;
+
+{
+ *Pila para almacenar un recorrido de un árbol.
+ **sXxxxxx: pila (stack)
+ **stXxxxx: tipo de pila
+ **spXxxxx: puntero de pila
+}
+	spArticulo = ^stArticulo;
+	spFactura = ^stFactura;
+
+	stArticulo = record
+		raiz:aArticulo;
+		sig:spArticulo;
+	end;
+	stFactura = record
+		raiz:aFactura;
+		sig:spArticulo;
+	end;
 
 {
  *Tipos pertinentes a los archivos.
  *Nomeclatura:
  **fXxxxxx: archivo (file)
 }
-	
-
 	fArticulo = file of tArticulo;
 	
 	fFactura = file of tFactura;
 
+
 {
- *Procedimientos
+ *Tipos varios
 }
-{
-procedure wordAtFecha(arg:word; var r:tFecha);
-procedure stringAtFecha(arg:string; var r:tFecha);
-}
+	tClave = (codigo, descripcion, nFactura);
+
 implementation
-	procedure wordAtFecha(arg:word; var r:tFecha);
-	begin
-		
-	end;
-	
-{
- *Convierte una fecha en formato cadena de la forma 'dd/mm/aaaa' al tipo tFecha.
- *Si encuentra un error en la copia se devuelve como resultado (r) 00/00/0000
- *Por hacer:
- **Comprobar que las fechas ingresadas sean correctas antes de hacer la copia
- **para evitar una excepción.
-}{
-	procedure stringAtFecha(arg:string; var r:tFecha);
-	var
-		cod:integer; exito:boolean;
-	begin
-		exito := true;
-		val(copy(arg, 1, 2), r.d, cod);
-			if(cod <> 0) then exito := false;
-		val(copy(arg, 4, 2), r.m, cod);
-			if(cod <> 0) then exito := false;
-		val(copy(arg, 7, 4), r.a, cod);
-			if(cod <> 0) then exito := false;
-		
-		if not(exito) then
-		begin
-			r.d := 00;
-			r.m := 00;
-			r.a := 0000;
-		end;
-	end;}
 end.
