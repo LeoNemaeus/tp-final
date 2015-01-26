@@ -56,7 +56,7 @@ implementation
 				close(arF)
 			end;
 			3: begin
-				fin:= filesize(arF);
+				fin:= filesize(arF)+1;
 				I:=0;
 				repeat
 					seek(arF, I);
