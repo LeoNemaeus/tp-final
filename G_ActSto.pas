@@ -48,6 +48,19 @@ begin
      write(arA, aux);
 end;
 
+	Procedure codig;
+	Begin
+		textcolor(15);
+		writeln ('   Buscar  por:');
+		writeln ('  ');
+		writeln ('  ');
+		writeln ('      1: Codigo');
+		writeln ('  ');
+		writeln ('      2: Descripcion');
+		writeln('  ');
+		writeln('       3: Ingresar nuevo producto');
+	end;
+
 Procedure cprin (var A: arbolArt; B: arbolArt);
 var
 	op: byte;
@@ -57,9 +70,17 @@ var
 	nodo: Art;
 	cantidad: word;
 	stock: word;
+	aux:tipoArt;
+	codi: word;
+	descri: string[140];
+	provee:string[90];
+	sto: word;
+	stomin:byte;
+	pcos: real;
+	po: real;
 Begin
 	Repeat
-		cod;
+		codig;
 		read(op);
 		case op of
 			1: Begin
@@ -69,6 +90,34 @@ Begin
 			2: Begin
 				read(descripcion);
 				buscarDesc (B, descripcion, nodo);
+			end;
+			3: Begin
+				writeln('Ingrese el codigo del producto: ');
+				read(codi);
+				aux.codigo := codi;
+				writeln('Ingrese la descripcion del producto: ');
+				read(descri);
+				aux.descripcion:= descri;
+				writeln ('Ingrese el proveedor: ');
+				read(provee);
+				aux.proveedor:=provee;
+				writeln('Ingrese el stock: ');
+				read(sto);
+				aux.stock:= sto;
+				writeln('Ingrese el stock minimo: ');
+				read(stomin);
+				aux.stockMin := stomin;
+				writeln('Ingrese el precio de costo: ');
+				read(pcos);
+				aux.pCosto:= pcos;
+				writeln('Ingrese el porcentaje de ganancias: ');
+				read(po);
+				po:= (po*aux.pCosto)/100;
+				po := po + aux.pCosto;
+				aux.pVenta:= po;
+				seek(arA, filesize(arA)+1);
+				write(arA, aux);
+				close(arA)
 			end;
 		end;
 		consultaStock;
