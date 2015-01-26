@@ -78,6 +78,7 @@ var
 	stomin:byte;
 	pcos: real;
 	po: real;
+	posic:word;
 Begin
 	Repeat
 		codig;
@@ -115,9 +116,14 @@ Begin
 				po:= (po*aux.pCosto)/100;
 				po := po + aux.pCosto;
 				aux.pVenta:= po;
-				seek(arA, filesize(arA)+1);
+				posic:=filesize(arA)+1;
+				seek(arA, posic);
 				write(arA, aux);
-				close(arA)
+				close(arA);
+				nodo.codigo:=codi;
+				nodo.descripcion:=descri;
+				nodo.pos:=posic;
+				insertarArbol (A, nodo);
 			end;
 		end;
 		consultaStock;
