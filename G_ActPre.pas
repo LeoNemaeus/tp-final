@@ -20,6 +20,8 @@ implementation
 var 
 	por: real;
 begin
+	crear (arA, arF);
+	reset(arA);
 	seek(arA, pos);
 	read(arA, aux);
 	textcolor(15);
@@ -48,6 +50,7 @@ end;
 		read(po);
 		aux.pVenta := (po*aux.pCosto)/100;
 		aux.pVenta := aux.pVenta + aux.pCosto;
+		reset(arA);
 		seek(arA, pos);
 		write(arA, aux)
 	end;
@@ -97,6 +100,7 @@ Begin
 							modPorc (arA, aux, nodo.pos);
 						end;
 						'n': begin
+							reset(arA);
 							seek(arA, nodo.pos);
 							write(arA, aux)
 						end;

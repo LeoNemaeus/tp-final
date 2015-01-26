@@ -1,58 +1,112 @@
 unit G_Venta;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector;
+uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, Dos;
 
-var
-	arA:ArchivoArt;
-	arF: ArchivoFac;
-	
-	Procedure datosFac (var datoF: tipoFac; nfac: word; lim: word; R: reg; nom: string; dir: string; iv: string; cv:string; total: real);	Procedure venta (var totlinea: real; var total:real; cant: word; aux: tipoArt);
+	Procedure venta(var lim: word; var R: reg);
 	Procedure iva_comp (var iv: string);
 	Procedure Cventa (var cv: string);
-	Procedure Cantidades (var cant: word; var arA: ArchivoArt; nodo: Art; var aux:tipoArt);
-	Procedure Nosuf (aux: tipoArt);
-	Procedure VerifCod (nodo: Art);
-	Procedure VerifDes (nodo: Art);
-	Procedure Facturacion (iv: string; nom: string; dir: string; cv: string; var arF:ArchivoFac);
-	Procedure VentaCod (A: arbolArt; nodo: Art; aux:tipoArt; var cant: word; var totlinea: real; var total: real);
-	Procedure VentaDes (B: arbolArt; nodo: Art; var cant: word;  var totlinea: real; var total: real; aux: tipoArt);
+	Procedure facturacion (var lim:word; var R: reg; var arF: ArchivoFac; total: real);
 
 
-implementation			
+implementation
 
-	Procedure datosFac (var datoF: tipoFac; nfac: word; lim: word; R: reg; nom: string; dir: string; iv: string; cv:string; total: real);
+	Procedure venta(var lim: word; var R: reg);
 	var
-		I: word;
+		total: real;
+		arA: ArchivoArt;
+		aux:tipoArt;
+		des: string[140];
+		op:word;
+		x: tipoReg;
+		cod: word;
+		re: string[3];
+                arF: ArchivoFac;
+		A: arbolArt;
+		B: arbolArt;
+		nodo: Art;
+		cant: word;
+		totlinea: real;
 	Begin
-		datoF.numFac:= nfac;
-		{datoF.fecha:= GetDate(anio, mes, dia);}
-		datoF.nombre:= nom;
-		datoF.direccion:= dir;
-		datoF.iva:= iv;
-		datoF.condVenta:= cv;
-		datoF.total:= total;
-		for I:= 1 to lim do
-		begin
-			   datoF.venta[I].codigo:= R[I].codigo;
-			   datoF.venta[I].descripcion:= R[I].descripcion;
-			   datoF.venta[I].cantidad:= R[I].cantidad;
-			   datoF.venta[I].pUnitario:= R[I].pUnitario;
-			   datoF.venta[I].pFila:= R[I].pFila;
-		end;
-	End;
-		
-	Procedure venta (var totlinea: real; var total:real; cant: word; aux: tipoArt);
-	var
-		x:tipoReg;
-	Begin
-		totlinea:= cant * aux.pVenta;
-		total := total + totlinea;
-		x.codigo:= aux.codigo;
-		x.cantidad:= cant;
-		x.descripcion := aux.descripcion;
-		x.pUnitario := aux.pVenta;
-		x.pFila:= totlinea;
-		cargarReg (R, x, lim);
+		crear (arA, arF);
+		total:=0;
+		lim:= 0;
+		borrarReg (R);
+		Repeat
+			textcolor(15);
+			writeln ('   Buscar  por:');
+			writeln ('  ');
+			writeln ('  ');
+			writeln ('      1: Codigo');
+			writeln ('  ');
+			writeln ('      2: Descripcion');
+			read(op);
+			case op of
+				1: Begin
+					totlinea:=0;
+					writeln(' Ingrese el codigo del producto: ');
+					read(cod);
+					buscarCodigo (A, cod, nodo);
+					reset(arA);
+					seek(arA, nodo.pos);
+					read(arA, aux);
+					writeln('Ingrese la cantidad de producto a vender: ');
+					read(cant);
+					if cant <= aux.stock then
+					Begin
+						totlinea:= cant*aux.pVenta;
+						total:= total+totlinea;
+						x.codigo:= aux.codigo;
+						x.descripcion:= aux.descripcion;
+						x.cantidad:= cant;
+						x.pUnitario:= aux.pVenta;
+						x.pFila:= totlinea;
+						cargarReg (R, x, lim);
+						aux.stock:= aux.stock-cant;
+						reset(arA);
+						seek(arA, nodo.pos);
+						write(arA, aux);
+					end
+					else
+					begin
+						writeln(' El stock no es suficiente');
+						writeln(' Usted solo posee: ', aux.stock);
+					end;
+				end;
+				2: Begin
+					totlinea:=0;
+					writeln(' Ingrese la descripcion: ');
+					read(des);
+					buscarDesc (B, des, nodo);
+					reset(arA);
+					seek(arA, nodo.pos);
+					read(arA, aux);
+					writeln('Ingrese la cantidad de producto a vender: ');
+					read(cant);
+					if cant <= aux.stock then
+					Begin
+						totlinea:= cant*aux.pVenta;
+						total:= total+totlinea;
+						x.codigo:= aux.codigo;
+						x.descripcion:= aux.descripcion;
+						x.cantidad:= cant;
+						x.pUnitario:= aux.pVenta;
+						x.pFila:= totlinea;
+						cargarReg (R, x, lim);
+						aux.stock:= aux.stock-cant;
+						reset(arA);
+						seek(arA, nodo.pos);
+						write(arA, aux);
+					end
+					else
+					begin
+						writeln(' El stock no es suficiente');
+						writeln(' Usted solo posee: ', aux.stock);
+					end;
+				end;			
+			end;
+			writeln('Finalizar venta? (s/n)');
+			read(re)
+		until (re='s')
 	end;
 
 	Procedure iva_comp (var iv: string);
@@ -69,7 +123,7 @@ implementation
 			else iv:='Cons. Final';
 		end;
 	End;
-
+	
 	Procedure Cventa (var cv: string);
 	var ccvv:byte;
 	Begin
@@ -80,142 +134,48 @@ implementation
 		if ccvv=1 then cv:= 'Contado'
 		else cv:= 'Credito'
 	End;
-
-	Procedure VentaCod (A: arbolArt; nodo: Art; aux:tipoArt; var cant: word; var totlinea: real; var total: real);
+	
+	Procedure facturacion (var lim:word; var R: reg; var arF: ArchivoFac; total: real);
 	var
-		res: string[3];
-		cod: word;
-	Begin
-		Writeln('Ingrese el codigo');
-		read(cod);
-		buscarCodigo (A, cod, nodo);
-		totlinea := 0;
-		VerifCod (nodo);
-		read(res);
-		if (res = 's') or (res= 'si') then
-		Begin
-			Cantidades (cant, arA, nodo, aux);		
-			if cant >= aux.stock then
-			begin
-				venta (totlinea, total, cant, aux);
-				aux.stock:= aux.stock - cant;
-				seek(arA, nodo.pos);
-				write(arA, aux);
-				close(arA)
-			end
-			else
-			Begin
-				Nosuf (aux);	
-				close(arA);
-			End
-		end					
-	end;
-	
-	Procedure VerifCod (nodo: Art);
-	Begin
-		textcolor(15);
-		writeln('El codigo ingresado corresponde a: ');
-		writeln('                 ', nodo.descripcion);
-		writeln('¿Es correcto?: (s/n)');
-	end;
-	
-	Procedure Cantidades (var cant: word; var arA: ArchivoArt; nodo: Art; var aux:tipoArt);
-	Begin
-		textcolor(15);
-		writeln('Ingrese cantidad de unidades: ');
-		read(cant);
-		clrscr;
-		reset(arA);
-		seek (arA, nodo.pos);
-		read(arA, aux);
-	End;
-	
-	Procedure Nosuf (aux: tipoArt);
-	Begin
-		textcolor(15);
-		writeln ('El stock no es sufuciente');
-		writeln('Usted solo posee ',aux.stock,' unidades.');
-		readkey;
-		clrscr;
-	end;
-	
-	Procedure VerifDes (nodo: Art);
-	Begin
-		textcolor(15);
-		writeln('La descripcion ingresada corresponde a: ');
-		writeln('                 ', nodo.codigo);
-		writeln('¿Es correcto?: (s/n)');
-	end;	
-	
-	Procedure VentaDes (B: arbolArt; nodo: Art; var cant: word;  var totlinea: real; var total: real; aux: tipoArt);
-	var
-		res: string[3];
-		des: string;
-	Begin
-		read(des);
-		buscarDesc (B, des, nodo);
-		totlinea := 0;
-		VerifDes (nodo);
-		read(res);
-		clrscr;
-		if (res = 's') or (res= 'si') then
-		Begin			
-			Cantidades (cant, arA, nodo, aux);
-			if cant >= aux.stock then
-			begin
-				venta (totlinea, total, cant, aux);
-				aux.stock:= aux.stock - cant;
-				seek(arA, nodo.pos);
-				write(arA, aux);
-				close(arA)
-			end
-			else
-			Begin
-				Nosuf (aux);	
-				close(arA);
-			End
-		end					
-	end;
-
-	Procedure Facturacion (iv: string; nom: string; dir: string; cv: string; var arF:ArchivoFac);
-	Begin
+		pos: word;
+		no: string;
+		y:tipoFac;
+		a, m, d, o: word;
+		iv: string;
+		cv: string[8];
+		I:word;
+                arA: ArchivoArt;
+	begin
+		crear (arA, arF);
+		pos:= filesize(arF)+1;
+		y.numFac:= pos;
+		GetDate(a, m, d, o);
+		y.fecha.anio:= a;
+		y.fecha.mes:=m;
+		y.fecha.dia:=d;
+		writeln('Ingrese el nombre del comprador: ');
+		read(no);
+		y.nombre:=no;
+		writeln('Ingrese la direccion del comprador: ');
+		read(no);
+		y.direccion:=no;
 		iva_comp (iv);
-		textcolor(15);
-		writeln ('Ingrese nombre del comprador');
-		read(nom);
-		clrscr;
-		textcolor(15);
-		writeln ('Ingrese direccion del comprador');
-		read(dir);
-		clrscr;
-		{GetDate(anio, mes, dia); {para obtener la fecha desde Dos}
-		Cventa(cv);
+		y.iva:=iv;
+		Cventa (cv);
+		y.condVenta:=cv;
+		y.total:=total;
+		for I:= 1 to lim do
+		begin
+			   y.venta[I].codigo:= R[I].codigo;
+			   y.venta[I].descripcion:= R[I].descripcion;
+			   y.venta[I].cantidad:= R[I].cantidad;
+			   y.venta[I].pUnitario:= R[I].pUnitario;
+			   y.venta[I].pFila:= R[I].pFila;
+		end;
 		reset(arF);
-		nfac:= (filepos(arF)+1);
-		close(arF);
-
+		seek(arF, pos);
+		write(arF, y);
+		close(arF)
 	end;
-
-	///// Esto de abajo va en el cuerpo principal
-				{Begin
-					total:= 0;
-					lim := 0;
-					borrarReg (R);
-					Repeat
-						cod;  
-						read(op);					
-						case op of
-							1: VentaCod (A, nodo, aux, cant, totlinea, total);
-							2: VentaDes (B, nodo, cant, totlinea, total, aux);
-						writeln('¿Desea agregar otro producto?: (s/n) ');		
-						read(res);
-						clrscr;
-					until (res = 'n') or (res= 'no');
-							
-					Facturacion (iv; nom; dir; cv; arF);		
-					facturas (total, dia, mes, anio, cv, iv, nfac, nom, dir);	
-					datosFac (datoF, nfac, lim, R, nom, dir, iv, cv, total);
-					escribirFac(arF, datoF);
-		end.}
 	
 end.

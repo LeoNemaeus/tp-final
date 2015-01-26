@@ -11,10 +11,13 @@ implementation
 		fin: word;
 		pos: word;
 		aux: tipoArt;
+                arF: ArchivoFac;
 	begin
+		crear (arA, arF);
 		fin:= filesize(arA)+1;
 		pos:= 0;
 		Repeat
+			reset(arA);
 			seek(arA, pos);
 			read(arA, aux);
 			if aux.stockMin <= aux.stock then

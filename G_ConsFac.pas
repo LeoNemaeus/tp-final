@@ -35,6 +35,7 @@ implementation
 			1: begin
 				writeln('Ingrese el numero de factura:');
 				read(pos);
+				reset(arF);
 				seek(arF, pos);
 				read(arF, aux);
 				facturas (aux.total, aux.fecha.dia, aux.fecha.mes, aux.fecha.anio, aux.condVenta, aux.iva, aux.numFac, aux.nombre, aux.direccion);
@@ -47,6 +48,7 @@ implementation
 				read(an);
 				pos:= 0;
 				repeat
+					reset(arF);
 					seek(arF, pos);
 					read(arF, aux);
 					if (aux.fecha.mes=mes) and (aux.fecha.anio=an) then
@@ -59,6 +61,7 @@ implementation
 				fin:= filesize(arF)+1;
 				I:=0;
 				repeat
+					reset(arF);
 					seek(arF, I);
 					read(arF, aux);
 					facturas (aux.total, aux.fecha.dia, aux.fecha.mes, aux.fecha.anio, aux.condVenta, aux.iva, aux.numFac, aux.nombre, aux.direccion);

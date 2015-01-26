@@ -1,11 +1,11 @@
 Unit G_Arbol;
 
 interface
-
+uses Crt;
 type
 	Art = Record
 		codigo: word;
-		descripcion: string[140];
+		descripcion: string;
 		pos:word;
 		end;
 	arbolArt= ^hojaA;
@@ -66,6 +66,8 @@ var
 	end;
 	
 	procedure buscarCodigo (A: arbolArt; buscado: word; var nodo: Art);
+	var
+		j: string;
 	Begin
 		if not arbolVacio(A) then
 		Begin
@@ -81,15 +83,22 @@ var
 		end
 		else
 		Begin
-			writeln('Codigo no encontrado');
-			writeln('Escriba el codigo nuevamente');
-			read(buscado);
-			buscarCodigo(A, buscado, nodo)
+			writeln('Codigo no encontrado!');
+			writeln('Desea buscar nuevamente? (s/n)');
+			read(j);
+			clrscr;
+			if (j='s') then
+			begin
+				writeln('Escriba el codigo: ');
+				read(buscado);
+				buscarCodigo(A, buscado, nodo)
+			end;
 		end
 	end;
 	
 	procedure buscarDesc (B: arbolArt; bus: string; var nodo: Art);
-
+	var
+		j:string;
 	Begin
 		if not arbolVacio(B) then
 		Begin
@@ -105,10 +114,16 @@ var
 		end
 		else
 		begin
-			writeln('Descripcion no encontrada');
-			writeln('Por favor escriba la descripcion nuevamente');
-			read(buscado);
-			buscarDesc(B, bus, nodo)
+			writeln('Descripcion no encontrada!');
+			writeln('Desea buscar nuevamente? (s/n)');
+			read(j);
+			clrscr;
+			if (j='s') then
+			begin
+				writeln('Por favor escriba la descripcion nuevamente');
+				read(bus);
+				buscarDesc(B, bus, nodo)
+			end;
 		end
 	end;
 	

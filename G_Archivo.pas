@@ -3,8 +3,8 @@ Unit G_Archivo;
 interface
 
 const 
-	rutaA = 'C:/TPArt';
-	rutaF = 'C:/TPFac';
+	rutaA = 'D:/TPArt';
+	rutaF = 'D:/TPFac';
 Type
 	   tipoArt = record
                     codigo:word;
@@ -24,9 +24,14 @@ Type
                                 pFila:real;
                             end;
 
-    tipoFac = record
+	tipoFecha = record
+					dia: word;
+					mes: word;
+					anio: word;
+				end; 
+	tipoFac = record
                     numFac:word;
-                    fecha:tDateTime;			//Tipo de hora y fecha de system
+                    fecha:tipoFecha;
                     nombre:string[50];
                     direccion:string[50];
 					iva:string;				
@@ -34,7 +39,7 @@ Type
                     venta:Venta;
                     total:real;
                 end;
-
+	
 	ArchivoArt = file of tipoArt;
 	
 	ArchivoFac = file of tipoFac;
