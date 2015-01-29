@@ -13,29 +13,24 @@ implementation
 
 Procedure precio_inorden(var A: arbolArt; var arA:ArchivoArt);
 	var
-		aux: tipoArt;
+		datoA: tipoArt;
 	Begin
 		if not arbolVacio(A) then
 		Begin
 			precio_inorden(A^.izq, arA);
-			reset(arA);
-			seek (arA, A^.info.pos);
-			read (arA, aux);
-			textcolor(15);
-			writeln('Codigo: ',aux.codigo);
-			writeln('Descriocion: ', aux.descripcion);
-			writeln('Precio de venta: ',aux.pVenta);
+			leerArt(arA, datoA, A^.info.pos);
+			clrscr;
+			writeln('     Codigo: ',datoA.codigo);
+			writeln('     Descriocion: ', datoA.descripcion);
+			writeln('     Precio de venta: ',datoA.pVenta);
 			precio_inorden(A^.der, arA);
-			close(arA)
 		end;
 	end;
 	
 Procedure cprinn (A: arbolArt; B: arbolArt; var arA: ArchivoArt);
 var
 	op: word;
-        arF: ArchivoFac;
 Begin
-	crear (arA, arF);
 	cod2;
 	read(op);
 	case op of

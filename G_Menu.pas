@@ -149,7 +149,6 @@ implementation
 	Procedure cond_venta;
 	Begin
 		clrscr;
-		textcolor(15);
 		writeln(' ');
 		writeln('             SELECCIONE LA CONDICION DE COMPRA: ');
 		writeln(' ');
@@ -163,24 +162,24 @@ implementation
 
 	Procedure cod;
 	Begin
-		textcolor(15);
-		writeln ('   Buscar  por:');
+		clrscr;
+		writeln ('                         Buscar  por:');
 		writeln ('  ');
 		writeln ('  ');
-		writeln ('      1: Codigo');
+		writeln ('                         1: Codigo');
 		writeln ('  ');
-		writeln ('      2: Descripcion');
+		writeln ('                         2: Descripcion');
 	end;
 	
 	Procedure cod2;
 	Begin
-		textcolor(15);
-		writeln ('    Listar por');
+		clrscr;
+		writeln ('                         Listar por');
 		writeln ('  ');
 		writeln ('  ');
-		writeln ('      1: Codigo');
+		writeln ('                          1: Codigo');
 		writeln ('  ');
-		writeln ('      2: Descripcion');
+		writeln ('                         2: Descripcion');
 	end;
 	
 	Procedure Finalizar;

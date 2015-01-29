@@ -18,7 +18,7 @@ implementation
 
 Procedure consultaStock;
 	Begin
-	textcolor(15);
+	clrscr;
 	writeln ('   Que desea realizar?');
 	writeln ('  ');
 	writeln ('  ');
@@ -28,32 +28,25 @@ Procedure consultaStock;
 	end;
 	
 	Procedure agregarstock (var arA:ArchivoArt; pos:word; stock:word);
-var aux: tipoArt;
-
-begin
-     reset(arA);
-	 seek(arA, pos);
-     read(arA, aux);
-     aux.stock := aux.stock + stock;
-     seek(arA, pos);
-     write(arA, aux);
-end;
+	var
+		datoA: tipoArt;
+	begin
+		leerArt(arA, datoA, pos);
+		datoA.stock := datoA.stock + stock;
+		escribirArt(arA, datoA);
+	end;
 
 Procedure removerstock (var arA:ArchivoArt; pos:word; stock:word);
-var aux: tipoArt;
+var datoA: tipoArt;
 begin
-     reset(arA);
-	 seek(arA, pos);
-     read(arA, aux);
-     aux.stock := aux.stock - stock;
-     seek(arA, pos);
-     write(arA, aux);
+    leerArt(arA, datoA, pos);
+	datoA.stock := datoA.stock - stock;
+	escribirArt(arA, datoA);
 end;
 
 	Procedure codig;
 	Begin
 		clrscr;
-		textcolor(15);
 		writeln ('                Buscar  por:');
 		writeln ('  ');
 		writeln ('  ');
@@ -75,13 +68,13 @@ var
 	stock: word;
 	aux:tipoArt;
 	codi: word;
-	descri: string[140];
-	provee:string[90];
+	pr:string[90];
 	sto: word;
 	stomin:byte;
 	pcos: real;
 	po: real;
 	posic:word;
+
 Begin
 	Repeat
 		codig;
@@ -94,17 +87,18 @@ Begin
 				buscarCodigo (A, codigo, nodo);
 				consultaStock;
 				read(op);
-				case op of
-					1: Begin
+				if op=1 then
+				begin
+					clrscr;
+					writeln('              Cuantos elementos desea agregar al stock?');
+					read(stock);
+					agregarstock (arA, nodo.pos, stock);
+				end
+				else
+				begin
+					if op=2 then
+					begin
 						clrscr;
-						textcolor(15);
-						writeln('              Cuantos elementos desea agregar al stock?');
-						read(stock);
-						agregarstock (arA, nodo.pos, stock);
-					end;
-					2: Begin
-						clrscr;
-						textcolor(15);
 						writeln('              Cuantos elementos desea remover del stock?');
 						read(stock);
 						removerstock (arA, nodo.pos, stock);
@@ -113,20 +107,24 @@ Begin
 			end;
 			2: Begin
 				clrscr;
-				writeln('              Ingrese la descripcion del articulo: ');
+				write('              Ingrese la descripcion del articulo ');
 				read(descripcion);
+				clrscr;
 				buscarDesc (B, descripcion, nodo);
 				consultaStock;
 				read(op);
-				case op of
-					1: Begin
-						clrscr;
-						textcolor(15);
-						writeln('              Cuantos elementos desea agregar al stock?');
-						read(stock);
-						agregarstock (arA, nodo.pos, stock);
-					end;
-					2: Begin
+				if op=1 then
+				begin
+					clrscr;
+					textcolor(15);
+					writeln('              Cuantos elementos desea agregar al stock?');
+					read(stock);
+					agregarstock (arA, nodo.pos, stock);
+				end
+				else
+				begin
+					if op=2 then
+					begin
 						clrscr;
 						textcolor(15);
 						writeln('              Cuantos elementos desea remover del stock?');
@@ -137,17 +135,18 @@ Begin
 			end;
 			3: Begin
 				clrscr;
+				textcolor(15);
+				writeln('              Ingrese la descripcion del producto: ');
+				read(descripcion);
+				aux.descripcion:= descripcion;
+				clrscr;
+				writeln ('              Ingrese el proveedor: ');
+				readln(pr);
+				aux.proveedor:=pr;
+				clrscr;
 				writeln('              Ingrese el codigo del producto: ');
 				read(codi);
-				clrscr;
 				aux.codigo := codi;
-				writeln('              Ingrese la descripcion del producto: ');
-				read(descri);
-				clrscr;
-				aux.descripcion:= descri;
-				writeln ('              Ingrese el proveedor: ');
-				read(provee);
-				aux.proveedor:=provee;
 				clrscr;
 				writeln('              Ingrese el stock: ');
 				read(sto);
@@ -165,24 +164,23 @@ Begin
 				read(po);
 				po:= (po*aux.pCosto)/100;
 				po := po + aux.pCosto;
-				crear (arA, arF);
-				reset(arA);
 				aux.pVenta:= po;
-				posic:=filesize(arA)+1;
-				seek(arA, posic);
-				write(arA, aux);
-				close(arA);
+				escribirArt(arA, aux);
+				assign(arA, rutaA);
+				reset(arA); 
+				posic:=filesize(arA);
 				nodo.codigo:=codi;
-				nodo.descripcion:=descri;
+				nodo.descripcion:=descripcion;
 				nodo.pos:=posic;
-				insertarArbol (A, nodo);
+				insertarArbol (A, nodo, B);
 			end;
 		end;
 		clrscr;
-		textcolor(15);
+		writeln(' ');
 		writeln('              ¿Desea continuar con la actualizacion? (s/n)');
 		read(opcion);
-	until opcion = 'n';
+		clrscr;
+	until (opcion = 'n');
 end;
 
 end.

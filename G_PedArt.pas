@@ -11,25 +11,22 @@ implementation
 		fin: word;
 		pos: word;
 		aux: tipoArt;
-                arF: ArchivoFac;
+
 	begin
-		crear (arA, arF);
-		fin:= filesize(arA)+1;
 		pos:= 0;
-		Repeat
-			reset(arA);
-			seek(arA, pos);
-			read(arA, aux);
+		while not eof(arA) do
+		Begin
+			leerArt(arA, aux, pos);
 			if aux.stockMin <= aux.stock then
 			begin
-				textcolor(15);
-				writeln('El articulo: ', aux.codigo,' : ',aux.descripcion);
-				writeln('necesita reposicion. Comunicarse con el proveedor: ');
-				writeln('      ',aux.proveedor);
+				clrscr;
+				writeln('              El articulo: ', aux.codigo,' : ',aux.descripcion);
+				writeln('              necesita reposicion. Comunicarse con el proveedor: ');
+				writeln('                 ',aux.proveedor);
 				writeln('  ');
 			end;
-			pos:= pos+1;
-		until pos=fin
+			inc(pos);
+		end;
 	end;
 
 End.

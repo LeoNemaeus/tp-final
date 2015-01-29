@@ -3,7 +3,7 @@ interface
 uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector;
 
 	Procedure mostrar (aux: tipoArt);
-	Procedure consulArt;
+	Procedure consulArt (var A: arbolArt; var B: arbolArt; var arA: ArchivoArt);
 
 implementation
 
@@ -11,7 +11,7 @@ implementation
 	var
 		po: real;
 	Begin
-		textcolor(15);
+		clrscr;
 		writeln('Codigo: ',aux.codigo);
 		writeln('Descripcion: ', aux.descripcion);
 		writeln('Proveedor: ', aux.proveedor);
@@ -23,64 +23,55 @@ implementation
 		writeln('Porcentaje de ganancias: ',po);
 	end;
 
-	Procedure consulArt;
+	Procedure consulArt (var A: arbolArt; var B: arbolArt; var arA: ArchivoArt);
 	var
-		A: arbolArt;
-		B: arbolArt;
 		cod: word;
 		nodo: Art;
 		aux: tipoArt;
-		arA: ArchivoArt;
 		des: string[140];
 		fin:word;
 		pos: word;
 		op: word;
 		pro: string[90];
-                arF: ArchivoFac;
 	begin
-		crear (arA, arF);
-		writeln('  Consultar Articulos por: ');
+		clrscr;
+		writeln('            Consultar Articulos por: ');
 		writeln('  ');
-		writeln('   1: Codigo');
+		writeln('                 1: Codigo');
 		writeln(' ');
-		writeln('   2: Descripcion');
+		writeln('                 2: Descripcion');
 		writeln(' ');
-		writeln('   3: Proveedor');
+		writeln('                 3: Proveedor');
 		read(op);
 		case op of
 			1: begin
-				writeln('Ingrese el codigo del producto: ');
+				clrscr;
+				writeln('             Ingrese el codigo del producto: ');
 				read(cod);
 				buscarCodigo (A, cod, nodo);
-				reset(arA);
-				seek(arA, nodo.pos);
-				read(arA, aux);
+				leerArt(arA, aux, nodo.pos);
 				mostrar (aux);
-				close(arA);
 			end;
 			2: Begin
-				writeln('Ingrese la descripcion del producto: ');
+				clrscr;
+				writeln('             Ingrese la descripcion del producto: ');
 				read(des);
 				buscarDesc (B, des, nodo);
-				reset(arA);
-				seek(arA, nodo.pos);
-				read(arA, aux);
+				leerArt(arA, aux, nodo.pos);
 				mostrar (aux);
-				close(arA);
 			end;
 			3: Begin
-				writeln('Ingrese el proveedor: ');
+				clrscr;
+				writeln('              Ingrese el proveedor: ');
 				read(pro);
-				fin:= filesize(arA)+1;
 				pos:= 0;
-				Repeat
-					reset(arA);
-					seek(arA, pos);
-					read(arA, aux);
+				while not eof(arA) do
+				begin	
+					leerArt(arA, aux, pos);
 					if aux.proveedor = pro then
 						mostrar (aux);
-					pos:= pos+1;
-				until pos=fin
+					inc(pos)
+				end;
 			end;
 		end;
 	end;

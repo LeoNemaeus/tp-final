@@ -2,7 +2,10 @@ unit G_Venta;
 interface
 uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, Dos;
 
-	Procedure venta(var lim: word; var R: reg);
+var
+	total: real;
+
+	Procedure venta(var lim: word; var R: reg; var arA: ArchivoArt; var A: arbolArt; var B: arbolArt; var total: real);
 	Procedure iva_comp (var iv: string);
 	Procedure Cventa (var cv: string);
 	Procedure facturacion (var lim:word; var R: reg; var arF: ArchivoFac; total: real);
@@ -10,101 +13,95 @@ uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, Dos;
 
 implementation
 
-	Procedure venta(var lim: word; var R: reg);
+	Procedure venta(var lim: word; var R: reg; var arA: ArchivoArt; var A: arbolArt; var B: arbolArt; var total: real);
 	var
-		total: real;
-		arA: ArchivoArt;
-		aux:tipoArt;
+		datoA:tipoArt;
 		des: string[140];
 		op:word;
 		x: tipoReg;
 		cod: word;
 		re: string[3];
-                arF: ArchivoFac;
-		A: arbolArt;
-		B: arbolArt;
 		nodo: Art;
 		cant: word;
 		totlinea: real;
 	Begin
-		crear (arA, arF);
 		total:=0;
 		lim:= 0;
 		borrarReg (R);
 		Repeat
+			clrscr;
 			textcolor(15);
-			writeln ('   Buscar  por:');
+			writeln ('                            Buscar  por:');
 			writeln ('  ');
 			writeln ('  ');
-			writeln ('      1: Codigo');
+			writeln ('                   1: Codigo');
 			writeln ('  ');
-			writeln ('      2: Descripcion');
+			writeln ('                   2: Descripcion');
 			read(op);
 			case op of
 				1: Begin
+					clrscr;
 					totlinea:=0;
-					writeln(' Ingrese el codigo del producto: ');
+					writeln('                            Ingrese el codigo del producto: ');
 					read(cod);
 					buscarCodigo (A, cod, nodo);
-					reset(arA);
-					seek(arA, nodo.pos);
-					read(arA, aux);
-					writeln('Ingrese la cantidad de producto a vender: ');
+					leerArt(arA, datoA, nodo.pos);
+					clrscr;
+					writeln('                            Ingrese la cantidad de producto a vender: ');
 					read(cant);
-					if cant <= aux.stock then
+					if cant <= datoA.stock then
 					Begin
-						totlinea:= cant*aux.pVenta;
+						totlinea:= cant*datoA.pVenta;
 						total:= total+totlinea;
-						x.codigo:= aux.codigo;
-						x.descripcion:= aux.descripcion;
+						x.codigo:= datoA.codigo;
+						x.descripcion:= datoA.descripcion;
 						x.cantidad:= cant;
-						x.pUnitario:= aux.pVenta;
+						x.pUnitario:= datoA.pVenta;
 						x.pFila:= totlinea;
 						cargarReg (R, x, lim);
-						aux.stock:= aux.stock-cant;
-						reset(arA);
-						seek(arA, nodo.pos);
-						write(arA, aux);
+						datoA.stock:= datoA.stock-cant;
+						escribirArt(arA, datoA);
 					end
 					else
 					begin
-						writeln(' El stock no es suficiente');
-						writeln(' Usted solo posee: ', aux.stock);
+						clrscr;
+						writeln('                             El stock no es suficiente');
+						writeln('                            Usted solo posee: ', datoA.stock);
 					end;
 				end;
 				2: Begin
 					totlinea:=0;
-					writeln(' Ingrese la descripcion: ');
+					clrscr;
+					writeln('                             Ingrese la descripcion: ');
 					read(des);
 					buscarDesc (B, des, nodo);
-					reset(arA);
-					seek(arA, nodo.pos);
-					read(arA, aux);
-					writeln('Ingrese la cantidad de producto a vender: ');
+					leerArt(arA, datoA, nodo.pos);
+					clrscr;
+					writeln('                             Ingrese la cantidad de producto a vender: ');
 					read(cant);
-					if cant <= aux.stock then
+					if cant <= datoA.stock then
 					Begin
-						totlinea:= cant*aux.pVenta;
+						totlinea:= cant*datoA.pVenta;
 						total:= total+totlinea;
-						x.codigo:= aux.codigo;
-						x.descripcion:= aux.descripcion;
+						x.codigo:= datoA.codigo;
+						x.descripcion:= datoA.descripcion;
 						x.cantidad:= cant;
-						x.pUnitario:= aux.pVenta;
+						x.pUnitario:= datoA.pVenta;
 						x.pFila:= totlinea;
 						cargarReg (R, x, lim);
-						aux.stock:= aux.stock-cant;
-						reset(arA);
-						seek(arA, nodo.pos);
-						write(arA, aux);
+						datoA.stock:= datoA.stock-cant;
+						escribirArt(arA, datoA);
 					end
 					else
 					begin
-						writeln(' El stock no es suficiente');
-						writeln(' Usted solo posee: ', aux.stock);
+						clrscr;
+						writeln('                   El stock no es suficiente');
+						writeln('                  Usted solo posee: ', datoA.stock);
 					end;
 				end;			
 			end;
-			writeln('Finalizar venta? (s/n)');
+			clrscr;
+			writeln('          Finalizar venta? (s/n)');
 			read(re)
 		until (re='s')
 	end;
@@ -144,19 +141,20 @@ implementation
 		iv: string;
 		cv: string[8];
 		I:word;
-                arA: ArchivoArt;
+        
 	begin
-		crear (arA, arF);
-		pos:= filesize(arF)+1;
+		pos:= filesize(arF);
 		y.numFac:= pos;
 		GetDate(a, m, d, o);
 		y.fecha.anio:= a;
 		y.fecha.mes:=m;
 		y.fecha.dia:=d;
-		writeln('Ingrese el nombre del comprador: ');
+		clrscr;
+		writeln('            Ingrese el nombre del comprador: ');
 		read(no);
 		y.nombre:=no;
-		writeln('Ingrese la direccion del comprador: ');
+		clrscr;
+		writeln('             Ingrese la direccion del comprador: ');
 		read(no);
 		y.direccion:=no;
 		iva_comp (iv);
@@ -172,10 +170,7 @@ implementation
 			   y.venta[I].pUnitario:= R[I].pUnitario;
 			   y.venta[I].pFila:= R[I].pFila;
 		end;
-		reset(arF);
-		seek(arF, pos);
-		write(arF, y);
-		close(arF)
+		escribirFac(arF, y);
 	end;
 	
 end.

@@ -47,8 +47,9 @@ Type
 	procedure crear (var arA:ArchivoArt; var arF: ArchivoFac);
 	Procedure escribirArt(var arA:ArchivoArt; var datoA:tipoArt);
 	Procedure escribirFac(var arF:ArchivoFac; var datoF:tipoFac);
-	procedure leerArt(var arA:ArchivoArt; var datoA:tipoArt; pos:word);
-	procedure leerFac(var arF:ArchivoFac; var datoF:tipoFac; pos:word);
+	procedure leerArt(var arA:ArchivoArt; var datoA:tipoArt; var pos:word);
+	procedure leerFac(var arF:ArchivoFac; var datoF:tipoFac; var pos:word);
+	Procedure ReEscArt(var arA:ArchivoArt; var datoA:tipoArt; pos: word);
 
 
 implementation
@@ -56,60 +57,103 @@ implementation
 	procedure crear (var arA:ArchivoArt; var arF: ArchivoFac);
 	begin
 		 assign(arA,rutaA);
-		 assign (arF, rutaF);
 		 {$I-}
 		 reset(arA);
-		 reset(arF);
 		 {$I+}
 		 if Ioresult<>0 then
 		 begin
-		 rewrite(arA);
-		 close(arA);
-		 rewrite(arF);
-		 close(arF);
+			 rewrite(arA);
+			 reset(arA);
+			 close(arA);
+		 end;
+		 assign(arF, rutaF);
+		 {$I-}
+		 reset(arF);
+		 {$I+}
+		 if Ioresult <>0 then
+		 begin
+			rewrite(arF);
+			reset(arF);
+			close(arF);
 		 end;
 	end;
 
 	Procedure escribirArt(var arA:ArchivoArt; var datoA:tipoArt);
-	var
-		pos:word;
-	begin
-		reset(arA);    
-		pos := fileSize(arA);
-		seek(arA, pos);
-		write(arA, datoA);
+	begin	
+		assign(arA, rutaA);
+		{$I-}
+		reset(arA);
+		{$I+}
+		if ioResult = 0 then
+		begin
+			Seek (arA, FileSize(arA));
+			write(arA, datoA);
+		end;
+		close(arA);
+	end;
+	
+	Procedure ReEscArt(var arA:ArchivoArt; var datoA:tipoArt; pos: word);
+	begin	
+		assign(arA, rutaA);
+		{$I-}
+		reset(arA);
+		{$I+}
+		if ioResult = 0 then
+		begin
+			Seek (arA, pos);
+			write(arA, datoA);
+		end;
 		close(arA);
 	end;
 
 	Procedure escribirFac(var arF:ArchivoFac; var datoF:tipoFac);
-	var
-		pos:word;
 	begin
-		reset(arF);    
-		pos := fileSize(arF);
-		seek(arF, pos);
-		write(arF, datoF);
+		assign(arF, rutaF);
+		{$I-}
+		reset(arF);
+		{$I+}
+		if ioResult = 0 then
+		begin
+			Seek (arF, FileSize(arF));
+			write(arF, datoF);
+		end;
 		close(arF);
 	end;
 
-	procedure leerArt(var arA:ArchivoArt; var datoA:tipoArt; pos:word);
+
+	
+	procedure leerArt(var arA:ArchivoArt; var datoA:tipoArt; var pos:word);
 	begin
-		reset(arA);                        
-		seek(arA, pos);                   
-		if eof(arA) then
-			writeln('Error en la posicion');
-		read(arA, datoA);                    
+		assign(arA, rutaA);
+		{$I-}
+		reset(arA); 
+		{$I+}
+		if ioResult = 0 then
+		begin
+			seek(arA, pos);                   
+			if not eof(arA) then
+			begin
+				read(arA, datoA);
+			end;
+		end;
 		close(arA);                   
 	end;
+	
 
-	procedure leerFac(var arF:ArchivoFac; var datoF:tipoFac; pos:word);
+	procedure leerFac(var arF:ArchivoFac; var datoF:tipoFac; var pos:word);
 	begin
-		reset(arF);                        
-		seek(arF, pos);                   
-		if eof(arF) then
-			writeln('Error en la posicion');
-		read(arF, datoF);                    
+		assign(arF, rutaF);
+		{$I-}
+		reset(arF); 
+		{$I+}
+		if ioResult = 0 then
+		begin
+			seek(arF, pos);                   
+			if not eof(arF) then
+			begin
+				read(arF, datoF);
+			end;
+		end;
 		close(arF);                   
 	end;
-
 End.
