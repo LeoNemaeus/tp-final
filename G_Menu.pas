@@ -93,19 +93,19 @@ implementation
 	Procedure iva;
 	Begin
 		clrscr;
+		textcolor(2);
+		writeln('  ');
+		writeln('                              VENTA Y FACTURACION  ');
 		textcolor(15);
+		writeln('  ');
+		writeln('  ');
+		writeln('               SELECCIONE LA CONDICION DEL COMPRADOR FRENTE AL IVA: ');
 		writeln(' ');
-		writeln('          SELECCIONE LA CONDICION DEL COMPRADOR FRENTE AL IVA: ');
+		writeln('                           1 : Responsable Inscripto');
 		writeln(' ');
+		writeln('                           2 : Responsable Monotributo');
 		writeln(' ');
-		writeln(' ');
-		writeln('                       1  Responsable Inscripto');
-		writeln(' ');
-		writeln(' ');
-		writeln('                       2  Responsable Monotributo');
-		writeln(' ');
-		writeln(' ');
-		writeln('                       3  Consumidor Final');
+		writeln('                           3 : Consumidor Final');
 	end;
 
 	Procedure ventas (lim: word; var R: reg);
@@ -115,7 +115,7 @@ implementation
 		for I := 1 to lim do
 		Begin
 			writeln('       ',R[I].cantidad,'x',R[I].pUnitario,'          ',R[I].pFila);
-			writeln('       ',R[I].codigo,'  ',R[I].descripcion);
+			writeln('       ',R[I].codigo,'  ',R[I].descri);
 		end;
 	End;
 
@@ -149,15 +149,18 @@ implementation
 	Procedure cond_venta;
 	Begin
 		clrscr;
+		textcolor(2);
+		writeln('  ');
+		writeln('                              VENTA Y FACTURACION  ');
+		textcolor(15);
+		writeln('  ');
+		writeln('  ');
+		writeln('                       De que forma se abonara la compra: ');
 		writeln(' ');
-		writeln('             SELECCIONE LA CONDICION DE COMPRA: ');
 		writeln(' ');
+		writeln('                                 1 : Credito');
 		writeln(' ');
-		writeln(' ');
-		writeln('                       1  Contado');
-		writeln(' ');
-		writeln(' ');
-		writeln('                       2  Credito');
+		writeln('                                 2 : Contado');
 	end;
 
 	Procedure cod;

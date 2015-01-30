@@ -2,24 +2,24 @@ Unit G_Archivo;
 
 interface
 
-const 
-	rutaA = 'D:/TPArt';
-	rutaF = 'D:/TPFac';
+const
+	rutaA = 'D:\Art.dat';
+	rutaF = 'D:\Fac.dat';
 Type
 	   tipoArt = record
                     codigo:word;
-                    descripcion:string[140];
-                    proveedor:string[90];
+                    descri:string;
+                    prove:string;
                     stock:word;
                     stockMin:byte;
                     pVenta:real;
                     pCosto:real;
                 end;
- 
+
     Venta = array[1..15] of record
                                 codigo:word;
                                 cantidad:word;	
-                                descripcion:string[90];
+                                descri:string;
                                 pUnitario:real;
                                 pFila:real;
                             end;
@@ -28,7 +28,7 @@ Type
 					dia: word;
 					mes: word;
 					anio: word;
-				end; 
+				end;
 	tipoFac = record
                     numFac:word;
                     fecha:tipoFecha;
@@ -47,6 +47,8 @@ Type
 	procedure crear (var arA:ArchivoArt; var arF: ArchivoFac);
 	Procedure escribirArt(var arA:ArchivoArt; var datoA:tipoArt);
 	Procedure escribirFac(var arF:ArchivoFac; var datoF:tipoFac);
+	Procedure posicion(var arA:ArchivoArt; var pos: word);
+	Procedure posicionf(var arF:ArchivoFac; var pos: word);
 	procedure leerArt(var arA:ArchivoArt; var datoA:tipoArt; var pos:word);
 	procedure leerFac(var arF:ArchivoFac; var datoF:tipoFac; var pos:word);
 	Procedure ReEscArt(var arA:ArchivoArt; var datoA:tipoArt; pos: word);
@@ -92,6 +94,32 @@ implementation
 		close(arA);
 	end;
 	
+	Procedure posicion(var arA:ArchivoArt; var pos: word);
+	begin	
+		assign(arA, rutaA);
+		{$I-}
+		reset(arA);
+		{$I+}
+		if ioResult = 0 then
+		begin
+			pos:= FileSize(arA);
+		end;
+		close(arA);
+	end;
+
+	Procedure posicionf(var arF:ArchivoFac; var pos: word);
+	begin	
+		assign(arF, rutaF);
+		{$I-}
+		reset(arF);
+		{$I+}
+		if ioResult = 0 then
+		begin
+			pos:= FileSize(arF);
+		end;
+		close(arF);
+	end;
+	
 	Procedure ReEscArt(var arA:ArchivoArt; var datoA:tipoArt; pos: word);
 	begin	
 		assign(arA, rutaA);
@@ -126,17 +154,17 @@ implementation
 	begin
 		assign(arA, rutaA);
 		{$I-}
-		reset(arA); 
+		reset(arA);
 		{$I+}
 		if ioResult = 0 then
 		begin
-			seek(arA, pos);                   
+			seek(arA, pos);
 			if not eof(arA) then
 			begin
 				read(arA, datoA);
 			end;
 		end;
-		close(arA);                   
+		close(arA);
 	end;
 	
 
@@ -144,16 +172,16 @@ implementation
 	begin
 		assign(arF, rutaF);
 		{$I-}
-		reset(arF); 
+		reset(arF);
 		{$I+}
 		if ioResult = 0 then
 		begin
-			seek(arF, pos);                   
+			seek(arF, pos);
 			if not eof(arF) then
 			begin
 				read(arF, datoF);
 			end;
 		end;
-		close(arF);                   
+		close(arF);
 	end;
 End.

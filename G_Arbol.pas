@@ -5,7 +5,7 @@ uses Crt;
 type
 	Art = Record
 		codigo: word;
-		descripcion: string;
+		descri: string;
 		pos:word;
 		end;
 	arbolArt= ^hojaA;
@@ -13,13 +13,13 @@ type
 		info: Art;
 		izq: arbolArt;
 		der: arbolArt;
-		altura: word;
 		end;
 		
 	procedure crearArbol (var A:arbolArt; var B:arbolArt);
 	function arbolVacio (A:arbolArt): boolean;
 	procedure insertarArbol (var A:arbolArt; nodo: Art; var B: arbolArt);
-	procedure insertar (var A: arbolArt; nodo: Art; var dir: arbolArt);
+	procedure insertarA (var A: arbolArt; nodo: Art);
+	procedure insertarB (var B: arbolArt; nodo: Art);
 	procedure buscarCodigo (A: arbolArt; buscado: word; var nodo: Art);
 	procedure buscarDesc (B: arbolArt; bus: string; var nodo: Art);
 	
@@ -43,28 +43,46 @@ var
 	end;
 	
 	procedure insertarArbol (var A:arbolArt; nodo: Art; var B: arbolArt);
-	var
-		dir: arbolArt;
 	Begin
-		dir^.info:= nodo;
-		dir^.izq:= nil;
-		dir^.der:= nil;
-		insertar (A, nodo, dir);
-		insertar (B, nodo, dir);
+		insertarA (A, nodo);
+		insertarB (B, nodo);
 	end;
 	
-	procedure insertar (var A: arbolArt; nodo: Art; var dir: arbolArt);
+	procedure insertarA (var A: arbolArt; nodo: Art);
 	begin
 		if (A=nil) then
 			begin
-				A:= dir;
+				new(A);
+				A^.info:= nodo;
+				A^.der:=nil;
+				A^.izq:=nil;
+				exit;
 			end
 		else
 		Begin
-			if A^.info.codigo > dir^.info.codigo then
-				insertar (A, nodo, dir)
+			if A^.info.codigo > nodo.codigo then
+				insertarA (A^.izq, nodo)
 			else
-				insertar (A, nodo, dir);
+				insertarA (A^.der, nodo);
+		end;
+	end;
+	
+	procedure insertarB (var B: arbolArt; nodo: Art);
+	begin
+		if (B=nil) then
+			begin
+				new(B);
+				B^.info:= nodo;
+				B^.der:=nil;
+				B^.izq:=nil;
+				exit;
+			end
+		else
+		Begin
+			if B^.info.descri > nodo.descri then
+				insertarB (B^.izq, nodo)
+			else
+				insertarB (B^.der, nodo);
 		end;
 	end;
 	
@@ -109,11 +127,11 @@ var
 	Begin
 		if not arbolVacio(B) then
 		Begin
-			if B^.info.descripcion = bus then
+			if B^.info.descri = bus then
 				nodo:= B^.info
 			else
 			Begin
-				if B^.info.descripcion > bus then
+				if B^.info.descri > bus then
 					buscarDesc(B^.izq, bus, nodo)
 				else
 					buscarDesc(B^.der, bus, nodo);

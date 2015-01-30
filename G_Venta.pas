@@ -5,172 +5,250 @@ uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, Dos;
 var
 	total: real;
 
-	Procedure venta(var lim: word; var R: reg; var arA: ArchivoArt; var A: arbolArt; var B: arbolArt; var total: real);
-	Procedure iva_comp (var iv: string);
-	Procedure Cventa (var cv: string);
-	Procedure facturacion (var lim:word; var R: reg; var arF: ArchivoFac; total: real);
-
+Procedure venta (var A: arbolArt; var B: arbolArt; var arA: ArchivoArt; var lim:word; var total:real);
+Procedure factura (var arF: ArchivoFac; var total: real; var lim: word);
+Procedure opcion1 (var arA: ArchivoArt; var arF:ArchivoFac; var A: arbolArt; var B: arbolArt);
 
 implementation
 
-	Procedure venta(var lim: word; var R: reg; var arA: ArchivoArt; var A: arbolArt; var B: arbolArt; var total: real);
-	var
-		datoA:tipoArt;
-		des: string[140];
-		op:word;
-		x: tipoReg;
-		cod: word;
-		re: string[3];
-		nodo: Art;
-		cant: word;
-		totlinea: real;
-	Begin
-		total:=0;
-		lim:= 0;
-		borrarReg (R);
-		Repeat
-			clrscr;
-			textcolor(15);
-			writeln ('                            Buscar  por:');
-			writeln ('  ');
-			writeln ('  ');
-			writeln ('                   1: Codigo');
-			writeln ('  ');
-			writeln ('                   2: Descripcion');
-			read(op);
-			case op of
-				1: Begin
-					clrscr;
-					totlinea:=0;
-					writeln('                            Ingrese el codigo del producto: ');
-					read(cod);
-					buscarCodigo (A, cod, nodo);
-					leerArt(arA, datoA, nodo.pos);
-					clrscr;
-					writeln('                            Ingrese la cantidad de producto a vender: ');
-					read(cant);
-					if cant <= datoA.stock then
-					Begin
-						totlinea:= cant*datoA.pVenta;
-						total:= total+totlinea;
-						x.codigo:= datoA.codigo;
-						x.descripcion:= datoA.descripcion;
-						x.cantidad:= cant;
-						x.pUnitario:= datoA.pVenta;
-						x.pFila:= totlinea;
-						cargarReg (R, x, lim);
-						datoA.stock:= datoA.stock-cant;
-						escribirArt(arA, datoA);
-					end
-					else
-					begin
-						clrscr;
-						writeln('                             El stock no es suficiente');
-						writeln('                            Usted solo posee: ', datoA.stock);
-					end;
-				end;
-				2: Begin
-					totlinea:=0;
-					clrscr;
-					writeln('                             Ingrese la descripcion: ');
-					read(des);
-					buscarDesc (B, des, nodo);
-					leerArt(arA, datoA, nodo.pos);
-					clrscr;
-					writeln('                             Ingrese la cantidad de producto a vender: ');
-					read(cant);
-					if cant <= datoA.stock then
-					Begin
-						totlinea:= cant*datoA.pVenta;
-						total:= total+totlinea;
-						x.codigo:= datoA.codigo;
-						x.descripcion:= datoA.descripcion;
-						x.cantidad:= cant;
-						x.pUnitario:= datoA.pVenta;
-						x.pFila:= totlinea;
-						cargarReg (R, x, lim);
-						datoA.stock:= datoA.stock-cant;
-						escribirArt(arA, datoA);
-					end
-					else
-					begin
-						clrscr;
-						writeln('                   El stock no es suficiente');
-						writeln('                  Usted solo posee: ', datoA.stock);
-					end;
-				end;			
-			end;
-			clrscr;
-			writeln('          Finalizar venta? (s/n)');
-			read(re)
-		until (re='s')
-	end;
-
-	Procedure iva_comp (var iv: string);
-	var ivaa:byte;
-	Begin
-		repeat
-			iva;
-			read(ivaa);
-		until ivaa in [1..3];
-		if ivaa=1 then iv:= 'Resp. Insc.'
-		else
-		Begin
-			if ivaa=2 then iv:= 'Resp. Monot.'
-			else iv:='Cons. Final';
-		end;
-	End;
-	
-	Procedure Cventa (var cv: string);
-	var ccvv:byte;
-	Begin
-		repeat
-			cond_venta;
-			read(ccvv);
-		until ccvv in [1..2];
-		if ccvv=1 then cv:= 'Contado'
-		else cv:= 'Credito'
-	End;
-	
-	Procedure facturacion (var lim:word; var R: reg; var arF: ArchivoFac; total: real);
-	var
-		pos: word;
-		no: string;
-		y:tipoFac;
-		a, m, d, o: word;
-		iv: string;
-		cv: string[8];
-		I:word;
-        
+Procedure venta (var A: arbolArt; var B: arbolArt; var arA: ArchivoArt; var lim:word; var total:real);
+var
+	R:reg;
+	fin: word;
+	op: word;
+	codi: word;
+	nodo:Art;
+	datoA:tipoArt;
+	cant: word;
+	totlinea: real;
+	x: tipoReg;
+	desc: string;
+begin
+	lim:=0;
+	total:=0;
+	borrarReg (R);
+	fin:=1;
+	repeat
+	clrscr;
+	textcolor(2);
+	writeln('  ');
+	writeln('                              VENTA Y FACTURACION  ');
+	textcolor(15);
+	writeln('  ');
+	writeln('  ');
+	writeln('  ');
+	writeln('                 Seleccione la opcion de busqueda del producto: ');
+	writeln('  ');
+	writeln('  ');
+	writeln('                       1: Busqueda por Codigo ');
+	writeln('  ');
+	writeln('                       2: Busqueda por Descripcion ');
+	read(op);
+	if op = 1 then 
 	begin
-		pos:= filesize(arF);
-		y.numFac:= pos;
-		GetDate(a, m, d, o);
-		y.fecha.anio:= a;
-		y.fecha.mes:=m;
-		y.fecha.dia:=d;
 		clrscr;
-		writeln('            Ingrese el nombre del comprador: ');
-		read(no);
-		y.nombre:=no;
+		textcolor(2);
+		writeln('  ');
+		writeln('                              VENTA Y FACTURACION  ');
+		textcolor(15);
+		writeln('  ');
+		writeln('  ');
+		writeln('  ');
+		writeln('                         Ingrese el codigo del producto: ');
+		read(codi);
+		buscarCodigo (A, codi, nodo);
+		leerArt(arA, datoA, nodo.pos);
 		clrscr;
-		writeln('             Ingrese la direccion del comprador: ');
-		read(no);
-		y.direccion:=no;
-		iva_comp (iv);
-		y.iva:=iv;
-		Cventa (cv);
-		y.condVenta:=cv;
-		y.total:=total;
-		for I:= 1 to lim do
+		textcolor(2);
+		writeln('  ');
+		writeln('                              VENTA Y FACTURACION  ');
+		textcolor(15);
+		writeln('  ');
+		writeln('  ');
+		writeln('  ');
+		writeln('                    Ingrese la cantidad de productos a vender: ');
+		read(cant);
+		totlinea:=0;
+		if cant <= datoA.stock then
 		begin
-			   y.venta[I].codigo:= R[I].codigo;
-			   y.venta[I].descripcion:= R[I].descripcion;
-			   y.venta[I].cantidad:= R[I].cantidad;
-			   y.venta[I].pUnitario:= R[I].pUnitario;
-			   y.venta[I].pFila:= R[I].pFila;
+			totlinea:= cant*datoA.pVenta;
+			total:= total+totlinea;
+			x.codigo:= datoA.codigo;
+			x.descri:= datoA.descri;
+			x.cantidad:= cant;
+			x.pUnitario:= datoA.pVenta;
+			x.pFila:= totlinea;
+			cargarReg (R, x, lim);
+			datoA.stock:= datoA.stock-cant;
+			ReEscArt(arA, datoA, nodo.pos);
+		end
+		else
+		begin
+			clrscr;
+			textcolor(2);
+			writeln('  ');
+			writeln('                              VENTA Y FACTURACION  ');
+			textcolor(15);
+			writeln('  ');
+			writeln('  ');
+			writeln('  ');
+			writeln('                      EL STOCK DEL PRODUCTO NO ES SUFICIENTE! ');
+			writeln('  ');
+			writeln('                  La venta NO SE HA REALIZADO. Usted solo posee: ', datoA.stock);
+			readkey;
 		end;
-		escribirFac(arF, y);
+	end;
+	if op = 2 then 
+	begin
+		clrscr;
+		textcolor(2);
+		writeln('  ');
+		writeln('                              VENTA Y FACTURACION  ');
+		textcolor(15);
+		writeln('  ');
+		writeln('  ');
+		writeln('  ');
+		writeln('                      Ingrese la descripcion del producto: ');
+		read(desc);
+		buscarDesc (B, desc, nodo);
+		leerArt(arA, datoA, nodo.pos);
+		clrscr;
+		textcolor(2);
+		writeln('  ');
+		writeln('                              VENTA Y FACTURACION  ');
+		textcolor(15);
+		writeln('  ');
+		writeln('  ');
+		writeln('  ');
+		writeln('                    Ingrese la cantidad de productos a vender: ');
+		read(cant);
+		totlinea:=0;
+		if cant <= datoA.stock then
+		begin
+			totlinea:= cant*datoA.pVenta;
+			total:= total+totlinea;
+			x.codigo:= datoA.codigo;
+			x.descri:= datoA.descri;
+			x.cantidad:= cant;
+			x.pUnitario:= datoA.pVenta;
+			x.pFila:= totlinea;
+			cargarReg (R, x, lim);
+			datoA.stock:= datoA.stock-cant;
+			ReEscArt(arA, datoA, nodo.pos);
+		end
+		else
+		begin
+			clrscr;
+			textcolor(2);
+			writeln('  ');
+			writeln('                              VENTA Y FACTURACION  ');
+			textcolor(15);
+			writeln('  ');
+			writeln('  ');
+			writeln('  ');
+			writeln('                      EL STOCK DEL PRODUCTO NO ES SUFICIENTE! ');
+			writeln('  ');
+			writeln('                  La venta NO SE HA REALIZADO. Usted solo posee: ', datoA.stock);
+			readkey;
+		end;
+	end;
+	if op >= 3 then
+	begin
+		clrscr;
+		textcolor(2);
+		writeln('  ');
+		writeln('                              VENTA Y FACTURACION  ');
+		textcolor(15);
+		writeln('  ');
+		writeln('  ');
+		writeln('  ');
+		writeln('                       La opcion seleccionada no es correcta ');
+		readkey;
+	end;
+	clrscr;
+	textcolor(2);
+	writeln('  ');
+	writeln('                              VENTA Y FACTURACION  ');
+	textcolor(15);
+	writeln('  ');
+	writeln('  ');
+	writeln('  ');
+	writeln('                         1 : Continuar');
+	writeln('  ');
+	writeln('                         2 : Finalizar la venta');
+	read(fin);
+	until (fin=2)
+end;
+
+Procedure factura (var arF: ArchivoFac; var total: real; var lim: word);
+var
+	pos: word;
+	iv, cv: word;
+	a, m, d, o: word;
+	no: string;
+	y: tipoFac;
+	I: word;
+begin
+	posicionf(arF, pos);
+	y.numFac:= pos;
+	GetDate(a, m, d, o);
+	y.fecha.anio:= a;
+	y.fecha.mes:=m;
+	y.fecha.dia:=d;
+	clrscr;
+	textcolor(2);
+	writeln('  ');
+	writeln('                              VENTA Y FACTURACION  ');
+	textcolor(15);
+	writeln('  ');
+	writeln('  ');
+	writeln('  ');
+	writeln('                         Ingese el nombre del comprador');
+	read(no);
+	y.nombre:=no;
+	clrscr;
+	textcolor(2);
+	writeln('  ');
+	writeln('                              VENTA Y FACTURACION  ');
+	textcolor(15);
+	writeln('  ');
+	writeln('  ');
+	writeln('  ');
+	writeln('                        Ingrese la direccion del comprador: ');
+	read(no);
+	y.direccion:=no;
+	iva;
+	read(iv);
+	if iv=1 then y.iva:= 'Resp. Insc.'
+	else
+	Begin
+		if iv=2 then y.iva:= 'Resp. Monot.'
+		else y.iva:='Cons. Final';
+	end;
+	cond_venta;
+	read(cv);
+	if cv=1 then y.condVenta:= 'Credito'
+	else y.condVenta:= 'Contado';
+	y.total:=total;
+	for I:= 1 to lim do
+	begin
+	   y.venta[I].codigo:= R[I].codigo;
+	   y.venta[I].descri:= R[I].descri;
+	   y.venta[I].cantidad:= R[I].cantidad;
+	   y.venta[I].pUnitario:= R[I].pUnitario;
+	   y.venta[I].pFila:= R[I].pFila;
+	end;
+	escribirFac(arF, y);
+end;
+	
+Procedure opcion1 (var arA: ArchivoArt; var arF:ArchivoFac; var A: arbolArt; var B: arbolArt);
+	var
+		total: real;
+		lim: word;
+	begin
+		lim:=0;
+		venta(A, B, arA, lim, total);
+		factura(arF, total, lim);
 	end;
 	
 end.

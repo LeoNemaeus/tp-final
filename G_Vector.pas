@@ -5,7 +5,7 @@ type
 	tipoReg = Record
 				codigo:word;
 				cantidad:word;	
-				descripcion:string[90];
+				descri:string;
 				pUnitario:real;
 				pFila:real;
 			end;
@@ -31,7 +31,7 @@ implementation
 		Begin
 			R[I].codigo:= 0;
 			R[I].cantidad:= 0;
-			R[I].descripcion := ' ';
+			R[I].descri := ' ';
 			R[I].pUnitario := 0;
 			R[I].pFila:= 0;
 		end;
@@ -40,10 +40,10 @@ implementation
 	Procedure cargarReg (var R: reg; x: tipoReg; lim: word);
 	begin
 		inc(lim);
-		if lim <= 15 then
+		if lim < 15 then
 		Begin
 			R[lim].codigo:= x.codigo;
-			R[lim].descripcion:= x.descripcion;
+			R[lim].descri:= x.descri;
 			R[lim].cantidad:= x.cantidad;
 			R[lim].pUnitario := x.pUnitario;
 			R[lim].pFila:=x.pFila;

@@ -2,185 +2,313 @@ unit G_ActSto;
 interface
 uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector;
 
-var
-	arA:ArchivoArt;
-	arF: ArchivoFac;
-	A: arbolArt;
-	B: arbolArt;	
-	stock:word;
-
-	Procedure consultaStock;
-	Procedure agregarstock (var arA:ArchivoArt; pos:word; stock:word);
-	Procedure removerstock (var arA:ArchivoArt; pos:word; stock:word);
-	Procedure cprin (var A: arbolArt; B: arbolArt);
-
-implementation
-
-Procedure consultaStock;
-	Begin
-	clrscr;
-	writeln ('   Que desea realizar?');
-	writeln ('  ');
-	writeln ('  ');
-	writeln ('      1: Agregar Stock');
-	writeln ('  ');
-	writeln ('      2: Remover Stock');
-	end;
+	Procedure opcion2 (var A: arbolArt; var B: arbolArt; var arA:ArchivoArt);
 	
-	Procedure agregarstock (var arA:ArchivoArt; pos:word; stock:word);
+implementation
+	
+	Procedure opcion2 (var A: arbolArt; var B: arbolArt; var arA:ArchivoArt);
 	var
-		datoA: tipoArt;
+		op: word;
+		cod: word;
+		buscado: word;
+		nodo:Art;
+		datoA:tipoArt;
+		cond: word;
+		cantid: word;
+		desc: string;
+		valor: real;
+		pos: word;
 	begin
-		leerArt(arA, datoA, pos);
-		datoA.stock := datoA.stock + stock;
-		escribirArt(arA, datoA);
-	end;
-
-Procedure removerstock (var arA:ArchivoArt; pos:word; stock:word);
-var datoA: tipoArt;
-begin
-    leerArt(arA, datoA, pos);
-	datoA.stock := datoA.stock - stock;
-	escribirArt(arA, datoA);
-end;
-
-	Procedure codig;
-	Begin
 		clrscr;
-		writeln ('                Buscar  por:');
-		writeln ('  ');
-		writeln ('  ');
-		writeln ('              1: Codigo');
-		writeln ('  ');
-		writeln ('              2: Descripcion');
+		textcolor(2);
 		writeln('  ');
-		writeln ('              3: Ingresar nuevo producto');
-	end;
-
-Procedure cprin (var A: arbolArt; B: arbolArt);
-var
-	op: byte;
-	codigo: word;
-	opcion: char;
-	descripcion: string;
-	nodo: Art;
-	cantidad: word;
-	stock: word;
-	aux:tipoArt;
-	codi: word;
-	pr:string[90];
-	sto: word;
-	stomin:byte;
-	pcos: real;
-	po: real;
-	posic:word;
-
-Begin
-	Repeat
-		codig;
+		writeln('                            ACTUALIZACION DE STOCK  ');
+		textcolor(15);
+		writeln('  ');
+		writeln('  ');
+		writeln('  ');
+		writeln('             Seleccione la opcion de busqueda del producto: ');
+		writeln('  ');
+		writeln('  ');
+		writeln('                      1: Busqueda por Codigo ');
+		writeln('  ');
+		writeln('                      2: Busqueda por Descripcion ');
+		writeln(' ');
+		writeln('  ');
+		writeln('                      3: Agregar un nuevo producto al stock ');
 		read(op);
 		case op of
-			1: Begin
+			1: begin
 				clrscr;
-				writeln('              Ingrese el codigo del articulo ');
-				read(codigo);
-				buscarCodigo (A, codigo, nodo);
-				consultaStock;
-				read(op);
-				if op=1 then
-				begin
-					clrscr;
-					writeln('              Cuantos elementos desea agregar al stock?');
-					read(stock);
-					agregarstock (arA, nodo.pos, stock);
-				end
-				else
-				begin
-					if op=2 then
-					begin
-						clrscr;
-						writeln('              Cuantos elementos desea remover del stock?');
-						read(stock);
-						removerstock (arA, nodo.pos, stock);
-					end;
-				end;
-			end;
-			2: Begin
-				clrscr;
-				write('              Ingrese la descripcion del articulo ');
-				read(descripcion);
-				clrscr;
-				buscarDesc (B, descripcion, nodo);
-				consultaStock;
-				read(op);
-				if op=1 then
-				begin
-					clrscr;
-					textcolor(15);
-					writeln('              Cuantos elementos desea agregar al stock?');
-					read(stock);
-					agregarstock (arA, nodo.pos, stock);
-				end
-				else
-				begin
-					if op=2 then
-					begin
-						clrscr;
-						textcolor(15);
-						writeln('              Cuantos elementos desea remover del stock?');
-						read(stock);
-						removerstock (arA, nodo.pos, stock);
-					end;
-				end;
-			end;
-			3: Begin
-				clrscr;
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE STOCK  ');
 				textcolor(15);
-				writeln('              Ingrese la descripcion del producto: ');
-				read(descripcion);
-				aux.descripcion:= descripcion;
+				writeln('  ');
+				writeln('  ');
+				writeln('                         Ingrese el codigo del producto: ');
+				read(cod);
+				buscarCodigo (A, buscado, nodo);
+				leerArt(arA, datoA, nodo.pos);
 				clrscr;
-				writeln ('              Ingrese el proveedor: ');
-				readln(pr);
-				aux.proveedor:=pr;
-				clrscr;
-				writeln('              Ingrese el codigo del producto: ');
-				read(codi);
-				aux.codigo := codi;
-				clrscr;
-				writeln('              Ingrese el stock: ');
-				read(sto);
-				aux.stock:= sto;
-				clrscr;
-				writeln('              Ingrese el stock minimo: ');
-				read(stomin);
-				aux.stockMin := stomin;
-				clrscr;
-				writeln('              Ingrese el precio de costo: ');
-				read(pcos);
-				aux.pCosto:= pcos;
-				clrscr;
-				writeln('              Ingrese el porcentaje de ganancias: ');
-				read(po);
-				po:= (po*aux.pCosto)/100;
-				po := po + aux.pCosto;
-				aux.pVenta:= po;
-				escribirArt(arA, aux);
-				assign(arA, rutaA);
-				reset(arA); 
-				posic:=filesize(arA);
-				nodo.codigo:=codi;
-				nodo.descripcion:=descripcion;
-				nodo.pos:=posic;
-				insertarArbol (A, nodo, B);
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE STOCK  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('                    El stock del producto buscado es: ', datoA.stock);
+				writeln('  ');
+				writeln('                                 Usted desea: ');
+				writeln('  ');
+				writeln('  ');
+				writeln('                    1 :    Agregar stock');
+				writeln('  ');
+				writeln('                    2 :    Remover stock');
+				read(cond);
+				if cond=1 then
+					begin
+						clrscr;
+						textcolor(2);
+						writeln('  ');
+						writeln('                            ACTUALIZACION DE STOCK  ');
+						textcolor(15);
+						writeln('  ');
+						writeln('  ');
+						writeln('                    Cuantos producto desea agregar al stock? ');
+						read(cantid);
+						leerArt(arA, datoA, nodo.pos);
+						datoA.stock := datoA.stock + cantid;
+						ReEscArt(arA, datoA, nodo.pos);
+						leerArt(arA, datoA, nodo.pos);
+						clrscr;
+						textcolor(2);
+						writeln('  ');
+						writeln('                            ACTUALIZACION DE STOCK  ');
+						textcolor(15);
+						writeln('  ');
+						writeln('  ');
+						writeln('                       El stock actual es: ',datoA.stock);
+						writeln('  ');
+						writeln('                       Actualizacion fializada con exito!');
+						readkey;
+					end
+				else
+				begin
+					if cond=2 then
+					begin
+						clrscr;
+						textcolor(2);
+						writeln('  ');
+						writeln('                            ACTUALIZACION DE STOCK  ');
+						textcolor(15);
+						writeln('  ');
+						writeln('  ');
+						writeln('                    Cuantos producto desea remover del stock? ');
+						read(cantid);
+						leerArt(arA, datoA, nodo.pos);
+						datoA.stock := datoA.stock - cantid;
+						ReEscArt(arA, datoA, nodo.pos);
+						clrscr;
+						textcolor(2);
+						writeln('  ');
+						writeln('                            ACTUALIZACION DE STOCK  ');
+						textcolor(15);
+						writeln('  ');
+						writeln('  ');
+						writeln('                       El stock actual es: ',datoA.stock);
+						writeln('  ');
+						writeln('                       Actualizacion fializada con exito!');
+						readkey;
+					end
+				end;
 			end;
-		end;
-		clrscr;
-		writeln(' ');
-		writeln('              ¿Desea continuar con la actualizacion? (s/n)');
-		read(opcion);
-		clrscr;
-	until (opcion = 'n');
-end;
+			2: begin
+				clrscr;
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE STOCK  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('                       Ingrese la descripcion del producto: ');
+				read(desc);
+				buscarDesc (B, desc, nodo);
+				leerArt(arA, datoA, nodo.pos);
+				clrscr;
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE STOCK  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('                    El stock del producto buscado es: ', datoA.stock);
+				writeln('  ');
+				writeln('                                 Usted desea: ');
+				writeln('  ');
+				writeln('  ');
+				writeln('                    1 :    Agregar stock');
+				writeln('  ');
+				writeln('                    2 :    Remover stock');
+				read(cond);
+				if cond=1 then
+					begin
+						clrscr;
+						textcolor(2);
+						writeln('  ');
+						writeln('                            ACTUALIZACION DE STOCK  ');
+						textcolor(15);
+						writeln('  ');
+						writeln('  ');
+						writeln('                    Cuantos producto desea agregar al stock? ');
+						read(cantid);
+						leerArt(arA, datoA, nodo.pos);
+						datoA.stock := datoA.stock + cantid;
+						ReEscArt(arA, datoA, nodo.pos);
+						leerArt(arA, datoA, nodo.pos);
+						clrscr;
+						textcolor(2);
+						writeln('  ');
+						writeln('                            ACTUALIZACION DE STOCK  ');
+						textcolor(15);
+						writeln('  ');
+						writeln('  ');
+						writeln('                       El stock actual es: ',datoA.stock);
+						writeln('  ');
+						writeln('                       Actualizacion fializada con exito!');
+						readkey;
+					end
+				else
+				begin
+					if cond=2 then
+					begin
+						clrscr;
+						textcolor(2);
+						writeln('  ');
+						writeln('                            ACTUALIZACION DE STOCK  ');
+						textcolor(15);
+						writeln('  ');
+						writeln('  ');
+						writeln('                    Cuantos producto desea remover del stock? ');
+						read(cantid);
+						leerArt(arA, datoA, nodo.pos);
+						datoA.stock := datoA.stock - cantid;
+						ReEscArt(arA, datoA, nodo.pos);
+						clrscr;
+						textcolor(2);
+						writeln('  ');
+						writeln('                            ACTUALIZACION DE STOCK  ');
+						textcolor(15);
+						writeln('  ');
+						writeln('  ');
+						writeln('                       El stock actual es: ',datoA.stock);
+						writeln('  ');
+						writeln('                       Actualizacion fializada con exito!');
+						readkey;
+					end
+				end;
+				
+				
+				
+			end;
+			3: begin
+				clrscr;
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE STOCK  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('  ');
+				writeln('                      Ingrese el codigo del nuevo producto: ');
+				read(cod);
+				datoA.codigo:= cod;
+				nodo.codigo:= cod;
+				clrscr;
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE STOCK  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('  ');
+				writeln('                   Ingrese la descripcion del nuevo producto: ');
+				read(desc);
+				datoA.descri := desc;
+				nodo.descri:= desc;
+				clrscr;
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE STOCK  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('  ');
+				writeln('               Ingrese el nombre del proveedor del nuevo producto: ');
+				read(desc);
+				datoA.prove:=desc;
+				clrscr;
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE STOCK  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('  ');
+				writeln('                      Ingrese el stock del nuevo producto: ');
+				read(cantid);
+				datoA.stock := cantid;
+				clrscr;
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE STOCK  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('  ');
+				writeln('                    Ingrese el stock minimo del nuevo producto: ');
+				read(cantid);
+				datoA.stockMin := cantid;
+				clrscr;
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE STOCK  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('  ');
+				writeln('                    Ingrese el precio de costo del nuevo producto: ');
+				read(valor);
+				datoA.pCosto := valor;
+				clrscr;
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE STOCK  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('  ');
+				writeln('             Ingrese el porcentaje de ganancias para el nuevo producto: ');
+				read(valor);
+				valor:= valor*datoA.pCosto;
+				valor:= valor/100;
+				valor:= valor+datoA.pCosto;
+				escribirArt(arA, datoA);
+				posicion(arA, pos);
+				nodo.pos:= pos;
+				insertarArbol (A, nodo, B);			
+				clrscr;
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE STOCK  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('  ');
+				writeln('                  El nuevo producto ha sido ingresado con exito! ');
+				readkey;
+			end;
+			end;
+	end;
 
 end.
