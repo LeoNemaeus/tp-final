@@ -2,30 +2,38 @@ Unit G_PedArt;
 interface
 uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector;
 
-	procedure cupri (var arA:ArchivoArt);
+	procedure opcion8 (var arA:ArchivoArt);
 
 implementation
 
-	procedure cupri (var arA:ArchivoArt);
+	procedure opcion8 (var arA:ArchivoArt);
 	var
 		fin: word;
 		pos: word;
 		aux: tipoArt;
-
+		I: word;
+		
 	begin
-		pos:= 0;
-		while not eof(arA) do
+		posicion(arA, pos);
+		I:=0;
+		while I < pos do
 		Begin
-			leerArt(arA, aux, pos);
+			leerArt(arA, aux, I);
 			if aux.stockMin <= aux.stock then
 			begin
 				clrscr;
-				writeln('              El articulo: ', aux.codigo,' : ',aux.descripcion);
-				writeln('              necesita reposicion. Comunicarse con el proveedor: ');
-				writeln('                 ',aux.proveedor);
+				textcolor(2);
+				writeln('  ');
+				writeln('                       PEDIDO DE ARTICULOS FALTANTES  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('                   El articulo: ', aux.codigo,' : ',aux.descri);
+				writeln('               necesita reposicion. Comunicarse con el proveedor: ');
+				writeln('                    ',aux.prove);
 				writeln('  ');
 			end;
-			inc(pos);
+			inc(I);
 		end;
 	end;
 

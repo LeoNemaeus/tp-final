@@ -2,43 +2,13 @@ unit G_ActPre;
 interface
 uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector;
 
-var
-	arA:ArchivoArt;
-	arF: ArchivoFac;
-	A: arbolArt;
-	B: arbolArt;	
-	precio:word;
-
-	procedure modif;
-	Procedure modPorc (var arA: ArchivoArt; var aux:tipoArt; pos: word);
-	Procedure cuerpo (var A: arbolArt; B: arbolArt; var arA: ArchivoArt);
+procedure opcion4 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 
 implementation
-	
 
-	procedure modif;
-	begin
-		clrscr;
-		writeln('                   Desea modificar: ');
-		writeln(' ');
-		writeln('               1: Precio de Costo y/o porcentaje');
-		writeln('               2: Porcentaje de Ganancia');
-	end;
-	
-	Procedure modPorc (var arA: ArchivoArt; var aux:tipoArt; pos: word);
-	var
-		po: real;
-	Begin
-		clrscr;
-		writeln('            Ingrese el porcentaje a aplicar');
-		read(po);
-		aux.pVenta := (po*aux.pCosto)/100;
-		aux.pVenta := aux.pVenta + aux.pCosto;
-		ReEscArt(arA, aux, pos);
-	end;
-
-Procedure cuerpo (var A: arbolArt; B: arbolArt; var arA: ArchivoArt);
+procedure opcion4 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 var
+	fin: word;
 	op: byte;
 	codigo: word;
 	descripcion: string;
@@ -48,68 +18,170 @@ var
 	h: word;
 	cost: real;
 	l: string[2];
-	opcion: string;
 	aux: tipoArt;
 	por: real;
+	po: real;
+	pos: word;
+	precio:word;
+
 Begin
-	Repeat
-		cod;
+	fin:=1;
+	repeat
+		clrscr;
+		textcolor(2);
+		writeln('  ');
+		writeln('                            ACTUALIZACION DE PRECIOS  ');
+		textcolor(15);
+		writeln('  ');
+		writeln('  ');
+		writeln('  ');
+		writeln('                Seleccione la opcion de busqueda del producto: ');
+		writeln('  ');
+		writeln('  ');
+		writeln('                           1: Busqueda por Codigo ');
+		writeln('  ');
+		writeln('                           2: Busqueda por Descripcion ');
 		read(op);
-		case op of
-			1: Begin
-				clrscr;
-				writeln('      Ingrese el codigo del producto');
-				read(codigo);
-				buscarCodigo (A, codigo, nodo);
-			end;
-			2: Begin
-				clrscr;
-				writeln('                Ingrese la descripcion del articulo');
-				read(descripcion);
-				buscarDesc (B, descripcion, nodo);
-			end;
+		if op=1 then
+		begin
+			clrscr;
+			textcolor(2);
+			writeln('  ');
+			writeln('                            ACTUALIZACION DE PRECIOS  ');
+			textcolor(15);
+			writeln('  ');
+			writeln('  ');
+			writeln('  ');
+			writeln('                        Ingrese el codigo del producto: ');
+			read(codigo);
+			buscarCodigo (A, codigo, nodo);
+		end;
+		if op=2 then
+		Begin
+			clrscr;
+			textcolor(2);
+			writeln('  ');
+			writeln('                            ACTUALIZACION DE PRECIOS  ');
+			textcolor(15);
+			writeln('  ');
+			writeln('  ');
+			writeln('  ');
+			writeln('                      Ingrese la descripcion del producto: ');
+			read(descripcion);
+			buscarDesc (B, descripcion, nodo);
+		end;
+		if op>=3 then
+		begin
+		clrscr;
+		textcolor(2);
+		writeln('  ');
+		writeln('                            ACTUALIZACION DE PRECIOS  ');
+		textcolor(15);
+		writeln('  ');
+		writeln('  ');
+		writeln('                       La opcion seleccionada no es correcta ');
+		readkey;
+		exit
 		end;
 		leerArt(arA, aux, nodo.pos);
 		clrscr;
-		writeln('          El precio de venta del articulo seleccionado es: ',aux.pVenta);
-		writeln('          El precio de costo del articulo seleccionado es: ',aux.pCosto);
+		textcolor(2);
+		writeln('  ');
+		writeln('                            ACTUALIZACION DE PRECIOS  ');
+		textcolor(15);
+		writeln('  ');
+		writeln('              El precio de venta del producto seleccionado es: ',aux.pVenta);
+		writeln('  ');
+		writeln('              El precio de costo del producto seleccionado es: ',aux.pCosto);
 		por:= (aux.pVenta - aux.pCosto)*100;
 		por:= por/aux.pCosto;
-		clrscr;
-		writeln('          El porcentaje aplicado es: ', por);
-		writeln ('         Desea modificar el precio? (s/n)');
+		writeln('  ');
+		writeln('              El porcentaje aplicado es: ', por);
+		writeln('  ');
+		writeln('                             Desea modificar el precio? (s/n)');
 		read(p);
 		if (p= 's') then
 		Begin
-			modif;	
+			clrscr;
+			textcolor(2);
+			writeln('  ');
+			writeln('                            ACTUALIZACION DE PRECIOS  ');
+			textcolor(15);
+			writeln('  ');
+			writeln('                              Desea modificar: ');
+			writeln(' ');
+			writeln('                       1 : Precio de Costo y/o porcentaje');
+			writeln(' ');
+			writeln('                       2 : Porcentaje de Ganancia');	
 			read(h);
-			case h of
-				1: begin
-					clrscr;
-					writeln('           Ingrese el precio de costo: ');
-					read(cost);
-					aux.pCosto := cost;
-					clrscr;
-					writeln('          Desea modificar el porcentaje de ganancias? ');
-					read(l);
-					case l of
-						's': Begin
-							modPorc (arA, aux, nodo.pos);
-						end;
-						'n': begin
-							ReEscArt(arA, aux, nodo.pos);
-						end;
-					end;
-				end;
-				2: Begin
-					modPorc (arA, aux, nodo.pos);
-				end;
+			if h=1 then
+			begin
+				clrscr;
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE PRECIOS  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('                           Ingrese el precio de costo: ');
+				read(cost);
+				aux.pCosto := cost;
+				clrscr;
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE PRECIOS  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('                       Ingrese el porcentaje a aplicar');
+				read(po);
+				aux.pVenta := (po*aux.pCosto)/100;
+				aux.pVenta := aux.pVenta + aux.pCosto;
+				writeln('  ');
+				writeln('                       El precio de venta sera: ',aux.pVenta);
+				ReEscArt(arA, aux, pos);
+			end;
+			if h=2 then
+			Begin
+				clrscr;
+				textcolor(2);
+				writeln('  ');
+				writeln('                            ACTUALIZACION DE PRECIOS  ');
+				textcolor(15);
+				writeln('  ');
+				writeln('  ');
+				writeln('                       Ingrese el porcentaje a aplicar');
+				read(po);
+				aux.pVenta := (po*aux.pCosto)/100;
+				aux.pVenta := aux.pVenta + aux.pCosto;
+				writeln('  ');
+				writeln('                       El precio de venta sera: ',aux.pVenta);
+				ReEscArt(arA, aux, pos);
+			end;
+			if h >=3 then
+			begin
+			clrscr;
+			textcolor(2);
+			writeln('  ');
+			writeln('                            ACTUALIZACION DE PRECIOS  ');
+			textcolor(15);
+			writeln('  ');
+			writeln('  ');
+			writeln('                       La opcion seleccionada no es correcta ');
+			readkey;
 			end;
 		end;
-		clrscr;
-		writeln('   Desea continuar con la actualizacion? (s/n)');
-		read(opcion);
-	until opcion = 'n';
+	clrscr;
+	textcolor(2);
+	writeln('  ');
+	writeln('                            ACTUALIZACION DE PRECIOS  ');
+	textcolor(15);
+	writeln('  ');
+	writeln('  ');
+	writeln('                         1 : Continuar');
+	writeln('  ');
+	writeln('                         2 : Finalizar actualizacion');
+	read(fin);
+	until (fin=2)
 end;
-
 end.

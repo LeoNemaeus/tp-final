@@ -9,7 +9,6 @@ uses crt, G_Vector;
 	Procedure facturas (total: real; dia:word; mes: word; anio:word; cv: string; iv:string; nfac:word; nom: string; dir: string);
 	Procedure cond_venta;
 	Procedure cod;
-	Procedure cod2;
 	Procedure Finalizar;
 
 implementation
@@ -122,7 +121,7 @@ implementation
 	Procedure facturas (total: real; dia:word; mes: word; anio:word; cv: string; iv:string; nfac:word; nom: string; dir: string);
 	Begin
 		clrscr;
-		textcolor(8);
+		textcolor(15);
 		writeln('   ');
 		writeln('                                  DON JUSTO S.A. ');
 		writeln('                               Cuit: 30-515447847-9');
@@ -174,16 +173,7 @@ implementation
 		writeln ('                         2: Descripcion');
 	end;
 	
-	Procedure cod2;
-	Begin
-		clrscr;
-		writeln ('                         Listar por');
-		writeln ('  ');
-		writeln ('  ');
-		writeln ('                          1: Codigo');
-		writeln ('  ');
-		writeln ('                         2: Descripcion');
-	end;
+
 	
 	Procedure Finalizar;
 	Begin
