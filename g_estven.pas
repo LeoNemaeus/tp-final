@@ -94,7 +94,7 @@ procedure opcion7 (var arF: ArchivoFac);
 				textcolor(15);
 				writeln('  ');
 				writeln('  ');
-				writeln('                   El total recaudado en el dia de la fecha es: ',ac);
+				writeln('                   El total recaudado en el dia de la fecha es: ',ac:7:2);
 				readkey;
 			end;
 		end;

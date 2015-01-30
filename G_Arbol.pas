@@ -5,7 +5,7 @@ uses Crt;
 type
 	Art = Record
 		codigo: word;
-		descri: string;
+		descri: string[40];
 		pos:word;
 		end;
 	arbolArt= ^hojaA;

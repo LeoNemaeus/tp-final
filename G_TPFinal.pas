@@ -24,7 +24,7 @@ Begin {Principal}
 				opcion2 (A, B, arA);
 			end;
 			3: Begin
-				opcion3 (A, B, arA);
+				opcion3 (A, arA);
 			end;
 			4: Begin
 				opcion4 (arA, A, B);

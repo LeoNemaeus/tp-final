@@ -8,8 +8,8 @@ const
 Type
 	   tipoArt = record
                     codigo:word;
-                    descri:string;
-                    prove:string;
+                    descri:string[40];
+                    prove:string[20];
                     stock:word;
                     stockMin:byte;
                     pVenta:real;
@@ -19,7 +19,7 @@ Type
     Venta = array[1..15] of record
                                 codigo:word;
                                 cantidad:word;	
-                                descri:string;
+                                descri:string[40];
                                 pUnitario:real;
                                 pFila:real;
                             end;
@@ -62,7 +62,7 @@ implementation
 		 {$I-}
 		 reset(arA);
 		 {$I+}
-		 if Ioresult<>0 then
+		 if Ioresult=0 then
 		 begin
 			 rewrite(arA);
 			 reset(arA);
@@ -72,7 +72,7 @@ implementation
 		 {$I-}
 		 reset(arF);
 		 {$I+}
-		 if Ioresult <>0 then
+		 if Ioresult =0 then
 		 begin
 			rewrite(arF);
 			reset(arF);
@@ -135,14 +135,15 @@ implementation
 	end;
 
 	Procedure escribirFac(var arF:ArchivoFac; var datoF:tipoFac);
-	begin
+	begin	
 		assign(arF, rutaF);
 		{$I-}
-		reset(arF);
+		Reset(arF);
 		{$I+}
-		if ioResult = 0 then
+		if IOResult=0 then
 		begin
-			Seek (arF, FileSize(arF));
+			Seek(arF,FileSize(arF));
+			datoF.numFac:=filesize(arF);
 			write(arF, datoF);
 		end;
 		close(arF);

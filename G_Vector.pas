@@ -5,7 +5,7 @@ type
 	tipoReg = Record
 				codigo:word;
 				cantidad:word;	
-				descri:string;
+				descri:string[40];
 				pUnitario:real;
 				pFila:real;
 			end;

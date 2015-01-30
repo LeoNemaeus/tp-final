@@ -12,7 +12,7 @@ implementation
 		pos: word;
 		aux: tipoArt;
 		I: word;
-		
+
 	begin
 		posicion(arA, pos);
 		I:=0;
@@ -32,6 +32,7 @@ implementation
 				writeln('               necesita reposicion. Comunicarse con el proveedor: ');
 				writeln('                    ',aux.prove);
 				writeln('  ');
+				readkey;
 			end;
 			inc(I);
 		end;

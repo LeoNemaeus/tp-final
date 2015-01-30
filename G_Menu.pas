@@ -66,7 +66,7 @@ implementation
 		writeln('   |~|                                                                 |~|');
 		writeln('   |~|  ***************************    ***************************     |~|');
 		textcolor(14);
-		writeln('         3     Lista de Precios         4  Actualizacion Precios         ');
+		writeln('          3     Lista de Precios         4  Actualizacion Precios         ');
 		textcolor(2);
 		writeln('   |~|  ***************************    ***************************     |~|');
 		writeln('   |~|                                                                 |~|');
@@ -113,8 +113,9 @@ implementation
 	Begin
 		for I := 1 to lim do
 		Begin
-			writeln('       ',R[I].cantidad,'x',R[I].pUnitario,'          ',R[I].pFila);
+			writeln('       ',R[I].cantidad,'x',R[I].pUnitario:5:2,'          ',R[I].pFila:5:2);
 			writeln('       ',R[I].codigo,'  ',R[I].descri);
+			writeln(' ');
 		end;
 	End;
 
@@ -139,7 +140,7 @@ implementation
 		writeln('                                                            ');
 		ventas(lim, R);					{procedimiento}
 		writeln('                                    ');
-		writeln('                       Total:          $', total);
+		writeln('                       Total:          $', total:5:2);
 		writeln('                                                         ');
 		writeln('                                 Gracias por su compra!');
 		readkey;
