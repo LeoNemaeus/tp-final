@@ -12,11 +12,11 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 		cod: word;
 		nodo: Art;
 		aux: tipoArt;
-		des: string[140];
+		des: word; {string[140];}
 		fin:word;
 		pos: word;
 		op: word;
-		pro: string[90];
+		pro:word { string[90]};
 		I: word;
 		
 	begin

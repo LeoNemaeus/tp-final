@@ -11,7 +11,7 @@ var
 	fin: word;
 	op: byte;
 	codigo: word;
-	descripcion: string;
+	descripcion: word; {string;}
 	nodo: Art;
 	cantidad: word;
 	p: string[2];

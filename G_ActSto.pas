@@ -15,7 +15,7 @@ implementation
 		datoA:tipoArt;
 		cond: word;
 		cantid: word;
-		desc: string;
+		desc: word; {string;}
 		valor: real;
 		pos: word;
 	begin
@@ -293,6 +293,7 @@ implementation
 				valor:= valor*datoA.pCosto;
 				valor:= valor/100;
 				valor:= valor+datoA.pCosto;
+				datoA.pVenta:=valor;
 				escribirArt(arA, datoA);
 				posicion(arA, pos);
 				nodo.pos:= pos;

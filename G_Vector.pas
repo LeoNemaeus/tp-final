@@ -5,7 +5,7 @@ type
 	tipoReg = Record
 				codigo:word;
 				cantidad:word;	
-				descri:string[40];
+				descri: word; {string[40];}
 				pUnitario:real;
 				pFila:real;
 			end;
@@ -31,7 +31,7 @@ implementation
 		Begin
 			R[I].codigo:= 0;
 			R[I].cantidad:= 0;
-			R[I].descri := ' ';
+			R[I].descri := 0;
 			R[I].pUnitario := 0;
 			R[I].pFila:= 0;
 		end;

@@ -5,7 +5,7 @@ uses Crt;
 type
 	Art = Record
 		codigo: word;
-		descri: string[40];
+		descri: word;	{string[40];}
 		pos:word;
 		end;
 	arbolArt= ^hojaA;
@@ -21,7 +21,7 @@ type
 	procedure insertarA (var A: arbolArt; nodo: Art);
 	procedure insertarB (var B: arbolArt; nodo: Art);
 	procedure buscarCodigo (A: arbolArt; buscado: word; var nodo: Art);
-	procedure buscarDesc (B: arbolArt; bus: string; var nodo: Art);
+	procedure buscarDesc (B: arbolArt; bus:word{ string}; var nodo: Art);
 	
 implementation
 var
@@ -29,7 +29,7 @@ var
 	B: arbolArt;
 	nodo: Art;
 	buscado: word;
-	bus: string;
+	bus: word; {string;}
 	
 	procedure crearArbol (var A:arbolArt; var B:arbolArt);
 	Begin
@@ -121,7 +121,7 @@ var
 		end
 	end;
 	
-	procedure buscarDesc (B: arbolArt; bus: string; var nodo: Art);
+	procedure buscarDesc (B: arbolArt; bus: word {string}; var nodo: Art);
 	var
 		j:string;
 	Begin
