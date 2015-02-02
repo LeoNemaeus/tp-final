@@ -59,30 +59,17 @@ implementation
 	procedure crear (var arA:ArchivoArt; var arF: ArchivoFac);
 	begin
 		 assign(arA,rutaA);
-		 {$I-}
+		 rewrite(arA);
 		 reset(arA);
-		 {$I+}
-		 if Ioresult=0 then
-		 begin
-			 rewrite(arA);
-			 reset(arA);
-			 close(arA);
-		 end;
+		 close(arA);
 		 assign(arF, rutaF);
-		 {$I-}
-		 reset(arF);
-		 {$I+}
-		 if Ioresult =0 then
-		 begin
-			rewrite(arF);
-			reset(arF);
-			close(arF);
-		 end;
+		rewrite(arF);
+		reset(arF);
+		close(arF);
 	end;
 
 	Procedure escribirArt(var arA:ArchivoArt; var datoA:tipoArt);
 	begin	
-		assign(arA, rutaA);
 		{$I-}
 		reset(arA);
 		{$I+}
@@ -96,7 +83,6 @@ implementation
 	
 	Procedure posicion(var arA:ArchivoArt; var pos: word);
 	begin	
-		assign(arA, rutaA);
 		{$I-}
 		reset(arA);
 		{$I+}
@@ -109,7 +95,6 @@ implementation
 
 	Procedure posicionf(var arF:ArchivoFac; var pos: word);
 	begin	
-		assign(arF, rutaF);
 		{$I-}
 		reset(arF);
 		{$I+}
@@ -122,7 +107,6 @@ implementation
 	
 	Procedure ReEscArt(var arA:ArchivoArt; var datoA:tipoArt; pos: word);
 	begin	
-		assign(arA, rutaA);
 		{$I-}
 		reset(arA);
 		{$I+}
@@ -136,7 +120,6 @@ implementation
 
 	Procedure escribirFac(var arF:ArchivoFac; var datoF:tipoFac);
 	begin	
-		assign(arF, rutaF);
 		{$I-}
 		Reset(arF);
 		{$I+}
@@ -153,7 +136,6 @@ implementation
 	
 	procedure leerArt(var arA:ArchivoArt; var datoA:tipoArt; var pos:word);
 	begin
-		assign(arA, rutaA);
 		{$I-}
 		reset(arA);
 		{$I+}
@@ -171,7 +153,6 @@ implementation
 
 	procedure leerFac(var arF:ArchivoFac; var datoF:tipoFac; var pos:word);
 	begin
-		assign(arF, rutaF);
 		{$I-}
 		reset(arF);
 		{$I+}

@@ -14,10 +14,10 @@ var
 	descripcion: word; {string;}
 	nodo: Art;
 	cantidad: word;
-	p: string[2];
+	p: word;{string[2];}
 	h: word;
 	cost: real;
-	l: string[2];
+	l: word; {string[2];}
 	aux: tipoArt;
 	por: real;
 	po: real;
@@ -98,9 +98,9 @@ Begin
 		writeln('  ');
 		writeln('              El porcentaje aplicado es: ', por:3:2);
 		writeln('  ');
-		writeln('                             Desea modificar el precio? (s/n)');
+		writeln('                             Desea modificar el precio? (1=si/2=no)');
 		read(p);
-		if (p= 's') then
+		if (p= 1) then
 		Begin
 			clrscr;
 			textcolor(2);
