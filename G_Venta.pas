@@ -22,7 +22,7 @@ var
 	cant: word;
 	totlinea: real;
 	x: tipoReg;
-	desc: word {string};
+	desc: string;
 begin
 	lim:=0;
 	total:=0;

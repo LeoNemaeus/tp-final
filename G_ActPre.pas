@@ -11,13 +11,13 @@ var
 	fin: word;
 	op: byte;
 	codigo: word;
-	descripcion: word; {string;}
+	descripcion: string;
 	nodo: Art;
 	cantidad: word;
-	p: word;{string[2];}
+	p: string[2];
 	h: word;
 	cost: real;
-	l: word; {string[2];}
+	l: string[2];
 	aux: tipoArt;
 	por: real;
 	po: real;

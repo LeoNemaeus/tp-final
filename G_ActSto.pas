@@ -15,7 +15,7 @@ implementation
 		datoA:tipoArt;
 		cond: word;
 		cantid: word;
-		desc: word; {string;}
+		desc: string;
 		valor: real;
 		pos: word;
 	begin

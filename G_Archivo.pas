@@ -8,8 +8,8 @@ const
 Type
 	   tipoArt = record
                     codigo:word;
-                    descri:word;	{string[40];}
-                    prove:word;	{string[20];}
+                    descri:string;
+                    prove:string;
                     stock:word;
                     stockMin:byte;
                     pVenta:real;
@@ -19,7 +19,7 @@ Type
     Venta = array[1..15] of record
                                 codigo:word;
                                 cantidad:word;	
-                                descri:word;	{string[40];}
+                                descri:string;
                                 pUnitario:real;
                                 pFila:real;
                             end;
