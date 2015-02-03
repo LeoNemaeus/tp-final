@@ -1,49 +1,11 @@
 Unit G_Archivo;
 
 interface
-
+uses tipos;
 const
-	rutaA = 'D:\Art.dat';
-	rutaF = 'D:\Fac.dat';
-Type
-	   tipoArt = record
-                    codigo:word;
-                    descri:word;	{string[40];}
-                    prove:word;	{string[20];}
-                    stock:word;
-                    stockMin:byte;
-                    pVenta:real;
-                    pCosto:real;
-                end;
+	rutaA = 'db/Art.dat';
+	rutaF = 'db/Fac.dat';
 
-    Venta = array[1..15] of record
-                                codigo:word;
-                                cantidad:word;	
-                                descri:word;	{string[40];}
-                                pUnitario:real;
-                                pFila:real;
-                            end;
-
-	tipoFecha = record
-					dia: word;
-					mes: word;
-					anio: word;
-				end;
-	tipoFac = record
-                    numFac:word;
-                    fecha:tipoFecha;
-                    nombre:string[50];
-                    direccion:string[50];
-					iva:string;				
-			        condVenta:string[8];		// 1: Contado; 2: Crédito
-                    venta:Venta;
-                    total:real;
-                end;
-	
-	ArchivoArt = file of tipoArt;
-	
-	ArchivoFac = file of tipoFac;
-	
 	procedure crear (var arA:ArchivoArt; var arF: ArchivoFac);
 	Procedure escribirArt(var arA:ArchivoArt; var datoA:tipoArt);
 	Procedure escribirFac(var arF:ArchivoFac; var datoF:tipoFac);
@@ -59,13 +21,7 @@ implementation
 	procedure crear (var arA:ArchivoArt; var arF: ArchivoFac);
 	begin
 		 assign(arA,rutaA);
-		 rewrite(arA);
-		 reset(arA);
-		 close(arA);
 		 assign(arF, rutaF);
-		rewrite(arF);
-		reset(arF);
-		close(arF);
 	end;
 
 	Procedure escribirArt(var arA:ArchivoArt; var datoA:tipoArt);

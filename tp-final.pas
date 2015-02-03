@@ -34,7 +34,8 @@ var
     archivoArticulo:fArticulo;
     archivoFactura:fFactura;
     
-    arbolArticulo:aArticulo;
+    arbolArticulo_codigo:aArticulo;
+    arbolArticulo_descripcion:aArticulo;
     arbolFactura:aFactura;
     
     articulo:tArticulo;
@@ -45,7 +46,8 @@ var
 begin
     iniArchivos(archivoArticulo, archivoFactura);
     
-    crearArbol(arbolArticulo);
+    crearArbol(arbolArticulo_codigo);
+    crearArbol(arbolArticulo_descripcion);
     crearArbol(arbolFactura);
     
     i := 0;
@@ -56,9 +58,11 @@ begin
         busquedaArticulo.codigo := articulo.codigo;
         busquedaArticulo.descripcion := articulo.descripcion;
         busquedaArticulo.fpos := i;
-        
-        insertarArbol(arbolArticulo, busquedaArticulo, codigo);
-        insertarArbol(arbolArticulo, busquedaArticulo, descripcion);
+        if(resultadoLeer = 1) then
+        begin
+            insertarArbol(arbolArticulo_codigo, busquedaArticulo, 'codigo');
+            insertarArbol(arbolArticulo_descripcion, busquedaArticulo, 'descripcion');
+        end;
         
         i := i + 1;
     until resultadoLeer <> 1;
@@ -76,8 +80,10 @@ begin
         
         busquedaFactura.nFactura := factura.nFactura;
         busquedaFactura.fpos := i;
-        
-        insertarArbol(arbolFactura, busquedaFactura, codigo);
+        if(resultadoLeer = 1) then
+        begin
+            insertarArbol(arbolFactura, busquedaFactura, codigo);
+        end;
         
         i := i + 1;
     until resultadoLeer <> 1;
@@ -93,16 +99,22 @@ begin
     readkey;
     
     repeat
-        clrscr;
         opciones;
-        read(op);
+        readln(op);
+        clrscr;
         
         case op of
             '1':begin
-                venta(archivoArticulo, archivoFactura, arbolArticulo, arbolFactura);
+                venta(archivoArticulo, archivoFactura, arbolArticulo_codigo, arbolArticulo_descripcion, arbolFactura);
             end;
             
             '2': begin
+            end;
+            
+            '3':
+            begin
+                listarArbol(arbolArticulo_codigo);
+                listarArbol(arbolFactura);
             end;
         end;
     until op = '0';

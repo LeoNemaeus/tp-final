@@ -1,6 +1,6 @@
 unit G_consArt;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector;
+uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, tipos;
 
 procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 
@@ -12,11 +12,11 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 		cod: word;
 		nodo: Art;
 		aux: tipoArt;
-		des: word; {string[140];}
+		des: string[140]; {string[140];}
 		fin:word;
 		pos: word;
 		op: word;
-		pro:word { string[90]};
+		pro:string[90];
 		I: word;
 		
 	begin

@@ -30,32 +30,36 @@ type
 {
  *Representa un artículo.
 }
-    tArticulo = record
+    tipoArt = record
                     codigo:word;
-                    descripcion:string[140];
-                    proveedor:string[90];
+                    descri:string;
+                    prove:string[90];
                     stock:word;
-                    stock_minimo:byte;
-                    precio_venta:real;
-                    precio_costo:real;
+                    stockMin:byte;
+                    pVenta:real;
+                    pCosto:real;
                 end;
  
 {
  *Representa el detalle de las ventas de una factura.
 }
-    tVenta = array[1..15] of record
+    Venta = array[1..15] of record
                                 codigo:word;
-                                cantidad:word;	// Discusión: La cantidad de
-												// producto comprado deberia ser
-												// un byte?
-                                descripcion:string[90];
-                                precio_unitario:real;
-                                precio_fila:real;
+                                cantidad:word;
+                                descri:string[90];
+                                pUnitario:real;
+                                pFila:real;
                             end;
 
 {
  *Representa una factura.
 }
+
+tipoFecha = record
+          dia: word;
+          mes: word;
+          anio: word;
+end;
 
 {Hay que poner que tipos de iva:
 			-Responsable inscripto
@@ -65,14 +69,14 @@ En la factura C hay que poner el tipo de iva, simpre es 21% pero ya esta
 agregado en el total no se discrimina*
 *Discriminar: no tenemos que sacar cuentas y sumarselas al total porque ya esta
 *incluido}
-    tFactura = record
-                    nFactura:word;
-                    fecha:tDateTime;			//Tipo de hora y fecha de system
+    tipoFac = record
+                    numFac:word;
+                    fecha:tipoFecha;			//Tipo de hora y fecha de system
                     nombre:string[50];
                     direccion:string[50];
 					iva:string;					// jnvgowrhohgoh
-			        condicion_venta:(contado, credito);		// 1: Contado; 2: Crédito
-                    venta:tVenta;
+			        condVenta:string;
+                    venta:Venta;
                     total:real;
                 end;
 
@@ -86,7 +90,7 @@ agregado en el total no se discrimina*
 }
 	pArticulo = ^nArticulo;
 	nArticulo = record
-					info:tArticulo;
+					info:tipoArt;
 					sig:pArticulo;
 				end;
 	lArticulo = record
@@ -153,9 +157,9 @@ agregado en el total no se discrimina*
  *Nomeclatura:
  **fXxxxxx: archivo (file)
 }
-	fArticulo = file of tArticulo;
+	ArchivoArt = file of tipoArt;
 	
-	fFactura = file of tFactura;
+	ArchivoFac = file of tipoFac;
 
 
 {

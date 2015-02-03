@@ -1,6 +1,6 @@
 unit G_ActPre;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector;
+uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, tipos;
 
 procedure opcion4 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 
@@ -11,7 +11,7 @@ var
 	fin: word;
 	op: byte;
 	codigo: word;
-	descripcion: word; {string;}
+	descripcion: string;
 	nodo: Art;
 	cantidad: word;
 	p: word;{string[2];}

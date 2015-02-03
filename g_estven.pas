@@ -1,6 +1,6 @@
 unit G_EstVen;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, Dos;
+uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, Dos, tipos;
 
 procedure opcion7 (var arF: ArchivoFac);
 

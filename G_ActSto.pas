@@ -1,6 +1,6 @@
 unit G_ActSto;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector;
+uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, tipos;
 
 	Procedure opcion2 (var A: arbolArt; var B: arbolArt; var arA:ArchivoArt);
 	
@@ -15,7 +15,7 @@ implementation
 		datoA:tipoArt;
 		cond: word;
 		cantid: word;
-		desc: word; {string;}
+		desc: string;
 		valor: real;
 		pos: word;
 	begin
@@ -245,6 +245,7 @@ implementation
 				writeln('  ');
 				writeln('  ');
 				writeln('               Ingrese el nombre del proveedor del nuevo producto: ');
+                                desc := '';
 				read(desc);
 				datoA.prove:=desc;
 				clrscr;

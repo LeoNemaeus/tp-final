@@ -42,7 +42,8 @@ begin
     reset(confArchivo);
     if(IOresult <> 0) then exit(false);
     
-    readln(confArchivo, urlArticulos, urlFacturas);
+    readln(confArchivo, urlArticulos);
+    readln(confArchivo, urlFacturas);
     if(IOresult <> 0) then exit(false);
     
     close(confArchivo);
@@ -128,11 +129,10 @@ begin
 
     seek(f, pos);                    //Seek
     if(IOresult <> 0) then exit(0);
-    
-    if eof(f) then exit(2);
 
     read(f, dato);                    //Read
     if(IOresult <> 0) then exit(0);
+    if eof(f) then exit(2);
 
     close(f);                        //Close
     
@@ -144,18 +144,18 @@ function leerDato(var f:fFactura; var dato:tFactura; pos:word):byte;
 begin
     {i-}
     reset(f);                        //Reset
-    if(IOresult <> 0) then exit(IOresult);
+    if(IOresult <> 0) then exit(0);
 
     seek(f, pos);                    //Seek
-    if(IOresult <> 0) then exit(IOresult);
+    if(IOresult <> 0) then exit(0);
     
     if eof(f) then exit(2);
 
     read(f, dato);                    //Read
-    if(IOresult <> 0) then exit(IOresult);
+    if(IOresult <> 0) then exit(0);
 
     close(f);                        //Close
-
+    
     exit(1);
     {I+}
 end;

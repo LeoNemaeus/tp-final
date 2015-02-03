@@ -1,6 +1,6 @@
 unit G_Venta;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, Dos;
+uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, Dos, tipos;
 
 var
 	total: real;
@@ -22,7 +22,8 @@ var
 	cant: word;
 	totlinea: real;
 	x: tipoReg;
-	desc: word {string};
+	descripcion_local: string; {string}
+
 begin
 	lim:=0;
 	total:=0;
@@ -108,9 +109,10 @@ begin
 		writeln('  ');
 		writeln('  ');
 		writeln('  ');
-		writeln('                      Ingrese la descripcion del producto: ');
-		read(desc);
-		buscarDesc (B, desc, nodo);
+		write('                      Ingrese la descripcion del producto: ');
+		readln(descripcion_local);
+		readln(descripcion_local);
+		buscarDesc (B, descripcion_local, nodo);
 		leerArt(arA, datoA, nodo.pos);
 		clrscr;
 		textcolor(2);
@@ -151,8 +153,8 @@ begin
 			writeln('                  La venta NO SE HA REALIZADO. Usted solo posee: ', datoA.stock);
 			readkey;
 		end;
-	end;
-	if op >= 3 then
+	end
+	else
 	begin
 		clrscr;
 		textcolor(2);
@@ -193,8 +195,8 @@ begin
 	y.numFac:= pos;
 	GetDate(a, m, d, o);
 	y.fecha.anio:= a;
-	y.fecha.mes:=m;
-	y.fecha.dia:=d;
+	y.fecha.mes:= m;
+	y.fecha.dia:= d;
 	clrscr;
 	textcolor(2);
 	writeln('  ');

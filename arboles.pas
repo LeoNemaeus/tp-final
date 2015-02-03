@@ -5,11 +5,11 @@ interface
 	procedure crearArbol(arbol:aArticulo);
 	procedure crearArbol(arbol:aFactura);
 
-	procedure insertarArbol(arbol:aArticulo; dato:taArticulo; clave:tClave);
-	procedure insertarArbol(arbol:aFactura; dato:taFactura; clave:tClave);
+	procedure insertarArbol(var arbol:aArticulo; dato:taArticulo; clave:string);
+	procedure insertarArbol(var arbol:aFactura; dato:taFactura; clave:tClave);
 	
 	procedure buscarArbol(arbol:aArticulo; buscado:word; var nodo:aArticulo);
-	procedure buscarArbol(arbol:aArticulo; buscado:string; var nodo:aArticulo);
+	procedure buscarArbol(arbol:aArticulo; var buscado:string; var nodo:aArticulo);
 	procedure buscarArbol(arbol:aFactura; buscado:word; var nodo:aFactura);
 	
 	procedure listarArbol(arbol:aArticulo);
@@ -46,7 +46,7 @@ implementation
 		arbol := nil;
 	end;
 
-	procedure insertarArbol(arbol:aArticulo; dato:taArticulo; clave:tClave);
+	procedure insertarArbol(var arbol:aArticulo; dato:taArticulo; clave:string);
 	begin
 		if arbol = nil then
 		begin
@@ -58,7 +58,7 @@ implementation
 		else
 		begin
 			case clave of
-				codigo:
+				'codigo':
 				begin
 					if arbol^.info.codigo <= dato.codigo then
 						insertarArbol(arbol^.der, dato, clave)
@@ -66,7 +66,7 @@ implementation
 						insertarArbol(arbol^.izq, dato, clave)
 				end;
 				
-				descripcion:
+				'descripcion':
 				begin
 					if arbol^.info.descripcion <= dato.descripcion then
 						insertarArbol(arbol^.der, dato, clave)
@@ -78,7 +78,7 @@ implementation
 		end;
 	end;
 	
-	procedure insertarArbol(arbol:aFactura; dato:taFactura; clave:tClave);
+	procedure insertarArbol(var arbol:aFactura; dato:taFactura; clave:tClave);
 	begin
 		if arbol = nil then
 		begin
@@ -116,7 +116,7 @@ implementation
 		end;
 	end;
 	
-	procedure buscarArbol(arbol:aArticulo; buscado:string; var nodo:aArticulo);
+	procedure buscarArbol(arbol:aArticulo; var buscado:string; var nodo:aArticulo);
 	var
 		aux:aArticulo;
 	begin
@@ -163,6 +163,7 @@ implementation
 				writeln('Código de articulo: ', codigo);
 				writeln('descripcion: ', descripcion);
 			end;
+			listarArbol(arbol^.der);
 		end;
 	end;
 	procedure listarArbol(arbol:aFactura);
@@ -174,6 +175,7 @@ implementation
 			begin
 				writeln('Numero de Factura: ', nFactura);
 			end;
+			listarArbol(arbol^.der);
 		end;
 	end;
 

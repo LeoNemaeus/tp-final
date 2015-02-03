@@ -1,6 +1,6 @@
 Unit G_LisP;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector;
+uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, tipos;
 var
 	A: arbolArt;
 	arA:ArchivoArt;
