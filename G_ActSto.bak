@@ -18,13 +18,13 @@ implementation
 		desc: string;
 		valor: real;
 		pos: word;
-		salir: boolean;
+		salir: boolena;
 	begin
 		presActSto;
 		codig;
 		writeln(' ');
 		writeln('  ');
-		writeln('                       3: Agregar un nuevo producto al stock ');
+		writeln('                      3: Agregar un nuevo producto al stock ');
 		read(op);
 		case op of
 			1: begin

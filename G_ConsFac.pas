@@ -17,31 +17,12 @@ procedure opcion5 (var arF: ArchivoFac; var arA: ArchivoArt);
 		I: word;
 
 	begin
-		clrscr;
-		textcolor(2);
-		writeln('  ');
-		writeln('                              CONSULTA DE FACTURAS  ');
-		textcolor(15);
-		writeln('  ');
-		writeln('  ');
-		writeln ('                          Desea buscar factura por: ');
-		writeln('  ');
-		writeln(' ');
-		writeln('                          1 : Numero de Factura');
-		writeln('  ');
-		writeln('                          2 : Fecha de Facturacion');
-		writeln('  ');
-		writeln('                          3 : Listar todas las facturas');
+		presConsFac;
+		buscarFac;
 		read(op);
 		if op=1 then
 		begin
-			clrscr;
-			textcolor(2);
-			writeln('  ');
-			writeln('                              CONSULTA DE FACTURAS  ');
-			textcolor(15);
-			writeln('  ');
-			writeln('  ');
+			presConsFac;
 			writeln('                         Ingrese el numero de factura:');
 			read(pos);
 			leerFac(arF, aux, pos);
@@ -49,22 +30,10 @@ procedure opcion5 (var arF: ArchivoFac; var arA: ArchivoArt);
 		end;
 		if op=2 then
 		begin
-			clrscr;
-			textcolor(2);
-			writeln('  ');
-			writeln('                              CONSULTA DE FACTURAS  ');
-			textcolor(15);
-			writeln('  ');
-			writeln('  ');
+			presConsFac;
 			writeln('                              Ingrese el mes: (mm)');
 			read(mes);
-			clrscr;
-			textcolor(2);
-			writeln('  ');
-			writeln('                              CONSULTA DE FACTURAS  ');
-			textcolor(15);
-			writeln('  ');
-			writeln('  ');
+			presConsFac;
 			writeln('                              Ingrese el año: (aaaa)');
 			read(an);
 			posicionf(arF, pos);
@@ -92,14 +61,7 @@ procedure opcion5 (var arF: ArchivoFac; var arA: ArchivoArt);
 		end;
 		if op>=4 then
 		begin
-		clrscr;
-		textcolor(2);
-		writeln('  ');
-		writeln('                              CONSULTA DE FACTURAS   ');
-		textcolor(15);
-		writeln('  ');
-		writeln('  ');
-		writeln('  ');
+		presConsFac;
 		writeln('                       La opcion seleccionada no es correcta ');
 		readkey;
 		end;		
