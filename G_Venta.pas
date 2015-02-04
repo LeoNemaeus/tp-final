@@ -22,24 +22,24 @@ var
 	salir: boolean;
 begin
 	total:=0;
-	borrarReg (R, lim);
+	borrarReg (R, lim); //vector
 	fin:=1;
 	repeat
-		presVenFac; //g_menu
-		codig; //g_menu
+		presVenFac; //menu
+		codig; //menu
 		read(op);
 		if op = 1 then
 		begin
-			presVenFac;
+			presVenFac; //menu
 			writeln('                         Ingrese el codigo del producto: ');
-			read(codi);
-			buscarCodigo (A, codi, nodo, salir);
+			readln(codi);
+			buscarCodigo (A, codi, nodo, salir); //arbol
 			if (salir=false) then
 			begin
-				leerArt(arA, datoA, nodo.pos);
-				presVenFac;
+				leerArt(arA, datoA, nodo.pos); //archivo
+				presVenFac; //menu
 				writeln('                    Ingrese la cantidad de productos a vender: ');
-				read(cant);
+				readln(cant);
 				totlinea:=0;
 				if cant <= datoA.stock then
 				begin
@@ -50,30 +50,30 @@ begin
 					x.cantidad:= cant;
 					x.pUnitario:= datoA.pVenta;
 					x.pFila:= totlinea;
-					cargarReg (R, x, lim);
+					cargarReg (R, x, lim); //vector
 					datoA.stock:= datoA.stock-cant;
-					ReEscArt(arA, datoA, nodo.pos);
+					ReEscArt(arA, datoA, nodo.pos); //archivo
 				end
 				else
 				begin
-					presVenFac;
-					noSuf (datoA.stock);
+					presVenFac; //menu
+					noSuf (datoA.stock); //menu
 				end
 			end
 		end
 		else
 		if op = 2 then
 		begin
-			presVenFac;
+			presVenFac; //menu
 			writeln('                      Ingrese la descripcion del producto: ');
-			read(desc);
-			buscarDesc (B, desc, nodo, salir);
+			readln(desc);
+			buscarDesc (B, desc, nodo, salir); //arbol
 			if (salir=false) then
 			begin
-				leerArt(arA, datoA, nodo.pos);
-				presVenFac;
+				leerArt(arA, datoA, nodo.pos); //archivo
+				presVenFac; //menu
 				writeln('                    Ingrese la cantidad de productos a vender: ');
-				read(cant);
+				readln(cant);
 				totlinea:=0;
 				if cant <= datoA.stock then
 				begin
@@ -86,23 +86,23 @@ begin
 					x.pFila:= totlinea;
 					cargarReg (R, x, lim);
 					datoA.stock:= datoA.stock-cant;
-					ReEscArt(arA, datoA, nodo.pos);
+					ReEscArt(arA, datoA, nodo.pos); //archivo
 				end
 				else
 				begin
-					presVenFac;
-					noSuf (datoA.stock);
+					presVenFac; //menu
+					noSuf (datoA.stock); //menu
 				end;
 			end
 		end;
 		if op >= 3 then
 		begin
-			presVenFac;
+			presVenFac; //menu
 			writeln('                       La opcion seleccionada no es correcta ');
 			readkey;
 		end;
-		presVenFac;
-		cierre;
+		presVenFac; //menu
+		cierre; //menu
 		read(fin);
 	until (fin=2)
 end;
@@ -118,21 +118,21 @@ var
 	I: word;
 	salir: boolean;
 begin
-	posicionf(arF, pos);
+	posicionf(arF, pos); //archivo
 	y.numFac:= pos;
-	GetDate(a, m, d, o);
+	GetDate(a, m, d, o); //Dos
 	y.fecha.anio:= a;
 	y.fecha.mes:=m;
 	y.fecha.dia:=d;
-	presVenFac;
+	presVenFac; //menu
 	writeln('                         Ingese el nombre del comprador');
-	read(no);
+	readln(no);
 	y.nombre:=no;
-	presVenFac;
+	presVenFac; //menu
 	writeln('                        Ingrese la direccion del comprador: ');
-	read(no);
+	readln(no);
 	y.direccion:=no;
-	iva;
+	iva; //menu
 	read(iv);
 	if iv=1 then y.iva:= 'Resp. Insc.'
 	else
@@ -140,7 +140,7 @@ begin
 		if iv=2 then y.iva:= 'Resp. Monot.'
 		else y.iva:='Cons. Final';
 	end;
-	cond_venta;
+	cond_venta; //menu
 	read(cv);
 	if cv=1 then y.condVenta:= 'Credito'
 	else y.condVenta:= 'Contado';
@@ -153,7 +153,7 @@ begin
 	   y.venta[I].pUnitario:= R[I].pUnitario;
 	   y.venta[I].pFila:= R[I].pFila;
 	end;
-	escribirFac(arF, y);
+	escribirFac(arF, y); //archivo
 end;
 	
 Procedure opcion1 (var arA: ArchivoArt; var arF:ArchivoFac; var A: arbolArt; var B: arbolArt);

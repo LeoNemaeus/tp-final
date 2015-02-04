@@ -28,6 +28,7 @@ uses crt, G_Vector, tipos;
 	procedure Stock (stock:word);
 	procedure cierre;
 	Procedure Finalizar;
+	procedure consulta;
 
 implementation
 
@@ -107,6 +108,17 @@ implementation
 		writeln('      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   ');
 	End;
 
+	procedure consulta;
+	begin
+		writeln('                            Consultar Articulos por: ');
+		writeln('  ');
+		writeln('                                   1: Codigo');
+		writeln(' ');
+		writeln('                                   2: Descripcion');
+		writeln(' ');
+		writeln('                                   3: Proveedor');
+	end;
+	
 	Procedure errorcod;
 	begin
 		clrscr;

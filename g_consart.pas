@@ -20,25 +20,19 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 		I: word;
 		salir:boolean;
 	begin
-		presConsArt;
-		writeln('                            Consultar Articulos por: ');
-		writeln('  ');
-		writeln('                                   1: Codigo');
-		writeln(' ');
-		writeln('                                   2: Descripcion');
-		writeln(' ');
-		writeln('                                   3: Proveedor');
+		presConsArt; //menu
+		consulta; //menu
 		read(op);
 		case op of
 			1: begin
-				presConsArt;
+				presConsArt; //menu
 				writeln('                        Ingrese el codigo del producto: ');
-				read(cod);
-				buscarCodigo (A, cod, nodo, salir);
+				readln(cod);
+				buscarCodigo (A, cod, nodo, salir); //arbol
 				if (salir=false) then
 				begin
-					leerArt(arA, aux, nodo.pos);
-					presConsArt;
+					leerArt(arA, aux, nodo.pos); //archivo
+					presConsArt; //menu
 					writeln('                         Codigo:----------------:',aux.codigo);
 					writeln('                         Descripcion:-----------:',aux.descri);
 					writeln('                         Proveedor:-------------:',aux.prove);
@@ -52,14 +46,14 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 				end;
 			end;
 			2: Begin
-				presConsArt;
+				presConsArt; //menu
 				writeln('                        Ingrese la descripcion del producto: ');
-				read(des);
-				buscarDesc (B, des, nodo, salir);
+				readln(des);
+				buscarDesc (B, des, nodo, salir); //arbol
 				if (salir=false) then
 				begin
-					leerArt(arA, aux, nodo.pos);
-					presConsArt;
+					leerArt(arA, aux, nodo.pos); //archivo
+					presConsArt; //menu
 					writeln('                         Codigo:----------------:',aux.codigo);
 					writeln('                         Descripcion:-----------:', aux.descri);
 					writeln('                         Proveedor:-------------:',aux.prove);
@@ -73,17 +67,17 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 				end;
 			end;
 			3: Begin
-				presConsArt;
+				presConsArt; //menu
 				writeln('                             Ingrese el proveedor: ');
-				read(pro);
-				posicion(arA, pos);
+				readln(pro);
+				posicion(arA, pos); //archivo
 				I:=0;
 				while I< pos do
 				begin	
-					leerArt(arA, aux, I);
+					leerArt(arA, aux, I); //archivo
 					if aux.prove = pro then
 					begin
-						presConsArt;
+						presConsArt; //menu
 						writeln('                         Codigo:----------------:',aux.codigo);
 						writeln('                         Descripcion:-----------:', aux.descri);
 						writeln('                         Proveedor:-------------:',aux.prove);

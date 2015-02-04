@@ -15,7 +15,6 @@ const
 	procedure leerFac(var arF:ArchivoFac; var datoF:tipoFac; var pos:word);
 	Procedure ReEscArt(var arA:ArchivoArt; var datoA:tipoArt; pos: word);
 
-
 implementation
 	
 	procedure crear (var arA:ArchivoArt; var arF: ArchivoFac);
@@ -49,6 +48,7 @@ implementation
 		close(arA);
 	end;
 
+	
 	Procedure posicionf(var arF:ArchivoFac; var pos: word);
 	begin	
 		{$I-}
@@ -82,7 +82,6 @@ implementation
 		if IOResult=0 then
 		begin
 			Seek(arF,FileSize(arF));
-			datoF.numFac:=filesize(arF);
 			write(arF, datoF);
 		end;
 		close(arF);

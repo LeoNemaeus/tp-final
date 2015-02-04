@@ -14,13 +14,13 @@ implementation
 		I: word;
 
 	begin
-		posicion(arA, pos);
+		posicion(arA, pos); //archivo
 		I:=0;
 		repeat
-			leerArt(arA, aux, I);
+			leerArt(arA, aux, I); //archivo
 			if aux.stockMin <= aux.stock then
 			begin
-				presPedArt;
+				presPedArt; //menu
 				writeln('                   El articulo: ', aux.codigo,' : ',aux.descri);
 				writeln('               necesita reposicion. Comunicarse con el proveedor: ');
 				writeln('                    ',aux.prove);
