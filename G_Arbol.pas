@@ -1,7 +1,7 @@
 Unit G_Arbol;
 
 interface
-uses Crt;
+uses Crt, g_menu;
 type
 	Art = Record
 		codigo: word;
@@ -20,8 +20,8 @@ type
 	procedure insertarArbol (var A:arbolArt; nodo: Art; var B: arbolArt);
 	procedure insertarA (var A: arbolArt; nodo: Art);
 	procedure insertarB (var B: arbolArt; nodo: Art);
-	procedure buscarCodigo (A: arbolArt; buscado: word; var nodo: Art);
-	procedure buscarDesc (B: arbolArt; bus:string; var nodo: Art);
+	procedure buscarCodigo (A: arbolArt; buscado: word; var nodo: Art; var salir: boolean);
+	procedure buscarDesc (B: arbolArt; bus:string; var nodo: Art; var salir: boolean);
 	
 implementation
 var
@@ -86,71 +86,73 @@ var
 		end;
 	end;
 	
-	procedure buscarCodigo (A: arbolArt; buscado: word; var nodo: Art);
+	procedure buscarCodigo (A: arbolArt; buscado: word; var nodo: Art; var salir: boolean);
 	var
-		j: string;
+		j:word;
+		aux:arbolArt;
 	Begin
+		salir:=false;
 		if not arbolVacio(A) then
 		Begin
-			if A^.info.codigo = buscado then
+			aux:=A;
+			if aux^.info.codigo = buscado then
 				begin
-				nodo:= A^.info
+				nodo:= aux^.info
 				end
 			else
 			Begin
-				if A^.info.codigo > buscado then
-					buscarCodigo(A^.izq, buscado, nodo)
+				if aux^.info.codigo > buscado then
+					buscarCodigo(aux^.izq, buscado, nodo, salir)
 				else
-					buscarCodigo(A^.der, buscado, nodo);
+					buscarCodigo(aux^.der, buscado, nodo, salir);
 			end;
 		end
 		else
 		Begin
-			clrscr;
-			writeln('                Codigo no encontrado!');
-			writeln('           Desea buscar nuevamente? (s/n)');
+			errorcod; //g_menu
 			read(j);
 			clrscr;
-			if (j='s') then
+			if (j=1) then
 			begin
-				clrscr;
-				writeln('         Escriba el codigo: ');
+				repetir; //g_menu
 				read(buscado);
-				buscarCodigo(A, buscado, nodo)
-			end;
+				buscarCodigo(A, buscado, nodo, salir)
+			end
+			else salir:=true;
 		end
 	end;
 	
-	procedure buscarDesc (B: arbolArt; bus: string; var nodo: Art);
+	procedure buscarDesc (B: arbolArt; bus:string; var nodo: Art; var salir: boolean);
 	var
-		j:char;
+		j:word;
+		aux:arbolArt;
 	Begin
+		salir:=false;
 		if not arbolVacio(B) then
 		Begin
+			aux:=B;
 			if B^.info.descri = bus then
-				nodo:= B^.info
+				nodo:= aux^.info
 			else
 			Begin
-				if B^.info.descri > bus then
-					buscarDesc(B^.izq, bus, nodo)
+				if aux^.info.descri > bus then
+					buscarDesc(aux^.izq, bus, nodo, salir)
 				else
-					buscarDesc(B^.der, bus, nodo);
+					buscarDesc(aux^.der, bus, nodo, salir);
 			end;
 		end
 		else
 		begin
+			errordes; //g_menu
+			read(j);
 			clrscr;
-			writeln('               Descripcion no encontrada!');
-			writeln('              Desea buscar nuevamente? (s/n)');
-			j :=readkey;
-			clrscr;
-			if (j='s') then
+			if (j=1) then
 			begin
-				clrscr;
-				writeln('               Por favor escriba la descripcion nuevamente');
+				repetir; //G_menu
 				read(bus);
-				buscarDesc(B, bus, nodo)
-			end;
+				buscarDesc(B, bus, nodo, salir)
+			end
+			else salir:=true;
 		end
 	end;
 	

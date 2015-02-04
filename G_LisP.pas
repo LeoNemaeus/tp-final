@@ -19,13 +19,7 @@ Procedure precio_inorden(var A: arbolArt; var arA:ArchivoArt);
 		Begin
 			precio_inorden(A^.izq, arA);
 			leerArt(arA, datoA, A^.info.pos);
-			clrscr;
-			textcolor(2);
-			writeln('  ');
-			writeln('                              LISTADO DE PRECIOS  ');
-			textcolor(15);
-			writeln('  ');
-			writeln('  ');
+			presListPre;
 			writeln('                     Codigo:-------------',datoA.codigo);
 			writeln('                     Descriocion:--------', datoA.descri);
 			writeln('                     Precio de venta:----',datoA.pVenta:5:2);

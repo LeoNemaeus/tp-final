@@ -3,9 +3,9 @@ interface
 uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, tipos;
 
 	Procedure opcion2 (var A: arbolArt; var B: arbolArt; var arA:ArchivoArt);
-
+	
 implementation
-
+	
 	Procedure opcion2 (var A: arbolArt; var B: arbolArt; var arA:ArchivoArt);
 	var
 		op: word;
@@ -18,31 +18,31 @@ implementation
 		desc: string;
 		valor: real;
 		pos: word;
-		salir: boolean;
+		salir: boolena;
 	begin
 		presActSto;
 		codig;
 		writeln(' ');
 		writeln('  ');
-		writeln('                       3: Agregar un nuevo producto al stock ');
-		readln(op);
+		writeln('                      3: Agregar un nuevo producto al stock ');
+		read(op);
 		case op of
 			1: begin
 				presActSto;
 				writeln('                         Ingrese el codigo del producto: ');
-				readln(cod);
+				read(cod);
 				buscarCodigo (A, buscado, nodo, salir);
 				if (salir=false) then
 				begin
 					leerArt(arA, datoA, nodo.pos);
 					presActSto;
 					cambioStock (datoA.stock);
-					readln(cond);
+					read(cond);
 					if cond=1 then
 						begin
 							presActSto;
 							writeln('                    Cuantos producto desea agregar al stock? ');
-							readln(cantid);
+							read(cantid);
 							leerArt(arA, datoA, nodo.pos);
 							datoA.stock := datoA.stock + cantid;
 							ReEscArt(arA, datoA, nodo.pos);
@@ -56,7 +56,7 @@ implementation
 						begin
 							presActSto;
 							writeln('                    Cuantos producto desea remover del stock? ');
-							readln(cantid);
+							read(cantid);
 							leerArt(arA, datoA, nodo.pos);
 							datoA.stock := datoA.stock - cantid;
 							ReEscArt(arA, datoA, nodo.pos);
@@ -69,19 +69,19 @@ implementation
 			2: begin
 				presActSto;
 				writeln('                       Ingrese la descripcion del producto: ');
-				readln(desc);
+				read(desc);
 				buscarDesc (B, desc, nodo, salir);
 				if (salir=false) then
 				begin
 					leerArt(arA, datoA, nodo.pos);
 					presActSto;
 					cambioStock (datoA.stock);
-					readln(cond);
+					read(cond);
 					if cond=1 then
 						begin
 							presActSto;
 							writeln('                    Cuantos producto desea agregar al stock? ');
-							readln(cantid);
+							read(cantid);
 							leerArt(arA, datoA, nodo.pos);
 							datoA.stock := datoA.stock + cantid;
 							ReEscArt(arA, datoA, nodo.pos);
@@ -95,7 +95,7 @@ implementation
 						begin
 							presActSto;
 							writeln('                    Cuantos producto desea remover del stock? ');
-							readln(cantid);
+							read(cantid);
 							leerArt(arA, datoA, nodo.pos);
 							datoA.stock := datoA.stock - cantid;
 							ReEscArt(arA, datoA, nodo.pos);
@@ -108,33 +108,33 @@ implementation
 			3: begin
 				presActSto;
 				writeln('                      Ingrese el codigo del nuevo producto: ');
-				readln(cod);
+				read(cod);
 				datoA.codigo:= cod;
 				nodo.codigo:= cod;
 				presActSto;
 				writeln('                   Ingrese la descripcion del nuevo producto: ');
-				readln(desc);
+				read(desc);
 				datoA.descri := desc;
 				nodo.descri:= desc;
 				presActSto;
 				writeln('               Ingrese el nombre del proveedor del nuevo producto: ');
-				readln(desc);
+				read(desc);
 				datoA.prove:=desc;
 				presActSto;
 				writeln('                      Ingrese el stock del nuevo producto: ');
-				readln(cantid);
+				read(cantid);
 				datoA.stock := cantid;
 				presActSto;
 				writeln('                    Ingrese el stock minimo del nuevo producto: ');
-				readln(cantid);
+				read(cantid);
 				datoA.stockMin := cantid;
 				presActSto;
 				writeln('                    Ingrese el precio de costo del nuevo producto: ');
-				readln(valor);
+				read(valor);
 				datoA.pCosto := valor;
 				presActSto;
 				writeln('             Ingrese el porcentaje de ganancias para el nuevo producto: ');
-				readln(valor);
+				read(valor);
 				valor:= valor*datoA.pCosto;
 				valor:= valor/100;
 				valor:= valor+datoA.pCosto;
@@ -142,7 +142,7 @@ implementation
 				escribirArt(arA, datoA);
 				posicion(arA, pos);
 				nodo.pos:= pos;
-				insertarArbol (A, nodo, B);
+				insertarArbol (A, nodo, B);			
 				presActSto;
 				writeln('                  El nuevo producto ha sido ingresado con exito! ');
 				readkey;

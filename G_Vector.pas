@@ -5,7 +5,7 @@ type
 	tipoReg = Record
 				codigo:word;
 				cantidad:word;	
-				descri: string[40]; {string[40];}
+				descri: string;
 				pUnitario:real;
 				pFila:real;
 			end;
@@ -17,12 +17,12 @@ var
 	x: tipoReg;
 	lim: word;
 
-	Procedure borrarReg (var R: reg);
-	Procedure cargarReg (var R: reg; x: tipoReg; lim: word);
+	Procedure borrarReg (var R: reg; var lim: word);
+	Procedure cargarReg (var R: reg; x: tipoReg; var lim: word);
 	
 implementation
 
-	Procedure borrarReg ( var R: reg);
+	Procedure borrarReg ( var R: reg; var lim: word);
 	var
 		I: word;
 	begin
@@ -37,7 +37,7 @@ implementation
 		end;
 	end;
 	
-	Procedure cargarReg (var R: reg; x: tipoReg; lim: word);
+	Procedure cargarReg (var R: reg; x: tipoReg; var lim: word);
 	begin
 		inc(lim);
 		if lim < 15 then
@@ -51,7 +51,7 @@ implementation
 		else
 		Begin
 			textcolor(15);
-			writeln ('La factura no admite mas productos');
+			writeln ('              La factura no admite mas productos!');
 			readkey;
 			clrscr
 		end

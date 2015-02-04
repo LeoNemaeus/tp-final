@@ -16,18 +16,11 @@ implementation
 	begin
 		posicion(arA, pos);
 		I:=0;
-		while I < pos do
-		Begin
+		repeat
 			leerArt(arA, aux, I);
 			if aux.stockMin <= aux.stock then
 			begin
-				clrscr;
-				textcolor(2);
-				writeln('  ');
-				writeln('                       PEDIDO DE ARTICULOS FALTANTES  ');
-				textcolor(15);
-				writeln('  ');
-				writeln('  ');
+				presPedArt;
 				writeln('                   El articulo: ', aux.codigo,' : ',aux.descri);
 				writeln('               necesita reposicion. Comunicarse con el proveedor: ');
 				writeln('                    ',aux.prove);
@@ -35,7 +28,7 @@ implementation
 				readkey;
 			end;
 			inc(I);
-		end;
+		until I=pos
 	end;
 
 End.
