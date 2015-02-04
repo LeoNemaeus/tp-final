@@ -43,8 +43,8 @@ begin
 	writeln('                       1: Busqueda por Codigo ');
 	writeln('  ');
 	writeln('                       2: Busqueda por Descripcion ');
-	read(op);
-	if op = 1 then 
+	readln(op);
+	if op = 1 then
 	begin
 		clrscr;
 		textcolor(2);
@@ -55,7 +55,7 @@ begin
 		writeln('  ');
 		writeln('  ');
 		writeln('                         Ingrese el codigo del producto: ');
-		read(codi);
+		readln(codi);
 		buscarCodigo (A, codi, nodo);
 		leerArt(arA, datoA, nodo.pos);
 		clrscr;
@@ -67,7 +67,7 @@ begin
 		writeln('  ');
 		writeln('  ');
 		writeln('                    Ingrese la cantidad de productos a vender: ');
-		read(cant);
+		readln(cant);
 		totlinea:=0;
 		if cant <= datoA.stock then
 		begin
@@ -98,7 +98,7 @@ begin
 			readkey;
 		end;
 	end;
-	if op = 2 then 
+	if op = 2 then
 	begin
 		clrscr;
 		textcolor(2);
@@ -109,7 +109,6 @@ begin
 		writeln('  ');
 		writeln('  ');
 		write('                      Ingrese la descripcion del producto: ');
-		readln(descripcion_local);
 		readln(descripcion_local);
 		buscarDesc (B, descripcion_local, nodo);
 		leerArt(arA, datoA, nodo.pos);
@@ -122,7 +121,7 @@ begin
 		writeln('  ');
 		writeln('  ');
 		writeln('                    Ingrese la cantidad de productos a vender: ');
-		read(cant);
+		readln(cant);
 		totlinea:=0;
 		if cant <= datoA.stock then
 		begin
@@ -177,7 +176,7 @@ begin
 	writeln('                         1 : Continuar');
 	writeln('  ');
 	writeln('                         2 : Finalizar la venta');
-	read(fin);
+	readln(fin);
 	until (fin=2)
 end;
 
@@ -205,7 +204,7 @@ begin
 	writeln('  ');
 	writeln('  ');
 	writeln('                         Ingese el nombre del comprador');
-	read(no);
+	readln(no);
 	y.nombre:=no;
 	clrscr;
 	textcolor(2);
@@ -216,10 +215,10 @@ begin
 	writeln('  ');
 	writeln('  ');
 	writeln('                        Ingrese la direccion del comprador: ');
-	read(no);
+	readln(no);
 	y.direccion:=no;
 	iva;
-	read(iv);
+	readln(iv);
 	if iv=1 then y.iva:= 'Resp. Insc.'
 	else
 	Begin
@@ -227,7 +226,7 @@ begin
 		else y.iva:='Cons. Final';
 	end;
 	cond_venta;
-	read(cv);
+	readln(cv);
 	if cv=1 then y.condVenta:= 'Credito'
 	else y.condVenta:= 'Contado';
 	y.total:=total;
@@ -241,7 +240,7 @@ begin
 	end;
 	escribirFac(arF, y);
 end;
-	
+
 Procedure opcion1 (var arA: ArchivoArt; var arF:ArchivoFac; var A: arbolArt; var B: arbolArt);
 	var
 		total: real;
@@ -251,5 +250,5 @@ Procedure opcion1 (var arA: ArchivoArt; var arF:ArchivoFac; var A: arbolArt; var
 		venta(A, B, arA, lim, total);
 		factura(arF, total, lim);
 	end;
-	
+
 end.

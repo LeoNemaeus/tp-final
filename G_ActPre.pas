@@ -14,7 +14,7 @@ var
 	descripcion: string;
 	nodo: Art;
 	cantidad: word;
-	p: string[2];
+	p: shortint;
 	h: word;
 	cost: real;
 	l: string[2];
