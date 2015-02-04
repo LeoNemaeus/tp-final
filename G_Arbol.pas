@@ -91,23 +91,20 @@ var
 	var
 		I: word;
 		pos: word;
-		D: word;
 		nodo: Art;
 		datoA: tipoArt;
 	begin
-		if arbolVacio(A) = true then
-		begin
-			posicion(arA, pos);
-			D:= pos;
-			I:=0;
-			repeat
-				leerArt(arA, datoA, I);
-				nodo.codigo:= datoA.codigo;
-				nodo.descri:= datoA.descri;
-				nodo.pos:= I;
-				insertarArbol (A, nodo, B);
-			until (I=D);
-		end;
+		crearArbol (A, B);
+		posicion(arA, pos); //archivo
+		I:=0;
+		repeat
+			leerArt(arA, datoA, I); //archivo
+			nodo.codigo:= datoA.codigo;
+			nodo.descri:= datoA.descri;
+			nodo.pos:= I;
+			insertarArbol (A, nodo, B);
+			inc(I);
+		until (I=pos);
 	end;
 
 	

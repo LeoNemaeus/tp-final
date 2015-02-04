@@ -12,7 +12,6 @@ var
 Begin {Principal}
 	clrscr;
 	crear (arA, arF);
-	crearArbol (A, B);
 	cargarArbol (A, B, arA);
 	comienzo; 
 	opciones; 
