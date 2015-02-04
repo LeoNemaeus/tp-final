@@ -1,6 +1,6 @@
 Unit G_Menu;
 interface
-uses crt, G_Vector;
+uses crt, G_Vector, tipos;
 
 	Procedure comienzo;
 	Procedure opciones;
@@ -18,8 +18,8 @@ uses crt, G_Vector;
 	procedure opcionEst;
 	procedure presPedArt;
 	Procedure iva;
-	Procedure ventas (lim: word; var R: reg);
-	Procedure facturas (total: real; dia:word; mes: word; anio:word; cv: string; iv:string; nfac:word; nom: string; dir: string);
+	{Procedure ventas (var vtas: Venta);}
+	Procedure facturas (var aux: tipoFac);
 	procedure buscarFac;
 	Procedure cond_venta;
 	procedure cambioStock (stock: word);
@@ -249,41 +249,33 @@ implementation
 		writeln('                           3 : Consumidor Final');
 	end;
 
-	Procedure ventas (lim: word; var R: reg);
+
+	Procedure facturas (var aux: tipoFac);
 	var
 		I: word;
 	Begin
-		for I := 1 to lim do
-		Begin
-			writeln('       ',R[I].cantidad,'x',R[I].pUnitario:5:2,'          ',R[I].pFila:5:2);
-			writeln('       ',R[I].codigo,'  ',R[I].descri);
-			writeln(' ');
-		end;
-	End;
-
-	Procedure facturas (total: real; dia:word; mes: word; anio:word; cv: string; iv:string; nfac:word; nom: string; dir: string);
-	Begin
 		clrscr;
 		textcolor(15);
-		writeln('   ');
-		writeln('                                  DON JUSTO S.A. ');
-		writeln('                               Cuit: 30-515447847-9');
-		writeln('                       12 de Abril 258 - Colon - Entre Rios             ');
-		writeln('                                 Tel: 03447-422672    ');
-		writeln('             ');
-		writeln('                       Factura C                 ');
-		writeln('                       N.Fac: ', nfac);
-		writeln('                       Fecha: ', dia,'/',mes,'/',anio);
-		writeln('                       Nombre: ',nom);
-		writeln('                       Domicilio: ',dir);
-		writeln('                    ');
-		writeln('                       De IVA Resp. Monot. a ', iv);
-		writeln('                       Condicion venta: ', cv);
-		writeln('                                                            ');
-		ventas(lim, R);					{procedimiento}
+		writeln('                          DON JUSTO S.A.   Cuit: 30-515447847-9');
+		writeln('                       12 de Abril 258-Colon-E.R. Tel 03447-422672');
+		writeln(' ');
+		writeln('                       Factura C - N.Fac: 0000-00', aux.numFac);
+		writeln('                       Fecha: ', aux.fecha.dia,'/',aux.fecha.mes,'/',aux.fecha.anio);
+		writeln('                       Nombre: ',aux.nombre,' - Domicilio: ',aux.direccion);
+		writeln('                       De IVA Resp. Monot. a ', aux.iva);
+		writeln('                       Condicion venta: ', aux.condVenta);
+		writeln('  ');
+		for I := 1 to 15 do
+		Begin
+			if aux.venta[I].cantidad <> 0 then
+			begin
+				writeln('                       ',aux.venta[I].cantidad,'x',aux.venta[I].pUnitario:5:2,'    ',aux.venta[I].pFila:5:2);
+			//	writeln('                       ',aux.venta[I].codigo,'  ',aux.venta[I].descri);
+				writeln(' ');
+			end;
+		end;
 		writeln('                                    ');
-		writeln('                       Total:          $', total:5:2);
-		writeln('                                                         ');
+		writeln('                       Total:          $', aux.total:5:2);
 		writeln('                                 Gracias por su compra!');
 		readkey;
 	End;
