@@ -78,6 +78,7 @@ agregado en el total no se discrimina*
 			        condVenta:string;
                     venta:Venta;
                     total:real;
+					limite: word;
                 end;
 
 

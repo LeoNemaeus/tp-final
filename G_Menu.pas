@@ -265,6 +265,7 @@ implementation
 	Procedure facturas (var aux: tipoFac);
 	var
 		I: word;
+		ult: word;
 	Begin
 		clrscr;
 		textcolor(15);
@@ -277,12 +278,13 @@ implementation
 		writeln('                       De IVA Resp. Monot. a ', aux.iva);
 		writeln('                       Condicion venta: ', aux.condVenta);
 		writeln('  ');
-		for I := 1 to 15 do
+		ult:= aux.limite;
+		for I := 1 to ult do
 		Begin
 			if aux.venta[I].cantidad <> 0 then
 			begin
 				writeln('                       ',aux.venta[I].cantidad,'x',aux.venta[I].pUnitario:5:2,'    ',aux.venta[I].pFila:5:2);
-			//	writeln('                       ',aux.venta[I].codigo,'  ',aux.venta[I].descri);
+				writeln('                       ',aux.venta[I].codigo,'  ',aux.venta[I].descri);
 				writeln(' ');
 			end;
 		end;

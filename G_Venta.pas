@@ -145,6 +145,7 @@ begin
 	if cv=1 then y.condVenta:= 'Credito'
 	else y.condVenta:= 'Contado';
 	y.total:=total;
+	y.limite:=lim;
 	for I:= 1 to lim do
 	begin
 	   y.venta[I].codigo:= R[I].codigo;
@@ -162,11 +163,19 @@ Procedure opcion1 (var arA: ArchivoArt; var arF:ArchivoFac; var A: arbolArt; var
 		R: reg;
 		lim: word;
 		re: string;
+		pos: word;
+		aux: tipoFac;
 	begin
 		lim:=0;
 		venta(A, B, arA, lim, total, R);
 		if lim <> 0 then 
+		begin
 			factura(arF, total, lim, R);
+			posicionf(arF, pos);
+			dec(pos);
+			leerFac(arF, aux, pos);
+			facturas (aux);
+		end;
 	end;
 	
 end.
