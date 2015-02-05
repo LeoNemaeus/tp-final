@@ -7,14 +7,15 @@ var
 	A: arbolArt;
 	B: arbolArt;
 	arA: ArchivoArt;
-	
-		
+
+
+
 Begin {Principal}
 	clrscr;
-	crear (arA, arF);
-	cargarArbol (A, B, arA);
-	comienzo; 
-	opciones; 
+	crear (arA, arF); //archivo
+	cargarArbol (A, B, arA); //arbol
+	comienzo; //menu
+	opciones; //menu
 	read(op);
 	repeat
 		case op of

@@ -28,9 +28,10 @@ implementation
 		read(op);
 		case op of
 			1: begin
+				cargarArbol (A, B, arA);
 				presActSto; //menu
 				writeln('                         Ingrese el codigo del producto: ');
-				readln(cod);
+				read(cod);
 				buscarCodigo (A, buscado, nodo, salir); //arbol
 				if (salir=false) then
 				begin
@@ -67,6 +68,7 @@ implementation
 				end;
 			end;
 			2: begin
+				cargarArbol (A, B, arA);
 				presActSto; //menu
 				writeln('                       Ingrese la descripcion del producto: ');
 				readln(desc);
@@ -106,6 +108,7 @@ implementation
 				end;
 			end;
 			3: begin
+				cargarArbol (A, B, arA);
 				presActSto; //menu
 				writeln('                      Ingrese el codigo del nuevo producto: ');
 				readln(cod);
@@ -146,6 +149,7 @@ implementation
 				presActSto; //menu
 				writeln('                  El nuevo producto ha sido ingresado con exito! ');
 				readkey;
+				cargarArbol (A, B, arA);
 			end;
 		end;
 	end;

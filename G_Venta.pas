@@ -27,7 +27,8 @@ begin
 	repeat
 		presVenFac; //menu
 		codig; //menu
-		read(op);
+		cargarArbol (A, B, arA);
+		readln(op);
 		if op = 1 then
 		begin
 			presVenFac; //menu
@@ -103,7 +104,7 @@ begin
 		end;
 		presVenFac; //menu
 		cierre; //menu
-		read(fin);
+		readln(fin);
 	until (fin=2)
 end;
 
@@ -114,6 +115,7 @@ var
 	cv: word;
 	a, m, d, o: word;
 	no: string;
+	nom: string;
 	y: tipoFac;
 	I: word;
 	salir: boolean;
@@ -126,14 +128,14 @@ begin
 	y.fecha.dia:=d;
 	presVenFac; //menu
 	writeln('                         Ingese el nombre del comprador');
-	readln(no);
-	y.nombre:=no;
+	readln(nom);
+	y.nombre:=nom;
 	presVenFac; //menu
 	writeln('                        Ingrese la direccion del comprador: ');
 	readln(no);
 	y.direccion:=no;
 	iva; //menu
-	read(iv);
+	readln(iv);
 	if iv=1 then y.iva:= 'Resp. Insc.'
 	else
 	Begin
@@ -141,7 +143,7 @@ begin
 		else y.iva:='Cons. Final';
 	end;
 	cond_venta; //menu
-	read(cv);
+	readln(cv);
 	if cv=1 then y.condVenta:= 'Credito'
 	else y.condVenta:= 'Contado';
 	y.total:=total;
@@ -173,7 +175,7 @@ Procedure opcion1 (var arA: ArchivoArt; var arF:ArchivoFac; var A: arbolArt; var
 			factura(arF, total, lim, R);
 			posicionf(arF, pos);
 			dec(pos);
-			leerFac(arF, aux, pos);
+			leerFac(arF, aux, pos); //archivo
 			facturas (aux);
 		end;
 	end;

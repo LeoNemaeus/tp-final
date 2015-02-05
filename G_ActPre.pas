@@ -29,9 +29,10 @@ Begin
 	repeat
 		presActPre; //menu
 		codig; //menu
-		read(op);
+		readln(op);
 		if op=1 then
 		begin
+			cargarArbol (A, B, arA);
 			presActPre; //menu
 			writeln('                        Ingrese el codigo del producto: ');
 			readln(codigo);
@@ -39,6 +40,7 @@ Begin
 		end;
 		if op=2 then
 		Begin
+			cargarArbol (A, B, arA);
 			presActPre; //menu
 			writeln('                      Ingrese la descripcion del producto: ');
 			readln(descripcion);
@@ -106,6 +108,7 @@ Begin
 		end;
 	presActPre; //menu
 	cierre; //menu
+	cargarArbol (A, B, arA);
 	read(fin);
 	until (fin=2)
 end;

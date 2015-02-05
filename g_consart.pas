@@ -20,6 +20,7 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 		I: word;
 		salir:boolean;
 	begin
+		cargarArbol (A, B, arA);
 		presConsArt; //menu
 		consulta; //menu
 		read(op);

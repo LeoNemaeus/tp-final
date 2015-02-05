@@ -269,28 +269,28 @@ implementation
 	Begin
 		clrscr;
 		textcolor(15);
-		writeln('                          DON JUSTO S.A.   Cuit: 30-515447847-9');
-		writeln('                       12 de Abril 258-Colon-E.R. Tel 03447-422672');
+		writeln('                    DON JUSTO S.A.   Cuit: 30-515447847-9');
+		writeln('                 12 de Abril 258-Colon-E.R. Tel 03447-422672');
 		writeln(' ');
-		writeln('                       Factura C - N.Fac: 0000-00', aux.numFac);
-		writeln('                       Fecha: ', aux.fecha.dia,'/',aux.fecha.mes,'/',aux.fecha.anio);
-		writeln('                       Nombre: ',aux.nombre,' - Domicilio: ',aux.direccion);
-		writeln('                       De IVA Resp. Monot. a ', aux.iva);
-		writeln('                       Condicion venta: ', aux.condVenta);
+		writeln('                 Factura C - N.Fac: 0000-00', aux.numFac);
+		writeln('                 Fecha: ', aux.fecha.dia,'/',aux.fecha.mes,'/',aux.fecha.anio);
+		writeln('                 Nombre: ',aux.nombre,' - Domicilio: ',aux.direccion);
+		writeln('                 De IVA Resp. Monot. a ', aux.iva);
+		writeln('                 Condicion venta: ', aux.condVenta);
 		writeln('  ');
 		ult:= aux.limite;
 		for I := 1 to ult do
 		Begin
 			if aux.venta[I].cantidad <> 0 then
 			begin
-				writeln('                       ',aux.venta[I].cantidad,'x',aux.venta[I].pUnitario:5:2,'    ',aux.venta[I].pFila:5:2);
-				writeln('                       ',aux.venta[I].codigo,'  ',aux.venta[I].descri);
+				writeln('                 ',aux.venta[I].cantidad,'x',aux.venta[I].pUnitario:5:2,'    ',aux.venta[I].pFila:5:2);
+				writeln('                 ',aux.venta[I].codigo,'  ',aux.venta[I].descri);
 				writeln(' ');
 			end;
 		end;
 		writeln('                                    ');
-		writeln('                       Total:          $', aux.total:5:2);
-		writeln('                                 Gracias por su compra!');
+		writeln('                 Total:          $', aux.total:5:2);
+		writeln('                       Gracias por su compra!');
 		readkey;
 	End;
 	

@@ -63,8 +63,8 @@ procedure opcion5 (var arF: ArchivoFac; var arA: ArchivoArt);
 			I:=0;
 			while I< pos do
 			begin
-				leerFac(arF, aux, I); //archivo
-				facturas (aux); //menu
+				leerFac(arF, aux, I);
+				facturas (aux);
 				inc(I);
 			end;
 		end;
