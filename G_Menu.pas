@@ -18,7 +18,7 @@ uses crt, G_Vector, tipos;
 	procedure opcionEst;
 	procedure presPedArt;
 	Procedure iva;
-	{Procedure ventas (var vtas: Venta);}
+	procedure consultaArt (var aux:tipoArt);
 	Procedure facturas (var aux: tipoFac);
 	procedure buscarFac;
 	Procedure cond_venta;
