@@ -18,7 +18,7 @@ implementation
 		I:=0;
 		repeat
 			leerArt(arA, aux, I); //archivo
-			if aux.stockMin <= aux.stock then
+			if aux.stockMin >= aux.stock then
 			begin
 				presPedArt; //menu
 				writeln('                   El articulo: ', aux.codigo,' : ',aux.descri);
