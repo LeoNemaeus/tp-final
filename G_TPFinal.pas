@@ -8,8 +8,6 @@ var
 	B: arbolArt;
 	arA: ArchivoArt;
 
-
-
 Begin {Principal}
 	clrscr;
 	crear (arA, arF); //archivo

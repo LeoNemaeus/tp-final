@@ -25,14 +25,14 @@ implementation
 		writeln(' ');
 		writeln('  ');
 		writeln('                       3: Agregar un nuevo producto al stock ');
-		read(op);
+		readln(op);
 		case op of
 			1: begin
 				cargarArbol (A, B, arA);
 				presActSto; //menu
 				writeln('                         Ingrese el codigo del producto: ');
-				read(cod);
-				buscarCodigo (A, buscado, nodo, salir); //arbol
+				readln(cod);
+				buscarCodigo (A, cod, nodo, salir); //arbol
 				if (salir=false) then
 				begin
 					leerArt(arA, datoA, nodo.pos); //archivo

@@ -166,12 +166,12 @@ var
 		else
 		begin
 			errordes; //menu
-			read(j);
+			readln(j);
 			clrscr;
 			if (j=1) then
 			begin
 				repetir; //menu
-				read(bus);
+				readln(bus);
 				buscarDesc(B, bus, nodo, salir)
 			end
 			else salir:=true;

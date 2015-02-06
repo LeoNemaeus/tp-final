@@ -19,11 +19,12 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 		pro:string;
 		I: word;
 		salir:boolean;
+		noencon: byte;
 	begin
 		cargarArbol (A, B, arA);
 		presConsArt; //menu
 		consulta; //menu
-		read(op);
+		readln(op);
 		case op of
 			1: begin
 				presConsArt; //menu
@@ -33,17 +34,7 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 				if (salir=false) then
 				begin
 					leerArt(arA, aux, nodo.pos); //archivo
-					presConsArt; //menu
-					writeln('                         Codigo:----------------:',aux.codigo);
-					writeln('                         Descripcion:-----------:',aux.descri);
-					writeln('                         Proveedor:-------------:',aux.prove);
-					writeln('                         Stock:-----------------:',aux.stock);
-					writeln('                         Precio de venta:-------:',aux.pVenta:5:2);
-					writeln('                         Precio de costo:-------:',aux.pCosto:5:2);
-					po:=(aux.pVenta-aux.pCosto)*100;
-					po:= po/aux.pCosto;
-					writeln('                         Porcentaje de ganancias:-:',po:3:2);
-					readkey;
+					consultaArt (aux);
 				end;
 			end;
 			2: Begin
@@ -54,17 +45,7 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 				if (salir=false) then
 				begin
 					leerArt(arA, aux, nodo.pos); //archivo
-					presConsArt; //menu
-					writeln('                         Codigo:----------------:',aux.codigo);
-					writeln('                         Descripcion:-----------:', aux.descri);
-					writeln('                         Proveedor:-------------:',aux.prove);
-					writeln('                         Stock:-----------------:',aux.stock);
-					writeln('                         Precio de venta:-------:',aux.pVenta:5:2);
-					writeln('                         Precio de costo:-------:',aux.pCosto:5:2);
-					po:=(aux.pVenta-aux.pCosto)*100;
-					po:= po/aux.pCosto;
-					writeln('                         Porcentaje de ganancias:-:',po:3:2);
-					readkey;
+					consultaArt (aux);
 				end;
 			end;
 			3: Begin
@@ -72,25 +53,23 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 				writeln('                             Ingrese el proveedor: ');
 				readln(pro);
 				posicion(arA, pos); //archivo
+				noencon:=0;
 				I:=0;
 				while I< pos do
 				begin	
 					leerArt(arA, aux, I); //archivo
 					if aux.prove = pro then
 					begin
-						presConsArt; //menu
-						writeln('                         Codigo:----------------:',aux.codigo);
-						writeln('                         Descripcion:-----------:', aux.descri);
-						writeln('                         Proveedor:-------------:',aux.prove);
-						writeln('                         Stock:-----------------:',aux.stock);
-						writeln('                         Precio de venta:-------:',aux.pVenta:5:2);
-						writeln('                         Precio de costo:-------:',aux.pCosto:5:2);
-						po:=(aux.pVenta-aux.pCosto)*100;
-						po:= po/aux.pCosto;
-						writeln('                         Porcentaje de ganancias:-:',po:3:2);
-						readkey;
+						noencon:=1;
+						consultaArt (aux);
 					end;
 					inc(I)
+				end;
+				if noencon=0 then
+				begin
+					presConsArt; //menu
+					writeln('                          Proveedor no encontrado!');
+					readkey;
 				end;
 			end;
 		end;

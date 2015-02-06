@@ -36,28 +36,33 @@ procedure opcion7 (var arF: ArchivoFac);
 				leerFac(arF, aux, I); //archivo
 				mes:= aux.fecha.mes;
 				anio:= aux.fecha.anio;
+				me:=mes;
+				ani:=anio;
 				cont:=aux.total;
+				res:=cont;
 				posicionf(arF, pos); //archivo
+				inc(I);
 				while I <= pos do
 				begin
 					leerFac(arF, aux, I); //archivo
 					if (aux.fecha.mes = mes) then
 						cont:= cont+aux.total
 					else
-					begin
+					{ begin }
 						if cont > res then
 						begin
 							me:=mes;
 							ani:=anio;
 							res:= cont;
 						end;
-						mes:=aux.fecha.mes;
-						cont:= aux.total
-					end;
+						{ mes:=aux.fecha.mes;
+						cont:= aux.total;
+					end;  }
 					inc(I);
 				end;
 				presEstVentas; //menu
 				writeln('                El mes ',me,' del anio ',ani,' ha recaudado mayor ganancia');
+				writeln('                El total recaudado es: $',res:7:2);
 				readkey;
 			end;
 			2: begin
@@ -72,7 +77,7 @@ procedure opcion7 (var arF: ArchivoFac);
 					pos:= pos-1
 				until (pos=0);
 				presEstVentas; //menu
-				writeln('                   El total recaudado en el dia de la fecha es: ',ac:7:2);
+				writeln('                   El total recaudado en el dia de la fecha es: $',ac:7:2);
 				readkey;
 			end;
 		end;

@@ -284,7 +284,7 @@ implementation
 			if aux.venta[I].cantidad <> 0 then
 			begin
 				writeln('                 ',aux.venta[I].cantidad,'x',aux.venta[I].pUnitario:5:2,'    ',aux.venta[I].pFila:5:2);
-				writeln('                 ',aux.venta[I].codigo,'  ',aux.venta[I].descri);
+				writeln('                 ',aux.venta[I].codigo,' - ',aux.venta[I].descri);
 				writeln(' ');
 			end;
 		end;
@@ -386,8 +386,30 @@ implementation
 		writeln('                         2 : Finalizar');
 	end;
 	
+	procedure consultaArt (var aux:tipoArt);
+	var
+		po: real;
+	begin
+		presConsArt; //menu
+		writeln('                         Codigo:----------------:',aux.codigo);
+		writeln('                         Descripcion:-----------:', aux.descri);
+		writeln('                         Proveedor:-------------:',aux.prove);
+		writeln('                         Stock:-----------------:',aux.stock);
+		writeln('                         Precio de venta:-------:',aux.pVenta:5:2);
+		writeln('                         Precio de costo:-------:',aux.pCosto:5:2);
+		po:=(aux.pVenta-aux.pCosto)*100;
+		po:= po/aux.pCosto;
+		writeln('                         Porcentaje de ganancias:',po:3:2);
+		readkey;
+	end;
+	
 	Procedure Finalizar;
+	var
+	I: word;
 	Begin
+		textbackground(3);
+		I:=170;
+		repeat
 		clrscr;
 		writeln('       ');
 		textcolor(15);
@@ -398,13 +420,13 @@ implementation
 		writeln('          *   *   *   *   *   *   *****   *   *   *****   *   *');
 		writeln('       ');
 		writeln('       ');
-		writeln('       ');
-		textcolor(14);
-		writeln('                          +++++     +++    +   +');
-		writeln('                           +   +   +   +   ++  +');
-		writeln('                           +   +   +   +   + + +');
-		writeln('                           +   +   +   +   +  ++');
-		writeln('                          +++++     +++    +   +');
+		writeln(' ');
+		textcolor(15);
+		writeln('                          ',chr(i),chr(i),chr(i),chr(i),chr(i),'     ',chr(177),chr(177),chr(177),'    ',chr(177),'   ',chr(177));
+		writeln('                           ',chr(i),'   ',chr(i),'   ',chr(245),'   +   ++  +');
+		writeln('                           ',chr(i),'   ',chr(i),'   +   +   + + +');
+		writeln('                           ',chr(i),'   ',chr(i),'   +   +   +  ++');
+		writeln('                          ',chr(I),chr(i),chr(i),chr(i),chr(i),'     +++    +   +');
 		writeln('       ');
 		writeln('       ');
 		writeln('                   +++++   +   +   +++++   +++++    +++');
@@ -412,7 +434,9 @@ implementation
 		writeln('                     +     +   +   +++++     +     +   +');
 		writeln('                     +     +   +       +     +     +   +');
 		writeln('                   +++     +++++   +++++     +      +++');
-		readkey;
+		inc(I);
+		delay(600);
+		until I=180;
 	end;
 
 End.
