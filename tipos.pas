@@ -1,7 +1,7 @@
 {
  *Archivo: tipos.pas
 }
-unit tipos;
+unit Tipos;
 interface
 
 uses sysutils;
@@ -37,10 +37,10 @@ type
 }
 
 tipoFecha = record
-          dia: word;
-          mes: word;
-          anio: word;
-end;
+				dia: word;
+				mes: word;
+				anio: word;
+			end;
 
 
     tipoFac = record
@@ -77,12 +77,6 @@ end;
 	ArchivoArt = file of tipoArt;
 	
 	ArchivoFac = file of tipoFac;
-
-
-{
- *Tipos varios
-}
-	tClave = (codigo, descripcion, nFactura);
 
 implementation
 end.

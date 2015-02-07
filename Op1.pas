@@ -1,6 +1,6 @@
-unit G_Venta;
+unit Op1;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, Dos, tipos;
+uses Menu, Archivos, Arbol, crt, Vector, Dos, Tipos;
 
 Procedure venta (var A: arbolArt; var B: arbolArt; var arA: ArchivoArt; var lim:word; var total:real; var R:reg);
 Procedure factura (var arF: ArchivoFac; var total: real; var lim: word; var R: reg);

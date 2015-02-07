@@ -1,19 +1,7 @@
-Unit G_Arbol;
+Unit Arbol;
 
 interface
-uses Crt, g_menu, tipos, g_archivo;
-type
-	Art = Record
-		codigo: word;
-		descri: string;
-		pos:word;
-		end;
-	arbolArt= ^hojaA;
-	hojaA = Record
-		info: Art;
-		izq: arbolArt;
-		der: arbolArt;
-		end;
+uses Crt, Menu, Tipos, Archivos;
 		
 	procedure crearArbol (var A:arbolArt; var B:arbolArt);
 	function arbolVacio (A:arbolArt): boolean;
@@ -25,12 +13,7 @@ type
 	procedure cargarArbol (var A:arbolArt; var B:arbolArt; var arA: ArchivoArt);
 
 implementation
-var
-	A: arbolArt;
-	B: arbolArt;
-	nodo: Art;
-	buscado: word;
-	bus: string;
+
 	
 	procedure crearArbol (var A:arbolArt; var B:arbolArt);
 	Begin

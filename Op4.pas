@@ -1,6 +1,6 @@
-unit G_ActPre;
+unit Op4;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, tipos;
+uses Menu, Archivos, Arbol, crt, Vector, Tipos;
 
 procedure opcion4 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 

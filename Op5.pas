@@ -1,6 +1,6 @@
-unit G_ConsFac;
+unit Op5;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, tipos;
+uses Menu, Archivos, Arbol, crt, Vector, Tipos;
 
 procedure opcion5 (var arF: ArchivoFac; var arA: ArchivoArt);
 

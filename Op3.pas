@@ -1,6 +1,6 @@
-Unit G_LisP;
+Unit Op3;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, tipos;
+uses Menu, Archivos, Arbol, crt, Vector, Tipos;
 var
 	A: arbolArt;
 	arA:ArchivoArt;

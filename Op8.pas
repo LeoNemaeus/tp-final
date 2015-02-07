@@ -1,6 +1,6 @@
-Unit G_PedArt;
+Unit Op8;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, tipos;
+uses Menu, Archivos, Arbol, crt, Vector, Tipos;
 
 	procedure opcion8 (var arA:ArchivoArt);
 

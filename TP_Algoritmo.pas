@@ -1,5 +1,5 @@
-Program TPAlgoritmo;
-Uses crt, G_Arbol, G_Archivo, G_Venta, G_Vector, G_Menu, Dos, G_ConsFac, G_PedArt, G_ActPre, G_consArt, G_ActSto, G_EstVen, G_LisP, tipos;
+Program TP_Algoritmo;
+Uses crt, Arbol, Archivos, Vector, Menu, Dos, Tipos, Op1, Op2, Op3, Op4, Op5, Op6, Op7, Op8;
 
 var
 	op: word;
