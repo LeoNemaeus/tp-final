@@ -35,11 +35,11 @@ implementation
 	Procedure comienzo;
 	Begin
 		clrscr;
-		textcolor(2);
+		textcolor(3);
 		writeln('   |~|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|~|');
 		writeln('   |~|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|~|');
 		writeln('   |~|                                                                 |~|');
-		textcolor(14);
+		textcolor(9);
 		writeln('               _|\___________________,,__                                 ');
 		writeln('              / `--|||||||||||----------------_]                          ');
 		writeln('             /_==o ___________________|                                   ');
@@ -48,7 +48,7 @@ implementation
 		writeln('            //___//                                                       ');
 		writeln('           /`---´/                                                        ');
 		writeln('          /____ /                                                         ');
-		textcolor(10);
+		textcolor(7);
 		writeln('                                    Armeria                               ');
 		writeln('                                DON JUSTO S.A.                            ');
 		writeln('                                                                          ');
@@ -59,7 +59,7 @@ implementation
 		writeln('                           www.armeriadonjusto.com.ar                     ');
 		writeln('                        www.facebook.com/armeriadonjusto                  ');
 		writeln('                                                                          ');
-		textcolor(2);
+		textcolor(3);
 		writeln('   |~|                                                                 |~|');
 		writeln('   |~|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|~|');
 		writeln('      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   ');
@@ -69,41 +69,41 @@ implementation
 	Procedure opciones;
 	begin
 		clrscr;
-		textcolor(2);
+		textcolor(3);
 		writeln('   |~|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|~|');
 		writeln('   |~|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|~|');
 		writeln('   |~|                                                                 |~|');
-		textcolor(10);
+		textcolor(11);
 		writeln('           SELECCIONE EL NUMERO DE LA OPCION QUE DESEE REALIZAR:          ');
-		textcolor(2);
+		textcolor(3);
 		writeln('   |~|                                                                 |~|');
 		writeln('   |~|  ***************************    ***************************     |~|');
-		textcolor(14);
+		textcolor(15);
 		writeln('          1    Venta/Facturacion         2   Actualizacion Stock          ');
-		textcolor(2);
+		textcolor(3);
 		writeln('   |~|  ***************************    ***************************     |~|');
 		writeln('   |~|                                                                 |~|');
 		writeln('   |~|  ***************************    ***************************     |~|');
-		textcolor(14);
+		textcolor(15);
 		writeln('          3     Lista de Precios         4  Actualizacion Precios         ');
-		textcolor(2);
+		textcolor(3);
 		writeln('   |~|  ***************************    ***************************     |~|');
 		writeln('   |~|                                                                 |~|');
 		writeln('   |~|  ***************************    ***************************     |~|');
-		textcolor(14);
+		textcolor(15);
 		writeln('          5    Consulta Facturas         6   Consulta articulos           ');
-		textcolor(2);
+		textcolor(3);
 		writeln('   |~|  ***************************    ***************************     |~|');
 		writeln('   |~|                                                                 |~|');
 		writeln('   |~|  ***************************    ***************************     |~|');
-		textcolor(14);
+		textcolor(15);
 		writeln('          7    Estadisticas Venta        8   Pedido Art Faltantes         ');
-		textcolor(2);
+		textcolor(3);
 		writeln('   |~|  ***************************    ***************************     |~|');
 		writeln('   |~|                                                                 |~|');
-		textcolor(14);
+		textcolor(15);
 		writeln('                              0    Finalizar                              ');
-		textcolor(2);
+		textcolor(3);
 		writeln('   |~|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|~|');
 		writeln('      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   ');
 	End;
@@ -122,7 +122,7 @@ implementation
 	Procedure errorcod;
 	begin
 		clrscr;
-		textcolor(red);
+		textcolor(12);
 		writeln(' ');
 		writeln('                                   ERROR');
 		writeln(' ');
@@ -138,7 +138,7 @@ implementation
 	procedure errordes;
 	begin
 		clrscr;
-		textcolor(red);
+		textcolor(12);
 		writeln(' ');
 		writeln('                                   ERROR');
 		writeln(' ');
@@ -163,7 +163,7 @@ implementation
 	procedure presVenFac;
 	begin
 		clrscr;
-		textcolor(2);
+		textcolor(11);
 		gotoxy(30,2);
 		writeln('VENTA Y FACTURACION  ');
 		textcolor(15);
@@ -174,7 +174,7 @@ implementation
 	procedure presActSto;
 	begin
 		clrscr;
-		textcolor(2);
+		textcolor(11);
 		gotoxy(30,2);
 		writeln('ACTUALIZACION DE STOCK  ');
 		textcolor(15);
@@ -185,7 +185,7 @@ implementation
 	procedure presListPre;
 	begin
 		clrscr;
-		textcolor(2);
+		textcolor(11);
 		gotoxy(30,2);
 		writeln('LISTADO DE PRECIOS  ');
 		textcolor(15);
@@ -196,7 +196,7 @@ implementation
 	procedure presActPre;
 	begin
 		clrscr;
-		textcolor(2);
+		textcolor(11);
 		gotoxy(30,2);
 		writeln('ACTUALIZACION DE PRECIOS  ');
 		textcolor(15);
@@ -207,7 +207,7 @@ implementation
 	procedure presConsFac;
 	begin
 		clrscr;
-		textcolor(2);
+		textcolor(11);
 		gotoxy(30,2);
 		writeln('CONSULTA DE FACTURAS  ');
 		textcolor(15);
@@ -218,7 +218,7 @@ implementation
 	procedure presConsArt;
 	begin
 		clrscr;
-		textcolor(2);
+		textcolor(11);
 		gotoxy(30,2);
 		writeln('CONSULTA DE ARTICULOS  ');
 		textcolor(15);
@@ -230,7 +230,7 @@ implementation
 	procedure presEstVentas;
 	begin
 		clrscr;
-		textcolor(2);
+		textcolor(11);
 		gotoxy(30,2);
 		writeln('ESTADISTICAS DE VENTAS  ');
 		textcolor(15);
@@ -241,7 +241,7 @@ implementation
 	procedure presPedArt;
 	begin
 		clrscr;
-		textcolor(2);
+		textcolor(11);
 		gotoxy(30,2);
 		writeln('PEDIDO DE ARTICULOS FALTANTES  ');
 		textcolor(15);
@@ -252,7 +252,7 @@ implementation
 	Procedure iva;
 	Begin
 		presVenFac;
-		writeln('               SELECCIONE LA CONDICION DEL COMPRADOR FRENTE AL IVA: ');
+		writeln('               Seleccione la condicion del comprador frente al IVA:');
 		writeln(' ');
 		writeln('                           1 : Responsable Inscripto');
 		writeln(' ');
@@ -266,9 +266,10 @@ implementation
 	var
 		I: word;
 		ult: word;
+		J: word;
 	Begin
 		clrscr;
-		textcolor(15);
+		textcolor(7);
 		writeln('                    DON JUSTO S.A.   Cuit: 30-515447847-9');
 		writeln('                 12 de Abril 258-Colon-E.R. Tel 03447-422672');
 		writeln(' ');
@@ -278,18 +279,24 @@ implementation
 		writeln('                 De IVA Resp. Monot. a ', aux.iva);
 		writeln('                 Condicion venta: ', aux.condVenta);
 		writeln('  ');
+		textcolor(15);
+		J:=10;
 		ult:= aux.limite;
 		for I := 1 to ult do
 		Begin
 			if aux.venta[I].cantidad <> 0 then
 			begin
-				writeln('                 ',aux.venta[I].cantidad,'x',aux.venta[I].pUnitario:5:2,'    ',aux.venta[I].pFila:5:2);
+				writeln('                 ',aux.venta[I].cantidad,'x',aux.venta[I].pUnitario:5:2);
+				gotoxy(40,J); writeln('$',aux.venta[I].pFila:5:2);
 				writeln('                 ',aux.venta[I].codigo,' - ',aux.venta[I].descri);
 				writeln(' ');
+				J:=J+3;
 			end;
 		end;
 		writeln('                                    ');
-		writeln('                 Total:          $', aux.total:5:2);
+		gotoxy(30,J);writeln('Total:');
+		gotoxy(40,J); writeln('$', aux.total:5:2);
+		textcolor(7);
 		writeln('                       Gracias por su compra!');
 		readkey;
 	End;
@@ -309,7 +316,7 @@ implementation
 	Procedure cond_venta;
 	Begin
 		clrscr;
-		textcolor(2);
+		textcolor(11);
 		gotoxy(30,2);
 		writeln('VENTA Y FACTURACION  ');
 		textcolor(15);
@@ -347,8 +354,10 @@ implementation
 	
 	procedure noSuf (stock: word);
 	begin
+		textcolor(12);
 		writeln('                      EL STOCK DEL PRODUCTO NO ES SUFICIENTE! ');
 		writeln('  ');
+		textcolor(15);
 		writeln('                  La venta NO SE HA REALIZADO. Usted solo posee: ', stock);
 		readkey;
 	end;
