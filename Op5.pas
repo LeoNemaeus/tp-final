@@ -1,6 +1,6 @@
-unit G_ConsFac;
+unit Op5;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, tipos;
+uses Menu, Archivos, Arbol, crt, Vector, Tipos;
 
 procedure opcion5 (var arF: ArchivoFac; var arA: ArchivoArt);
 
@@ -18,33 +18,33 @@ procedure opcion5 (var arF: ArchivoFac; var arA: ArchivoArt);
 		control: word;
 
 	begin
-		presConsFac;
-		buscarFac;
+		presConsFac; //menu
+		buscarFac; //menu
 		read(op);
 		if op=1 then
 		begin
-			presConsFac;
+			presConsFac; //menu
 			writeln('                         Ingrese el numero de factura:');
-			read(pos);
-			leerFac(arF, aux, pos);
-			facturas (aux);
+			readln(pos);
+			leerFac(arF, aux, pos); //archivo
+			facturas (aux); //menu
 		end;
 		if op=2 then
 		begin
-			presConsFac;
+			presConsFac; //menu
 			writeln('                              Ingrese el mes: (mm)');
-			read(mes);
-			presConsFac;
+			readln(mes);
+			presConsFac; //menu
 			writeln('                              Ingrese el año: (aaaa)');
-			read(an);
-			posicionf(arF, pos);
+			readln(an);
+			posicionf(arF, pos); //archivo
 			control:=0;
 			pos:= pos-1;
 			repeat
-				leerFac(arF, aux, pos);
+				leerFac(arF, aux, pos); //archivo
 				if (aux.fecha.mes=mes) and (aux.fecha.anio=an) then
 				begin
-					facturas (aux);
+					facturas (aux); //menu
 					dec(pos);
 					inc(control);
 				end
@@ -52,14 +52,14 @@ procedure opcion5 (var arF: ArchivoFac; var arA: ArchivoArt);
 			until (pos=0);
 			if control=0 then
 			begin
-				presConsFac;
+				presConsFac; //menu
 				writeln('                        No hay facturas en el mes ingresado');
 				readkey;
 			end;
 		end;
 		if op=3 then
 		begin
-			posicionf(arF, pos);
+			posicionf(arF, pos); //archivo
 			I:=0;
 			while I< pos do
 			begin
@@ -70,7 +70,7 @@ procedure opcion5 (var arF: ArchivoFac; var arA: ArchivoArt);
 		end;
 		if op>=4 then
 		begin
-		presConsFac;
+		presConsFac; //menu
 		writeln('                       La opcion seleccionada no es correcta ');
 		readkey;
 		end;		

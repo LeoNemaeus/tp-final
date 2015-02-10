@@ -1,6 +1,6 @@
-Unit G_LisP;
+Unit Op3;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, tipos;
+uses Menu, Archivos, Arbol, crt, Vector, Tipos;
 var
 	A: arbolArt;
 	arA:ArchivoArt;
@@ -18,8 +18,8 @@ Procedure precio_inorden(var A: arbolArt; var arA:ArchivoArt);
 		if not arbolVacio(A) then
 		Begin
 			precio_inorden(A^.izq, arA);
-			leerArt(arA, datoA, A^.info.pos);
-			presListPre;
+			leerArt(arA, datoA, A^.info.pos); //archivo
+			presListPre; //menu
 			writeln('                     Codigo:-------------',datoA.codigo);
 			writeln('                     Descriocion:--------', datoA.descri);
 			writeln('                     Precio de venta:----',datoA.pVenta:5:2);

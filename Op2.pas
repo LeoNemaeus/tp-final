@@ -1,11 +1,11 @@
-unit G_ActSto;
+unit Op2;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, tipos;
+uses Menu, Archivos, Arbol, crt, Vector, Tipos;
 
 	Procedure opcion2 (var A: arbolArt; var B: arbolArt; var arA:ArchivoArt);
-	
+
 implementation
-	
+
 	Procedure opcion2 (var A: arbolArt; var B: arbolArt; var arA:ArchivoArt);
 	var
 		op: word;
@@ -18,134 +18,138 @@ implementation
 		desc: string;
 		valor: real;
 		pos: word;
-		salir: boolena;
+		salir: boolean;
 	begin
-		presActSto;
-		codig;
+		presActSto; //menu
+		codig; //menu
 		writeln(' ');
 		writeln('  ');
-		writeln('                      3: Agregar un nuevo producto al stock ');
-		read(op);
+		writeln('                       3: Agregar un nuevo producto al stock ');
+		readln(op);
 		case op of
 			1: begin
-				presActSto;
+				cargarArbol (A, B, arA);
+				presActSto; //menu
 				writeln('                         Ingrese el codigo del producto: ');
-				read(cod);
-				buscarCodigo (A, buscado, nodo, salir);
+				readln(cod);
+				buscarCodigo (A, cod, nodo, salir); //arbol
 				if (salir=false) then
 				begin
-					leerArt(arA, datoA, nodo.pos);
-					presActSto;
-					cambioStock (datoA.stock);
+					leerArt(arA, datoA, nodo.pos); //archivo
+					presActSto; //menu
+					cambioStock (datoA.stock); //menu
 					read(cond);
 					if cond=1 then
 						begin
-							presActSto;
+							presActSto; //menu
 							writeln('                    Cuantos producto desea agregar al stock? ');
-							read(cantid);
+							readln(cantid);
 							leerArt(arA, datoA, nodo.pos);
 							datoA.stock := datoA.stock + cantid;
-							ReEscArt(arA, datoA, nodo.pos);
-							leerArt(arA, datoA, nodo.pos);
-							presActSto;
-							Stock (datoA.stock);
+							ReEscArt(arA, datoA, nodo.pos); //archivo
+							leerArt(arA, datoA, nodo.pos); //archivo
+							presActSto; //menu
+							Stock (datoA.stock); //menu
 						end
 					else
 					begin
 						if cond=2 then
 						begin
-							presActSto;
+							presActSto; //menu
 							writeln('                    Cuantos producto desea remover del stock? ');
-							read(cantid);
-							leerArt(arA, datoA, nodo.pos);
+							readln(cantid);
+							leerArt(arA, datoA, nodo.pos); //archivo
 							datoA.stock := datoA.stock - cantid;
-							ReEscArt(arA, datoA, nodo.pos);
-							presActSto;
-							Stock (datoA.stock);
+							ReEscArt(arA, datoA, nodo.pos); //archivo
+							presActSto; //menu
+							Stock (datoA.stock); //menu
 						end
 					end;
 				end;
 			end;
 			2: begin
-				presActSto;
+				cargarArbol (A, B, arA);
+				presActSto; //menu
 				writeln('                       Ingrese la descripcion del producto: ');
-				read(desc);
-				buscarDesc (B, desc, nodo, salir);
+				readln(desc);
+				buscarDesc (B, desc, nodo, salir); //arbol
 				if (salir=false) then
 				begin
-					leerArt(arA, datoA, nodo.pos);
-					presActSto;
-					cambioStock (datoA.stock);
+					leerArt(arA, datoA, nodo.pos); //archivo
+					presActSto; //menu
+					cambioStock (datoA.stock); //menu
 					read(cond);
 					if cond=1 then
 						begin
-							presActSto;
+							presActSto; //menu
 							writeln('                    Cuantos producto desea agregar al stock? ');
-							read(cantid);
-							leerArt(arA, datoA, nodo.pos);
+							readln(cantid);
+							leerArt(arA, datoA, nodo.pos); //archivo
 							datoA.stock := datoA.stock + cantid;
-							ReEscArt(arA, datoA, nodo.pos);
-							leerArt(arA, datoA, nodo.pos);
-							presActSto;
-							Stock (datoA.stock);
+							ReEscArt(arA, datoA, nodo.pos); //archivo
+							leerArt(arA, datoA, nodo.pos); //archivo
+							presActSto; //menu
+							Stock (datoA.stock); //menu
 						end
 					else
 					begin
 						if cond=2 then
 						begin
-							presActSto;
+							presActSto; //menu
 							writeln('                    Cuantos producto desea remover del stock? ');
-							read(cantid);
-							leerArt(arA, datoA, nodo.pos);
+							readln(cantid);
+							leerArt(arA, datoA, nodo.pos); //archivo
 							datoA.stock := datoA.stock - cantid;
-							ReEscArt(arA, datoA, nodo.pos);
-							presActSto;
-							Stock (datoA.stock);
+							ReEscArt(arA, datoA, nodo.pos); //archivo
+							presActSto; //menu
+							Stock (datoA.stock); //menu
 						end
 					end;
 				end;
 			end;
 			3: begin
-				presActSto;
+				cargarArbol (A, B, arA);
+				presActSto; //menu
 				writeln('                      Ingrese el codigo del nuevo producto: ');
-				read(cod);
+				readln(cod);
 				datoA.codigo:= cod;
 				nodo.codigo:= cod;
-				presActSto;
+				presActSto; //menu
 				writeln('                   Ingrese la descripcion del nuevo producto: ');
-				read(desc);
+				readln(desc);
 				datoA.descri := desc;
 				nodo.descri:= desc;
-				presActSto;
+				presActSto; //menu
 				writeln('               Ingrese el nombre del proveedor del nuevo producto: ');
-				read(desc);
+				readln(desc);
 				datoA.prove:=desc;
-				presActSto;
+				presActSto; //menu
 				writeln('                      Ingrese el stock del nuevo producto: ');
-				read(cantid);
+				readln(cantid);
 				datoA.stock := cantid;
-				presActSto;
+				presActSto; //menu
 				writeln('                    Ingrese el stock minimo del nuevo producto: ');
-				read(cantid);
+				readln(cantid);
 				datoA.stockMin := cantid;
-				presActSto;
+				presActSto; //menu
 				writeln('                    Ingrese el precio de costo del nuevo producto: ');
-				read(valor);
+				readln(valor);
 				datoA.pCosto := valor;
-				presActSto;
+				presActSto; //menu
 				writeln('             Ingrese el porcentaje de ganancias para el nuevo producto: ');
-				read(valor);
+				readln(valor);
 				valor:= valor*datoA.pCosto;
 				valor:= valor/100;
 				valor:= valor+datoA.pCosto;
 				datoA.pVenta:=valor;
-				escribirArt(arA, datoA);
-				posicion(arA, pos);
+				escribirArt(arA, datoA); //archivo
+				posicion(arA, pos); //archivo
 				nodo.pos:= pos;
-				insertarArbol (A, nodo, B);			
-				presActSto;
+				insertarArbol (A, nodo, B); //arbol
+				presActSto; //menu
 				writeln('                  El nuevo producto ha sido ingresado con exito! ');
 				readkey;
+				cargarArbol (A, B, arA);
 			end;
 		end;
 	end;

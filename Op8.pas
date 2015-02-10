@@ -1,6 +1,6 @@
-Unit G_PedArt;
+Unit Op8;
 interface
-uses G_Menu, G_Archivo, G_Arbol, crt, G_Vector, tipos;
+uses Menu, Archivos, Arbol, crt, Vector, Tipos;
 
 	procedure opcion8 (var arA:ArchivoArt);
 
@@ -14,13 +14,13 @@ implementation
 		I: word;
 
 	begin
-		posicion(arA, pos);
+		posicion(arA, pos); //archivo
 		I:=0;
 		repeat
-			leerArt(arA, aux, I);
-			if aux.stockMin <= aux.stock then
+			leerArt(arA, aux, I); //archivo
+			if aux.stockMin >= aux.stock then
 			begin
-				presPedArt;
+				presPedArt; //menu
 				writeln('                   El articulo: ', aux.codigo,' : ',aux.descri);
 				writeln('               necesita reposicion. Comunicarse con el proveedor: ');
 				writeln('                    ',aux.prove);

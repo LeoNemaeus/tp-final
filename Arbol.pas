@@ -1,19 +1,7 @@
-Unit G_Arbol;
+Unit Arbol;
 
 interface
-uses Crt, g_menu;
-type
-	Art = Record
-		codigo: word;
-		descri: string;
-		pos:word;
-		end;
-	arbolArt= ^hojaA;
-	hojaA = Record
-		info: Art;
-		izq: arbolArt;
-		der: arbolArt;
-		end;
+uses Crt, Menu, Tipos, Archivos;
 		
 	procedure crearArbol (var A:arbolArt; var B:arbolArt);
 	function arbolVacio (A:arbolArt): boolean;
@@ -22,14 +10,10 @@ type
 	procedure insertarB (var B: arbolArt; nodo: Art);
 	procedure buscarCodigo (A: arbolArt; buscado: word; var nodo: Art; var salir: boolean);
 	procedure buscarDesc (B: arbolArt; bus:string; var nodo: Art; var salir: boolean);
-	
+	procedure cargarArbol (var A:arbolArt; var B:arbolArt; var arA: ArchivoArt);
+
 implementation
-var
-	A: arbolArt;
-	B: arbolArt;
-	nodo: Art;
-	buscado: word;
-	bus: string;
+
 	
 	procedure crearArbol (var A:arbolArt; var B:arbolArt);
 	Begin
@@ -86,6 +70,27 @@ var
 		end;
 	end;
 	
+		procedure cargarArbol (var A:arbolArt; var B:arbolArt; var arA: ArchivoArt);
+	var
+		I: word;
+		pos: word;
+		nodo: Art;
+		datoA: tipoArt;
+	begin
+		crearArbol (A, B);
+		posicion(arA, pos); //archivo
+		I:=0;
+		repeat
+			leerArt(arA, datoA, I); //archivo
+			nodo.codigo:= datoA.codigo;
+			nodo.descri:= datoA.descri;
+			nodo.pos:= I;
+			insertarArbol (A, nodo, B);
+			inc(I);
+		until (I=pos);
+	end;
+
+	
 	procedure buscarCodigo (A: arbolArt; buscado: word; var nodo: Art; var salir: boolean);
 	var
 		j:word;
@@ -109,12 +114,12 @@ var
 		end
 		else
 		Begin
-			errorcod; //g_menu
+			errorcod; //menu
 			read(j);
 			clrscr;
 			if (j=1) then
 			begin
-				repetir; //g_menu
+				repetir; //menu
 				read(buscado);
 				buscarCodigo(A, buscado, nodo, salir)
 			end
@@ -143,13 +148,13 @@ var
 		end
 		else
 		begin
-			errordes; //g_menu
-			read(j);
+			errordes; //menu
+			readln(j);
 			clrscr;
 			if (j=1) then
 			begin
-				repetir; //G_menu
-				read(bus);
+				repetir; //menu
+				readln(bus);
 				buscarDesc(B, bus, nodo, salir)
 			end
 			else salir:=true;
