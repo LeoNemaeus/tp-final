@@ -58,17 +58,30 @@ tipoFecha = record
 {
  *Tipos referentes a arboles binarios
 }
-	Art = Record
+	ArtC = Record
 		codigo: word;
+		pos:word;
+		end;
+	arbolArtC= ^hojaC;
+	hojaC = Record
+		info: ArtC;
+		izq: arbolArtC;
+		der: arbolArtC;
+		bal: Shortint;
+		end;	
+		
+	ArtD = Record
 		descri: string;
 		pos:word;
 		end;
-	arbolArt= ^hojaA;
-	hojaA = Record
-		info: Art;
-		izq: arbolArt;
-		der: arbolArt;
+	arbolArtD= ^hojaD;
+	hojaD = Record
+		info: ArtD;
+		izq: arbolArtD;
+		der: arbolArtD;
+		bal: Shortint;
 		end;
+
 
 {
  *Tipos pertinentes a los archivos.
