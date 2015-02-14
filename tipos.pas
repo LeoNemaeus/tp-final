@@ -56,9 +56,11 @@ tipoFecha = record
                 end;
 
 {
- *Tipos referentes a arboles binarios
+ *Tipos referentes a arboles binarios AVL
+ **C : codigo
+ **D : descripcion
 }
-	ArtC = Record
+		ArtC = Record
 		codigo: word;
 		pos:word;
 		end;
@@ -81,7 +83,6 @@ tipoFecha = record
 		der: arbolArtD;
 		bal: Shortint;
 		end;
-
 
 {
  *Tipos pertinentes a los archivos.

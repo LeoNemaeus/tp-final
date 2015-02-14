@@ -1,10 +1,10 @@
-Unit Archivos;
+Unit Archivo;
 
 interface
 uses Tipos;
 const
-	rutaA = 'C:\TP Final Alg\db\articulos2.dat';
-	rutaF = 'C:\TP Final Alg\db\facturas2.dat';
+	rutaA = 'C:\Users\Giuliana\Documents\tp-final\db\articulos2.dat';
+	rutaF = 'C:\Users\Giuliana\Documents\tp-final\db\facturas2.dat';
 
 	procedure crear (var arA:ArchivoArt; var arF: ArchivoFac);
 	Procedure escribirArt(var arA:ArchivoArt; var datoA:tipoArt);
@@ -14,6 +14,8 @@ const
 	procedure leerArt(var arA:ArchivoArt; var datoA:tipoArt; var pos:word);
 	procedure leerFac(var arF:ArchivoFac; var datoF:tipoFac; var pos:word);
 	Procedure ReEscArt(var arA:ArchivoArt; var datoA:tipoArt; pos: word);
+	procedure borrar(var arA: ArchivoArt; buscado: word); 
+
 
 implementation
 	
@@ -121,4 +123,29 @@ implementation
 		end;
 		close(arF);
 	end;
+	
+	procedure borrar(var arA: ArchivoArt; buscado: word); 
+	var 
+	arCopia:ArchivoArt;
+	datoA:tipoArt;
+	pos:word;
+	begin 
+		assign(arCopia,'C:\Users\Giuliana\Documents\tp-final\db\Copia.dat'); 
+		rewrite(arCopia); 
+		reset(arA);
+		pos:=0;
+		seek(arA, pos);
+		while not eof (arA) do 
+		begin 
+			read(arA,datoA); 
+			if datoA.codigo<>buscado then 
+				write(arCopia,datoA); 
+		end; 
+		close(arA); 
+		close(arCopia); 
+		erase(arA); 
+		rename(arCopia,rutaA); 
+	end; 
+
+	
 End.

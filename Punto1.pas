@@ -1,19 +1,20 @@
-unit Op1;
+unit Punto1;
 interface
-uses Menu, Archivos, Arbol, crt, Vector, Dos, Tipos;
+uses Menu, Archivo, Arbol, crt, Vector, Dos, Tipos;
 
-Procedure venta (var A: arbolArt; var B: arbolArt; var arA: ArchivoArt; var lim:word; var total:real; var R:reg);
+Procedure venta (var A: arbolArtC; var B: arbolArtD; var arA: ArchivoArt; var lim:word; var total:real; var R:reg);
 Procedure factura (var arF: ArchivoFac; var total: real; var lim: word; var R: reg);
-Procedure opcion1 (var arA: ArchivoArt; var arF:ArchivoFac; var A: arbolArt; var B: arbolArt);
+Procedure opcion1 (var arA: ArchivoArt; var arF:ArchivoFac; var A: arbolArtC; var B: arbolArtD);
 
 implementation
 
-Procedure venta (var A: arbolArt; var B: arbolArt; var arA: ArchivoArt; var lim:word; var total:real; var R: reg);
+Procedure venta (var A: arbolArtC; var B: arbolArtD; var arA: ArchivoArt; var lim:word; var total:real; var R: reg);
 var
 	fin: word;
 	op: word;
 	codi: word;
-	nodo:Art;
+	nodoC:ArtC;
+	nodoD:ArtD;
 	datoA:tipoArt;
 	cant: word;
 	totlinea: real;
@@ -27,17 +28,17 @@ begin
 	repeat
 		presVenFac; //menu
 		codig; //menu
-		cargarArbol (A, B, arA);
+	{ 	cargarArbol (A, B, arA); }
 		readln(op);
 		if op = 1 then
 		begin
 			presVenFac; //menu
 			writeln('                         Ingrese el codigo del producto: ');
 			readln(codi);
-			buscarCodigo (A, codi, nodo, salir); //arbol
+			buscarCodigo (A, codi, nodoC, salir); //arbol
 			if (salir=false) then
 			begin
-				leerArt(arA, datoA, nodo.pos); //archivo
+				leerArt(arA, datoA, nodoC.pos); //archivo
 				presVenFac; //menu
 				writeln('                    Ingrese la cantidad de productos a vender: ');
 				readln(cant);
@@ -53,7 +54,7 @@ begin
 					x.pFila:= totlinea;
 					cargarReg (R, x, lim); //vector
 					datoA.stock:= datoA.stock-cant;
-					ReEscArt(arA, datoA, nodo.pos); //archivo
+					ReEscArt(arA, datoA, nodoC.pos); //archivo
 				end
 				else
 				begin
@@ -68,10 +69,10 @@ begin
 			presVenFac; //menu
 			writeln('                      Ingrese la descripcion del producto: ');
 			readln(desc);
-			buscarDesc (B, desc, nodo, salir); //arbol
+			buscarDesc (B, desc, nodoD, salir); //arbol
 			if (salir=false) then
 			begin
-				leerArt(arA, datoA, nodo.pos); //archivo
+				leerArt(arA, datoA, nodoD.pos); //archivo
 				presVenFac; //menu
 				writeln('                    Ingrese la cantidad de productos a vender: ');
 				readln(cant);
@@ -87,7 +88,7 @@ begin
 					x.pFila:= totlinea;
 					cargarReg (R, x, lim);
 					datoA.stock:= datoA.stock-cant;
-					ReEscArt(arA, datoA, nodo.pos); //archivo
+					ReEscArt(arA, datoA, nodoD.pos); //archivo
 				end
 				else
 				begin
@@ -158,8 +159,8 @@ begin
 	end;
 	escribirFac(arF, y); //archivo
 end;
-
-Procedure opcion1 (var arA: ArchivoArt; var arF:ArchivoFac; var A: arbolArt; var B: arbolArt);
+	
+Procedure opcion1 (var arA: ArchivoArt; var arF:ArchivoFac; var A: arbolArtC; var B: arbolArtD);
 	var
 		total: real;
 		R: reg;
@@ -170,7 +171,7 @@ Procedure opcion1 (var arA: ArchivoArt; var arF:ArchivoFac; var A: arbolArt; var
 	begin
 		lim:=0;
 		venta(A, B, arA, lim, total, R);
-		if lim <> 0 then
+		if lim <> 0 then 
 		begin
 			factura(arF, total, lim, R);
 			posicionf(arF, pos);
@@ -179,5 +180,5 @@ Procedure opcion1 (var arA: ArchivoArt; var arF:ArchivoFac; var A: arbolArt; var
 			facturas (aux);
 		end;
 	end;
-
+	
 end.

@@ -1,11 +1,11 @@
-Program TP_Algoritmo;
-Uses crt, Arbol, Archivos, Vector, Menu, Dos, Tipos, Op1, Op2, Op3, Op4, Op5, Op6, Op7, Op8;
+Program TPAlg;
+Uses crt, Arbol, Archivo, Vector, Menu, Dos, Tipos, Punto1, Punto2, Punto3, Punto4, Punto5, Punto6, Punto7, Punto8;
 
 var
 	op: word;
 	arF: ArchivoFac;
-	A: arbolArt;
-	B: arbolArt;
+	A: arbolArtC;
+	B: arbolArtD;
 	arA: ArchivoArt;
 
 Begin {Principal}

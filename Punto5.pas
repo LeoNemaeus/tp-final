@@ -1,6 +1,6 @@
-unit Op5;
+unit Punto5;
 interface
-uses Menu, Archivos, Arbol, crt, Vector, Tipos;
+uses Menu, Archivo, Arbol, crt, Vector, Tipos;
 
 procedure opcion5 (var arF: ArchivoFac; var arA: ArchivoArt);
 

@@ -1,6 +1,6 @@
-Unit Op8;
+Unit Punto8;
 interface
-uses Menu, Archivos, Arbol, crt, Vector, Tipos;
+uses Menu, Archivo, Arbol, crt, Vector, Tipos;
 
 	procedure opcion8 (var arA:ArchivoArt);
 

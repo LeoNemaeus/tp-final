@@ -1,21 +1,18 @@
-Unit Op3;
+Unit Punto3;
 interface
-uses Menu, Archivos, Arbol, crt, Vector, Tipos;
-var
-	A: arbolArt;
-	arA:ArchivoArt;
-	B: arbolArt;
-Procedure precio_inorden(var A: arbolArt; var arA:ArchivoArt);
-Procedure opcion3 (var A: arbolArt; var arA: ArchivoArt);
+uses Menu, Archivo, Arbol, crt, Vector, Tipos;
+
+Procedure precio_inorden(var A: arbolArtC; var arA:ArchivoArt);
+Procedure opcion3 (var A: arbolArtC; var arA: ArchivoArt);
 
 
 implementation
 
-Procedure precio_inorden(var A: arbolArt; var arA:ArchivoArt);
+Procedure precio_inorden(var A: arbolArtC; var arA:ArchivoArt);
 	var
 		datoA: tipoArt;
 	Begin
-		if not arbolVacio(A) then
+		if not arbolVacioA(A) then
 		Begin
 			precio_inorden(A^.izq, arA);
 			leerArt(arA, datoA, A^.info.pos); //archivo
@@ -29,7 +26,7 @@ Procedure precio_inorden(var A: arbolArt; var arA:ArchivoArt);
 		end;
 	end;
 	
-Procedure opcion3 (var A: arbolArt; var arA: ArchivoArt);
+Procedure opcion3 (var A: arbolArtC; var arA: ArchivoArt);
 Begin
 	precio_inorden(A, arA);
 end;

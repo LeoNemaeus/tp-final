@@ -1,16 +1,17 @@
-unit Op6;
+unit Punto6;
 interface
-uses Menu, Archivos, Arbol, crt, Vector, Tipos;
+uses Menu, Archivo, Arbol, crt, Vector, Tipos;
 
-procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
+procedure opcion6 (var arA: ArchivoArt; var A: arbolArtC; var B: arbolArtD);
 
 implementation
 
-procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
+procedure opcion6 (var arA: ArchivoArt; var A: arbolArtC; var B: arbolArtD);
 	var
 		po: real;
 		cod: word;
-		nodo: Art;
+		nodoC: ArtC;
+		nodoD: ArtD;
 		aux: tipoArt;
 		des: string;
 		fin:word;
@@ -21,7 +22,6 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 		salir:boolean;
 		noencon: byte;
 	begin
-		cargarArbol (A, B, arA);
 		presConsArt; //menu
 		consulta; //menu
 		readln(op);
@@ -30,10 +30,10 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 				presConsArt; //menu
 				writeln('                        Ingrese el codigo del producto: ');
 				readln(cod);
-				buscarCodigo (A, cod, nodo, salir); //arbol
+				buscarCodigo (A, cod, nodoC, salir); //arbol
 				if (salir=false) then
 				begin
-					leerArt(arA, aux, nodo.pos); //archivo
+					leerArt(arA, aux, nodoC.pos); //archivo
 					consultaArt (aux);
 				end;
 			end;
@@ -41,10 +41,10 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
 				presConsArt; //menu
 				writeln('                        Ingrese la descripcion del producto: ');
 				readln(des);
-				buscarDesc (B, des, nodo, salir); //arbol
+				buscarDesc (B, des, nodoD, salir); //arbol
 				if (salir=false) then
 				begin
-					leerArt(arA, aux, nodo.pos); //archivo
+					leerArt(arA, aux, nodoD.pos); //archivo
 					consultaArt (aux);
 				end;
 			end;

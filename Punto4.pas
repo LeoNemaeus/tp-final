@@ -1,20 +1,21 @@
-unit Op4;
+unit Punto4;
 interface
-uses Menu, Archivos, Arbol, crt, Vector, Tipos;
+uses Menu, Archivo, Arbol, crt, Vector, Tipos;
 
-procedure opcion4 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
+procedure opcion4 (var arA: ArchivoArt; var A: arbolArtC; var B: arbolArtD);
 
 implementation
 
-procedure opcion4 (var arA: ArchivoArt; var A: arbolArt; var B: arbolArt);
+procedure opcion4 (var arA: ArchivoArt; var A: arbolArtC; var B: arbolArtD);
 var
 	fin: word;
 	op: byte;
 	codigo: word;
 	descripcion: string;
-	nodo: Art;
+	nodoC: ArtC;
+	nodoD: ArtD;
 	cantidad: word;
-	p: shortint;
+	p: string[2];
 	h: word;
 	cost: real;
 	l: string[2];
@@ -32,19 +33,19 @@ Begin
 		readln(op);
 		if op=1 then
 		begin
-			cargarArbol (A, B, arA);
 			presActPre; //menu
 			writeln('                        Ingrese el codigo del producto: ');
 			readln(codigo);
-			buscarCodigo (A, codigo, nodo, salir); //arbol
+			buscarCodigo (A, codigo, nodoC, salir); //arbol
+			pos:=nodoC.pos;
 		end;
 		if op=2 then
 		Begin
-			cargarArbol (A, B, arA);
 			presActPre; //menu
 			writeln('                      Ingrese la descripcion del producto: ');
 			readln(descripcion);
-			buscarDesc (B, descripcion, nodo, salir); //arbol
+			buscarDesc (B, descripcion, nodoD, salir); //arbol
+			pos:=nodoD.pos;
 		end;
 		if op>=3 then
 		begin
@@ -55,7 +56,7 @@ Begin
 		end;
 		if (salir=false) then
 		begin
-			leerArt(arA, aux, nodo.pos); //archivo
+			leerArt(arA, aux, pos); //archivo
 			presActPre; //menu
 			writeln('              El precio de venta del producto seleccionado es: ',aux.pVenta:5:2);
 			writeln('  ');
@@ -70,7 +71,7 @@ Begin
 			if (p= 's') then
 			Begin
 				presActPre; //menu
-				modificarprecio; //menu
+				modificarprecio; //menu	
 				read(h);
 				if h=1 then
 				begin
@@ -108,7 +109,6 @@ Begin
 		end;
 	presActPre; //menu
 	cierre; //menu
-	cargarArbol (A, B, arA);
 	read(fin);
 	until (fin=2)
 end;
