@@ -1,6 +1,6 @@
 unit Punto6;
 interface
-uses Menu, Archivo, Arbol, crt, Vector, Tipos;
+uses Vistas, Archivo, Arbol, crt, Vector, Tipos;
 
 procedure opcion6 (var arA: ArchivoArt; var A: arbolArtC; var B: arbolArtD);
 
@@ -22,6 +22,7 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArtC; var B: arbolArtD);
 		salir:boolean;
 		noencon: byte;
 	begin
+		reformaArbol (A, B, arA);
 		presConsArt; //menu
 		consulta; //menu
 		readln(op);

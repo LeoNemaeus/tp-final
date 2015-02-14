@@ -1,6 +1,6 @@
 unit Punto2;
 interface
-uses Menu, Archivo, Arbol, crt, Vector, Tipos;
+uses Vistas, Archivo, Arbol, crt, Vector, Tipos;
 
 	Procedure opcion2 (var A: arbolArtC; var B: arbolArtD; var arA:ArchivoArt);
 	
@@ -22,7 +22,7 @@ implementation
 		salir: boolean;
 		resp: string[2];
 	begin
-		cargarArbol (A, B, arA);
+		reformaArbol (A, B, arA);
 		presActSto; //menu
 		codig; //menu
 		writeln(' ');
@@ -183,7 +183,7 @@ implementation
 						if resp='s' then
 						begin
 							borrar(arA, datoA.codigo);
-							borrarNodo (A, B, datoA.codigo, datoA.descri);
+							reformaArbol (A, B, arA);
 							presActSto; //menu
 							writeln('                       El articulo ha sido removido exitosamente!');
 							readkey;
@@ -220,7 +220,7 @@ implementation
 						if resp='s' then
 						begin
 							borrar(arA, datoA.codigo);
-							borrarNodo (A, B, datoA.codigo, datoA.descri);
+							reformaArbol (A, B, arA);
 							presActSto; //menu
 							writeln('                       El articulo ha sido removido exitosamente!');
 							readkey;

@@ -1,7 +1,7 @@
 Unit Arbol;
 
 interface
-uses Crt, Menu, Tipos, Archivo;
+uses Crt, Vistas, Tipos, Archivo;
 		
 	procedure crearArbol (var A:arbolArtC; var B: arbolArtD);
 	function arbolVacioA (A:arbolArtC): boolean;
@@ -10,9 +10,9 @@ uses Crt, Menu, Tipos, Archivo;
 	procedure buscarCodigo (A: arbolArtC; buscado: word; var nodoC: ArtC; var salir: boolean);
 	procedure cargarArbol (var A:arbolArtC; var B: arbolArtD; var arA: ArchivoArt);
 	procedure buscarDesc (B: arbolArtD; bus:string; var nodoD: ArtD; var salir: boolean);
-	procedure borrarNodo (var A: arbolArtC; var B: arbolArtD; buscado: word; bus: string);
-
-implementation
+	procedure reformaArbol (var A: arbolArtC; var B: arbolArtD; var arA: ArchivoArt);
+	
+	implementation
 
 	
 	procedure crearArbol (var A:arbolArtC; var B: arbolArtD);
@@ -306,113 +306,37 @@ end;
 		end
 	end;
 
-	procedure buscando (var aux: arbolArtC; var padre: arbolArtC);
-begin
-	if aux^.izq <> nil then
-		buscando (aux^.izq, padre)
-	else
-		padre:= aux;
-end;
-
-procedure borrar (var A: arbolArtC; buscado: word);
+Procedure postordenA (var A : arbolArtC);
 var
 	aux: arbolArtC;
-	aux2: arbolArtC;
-	padre: arbolArtC;
 begin
-	if not arbolVacioA(aux) then
+	aux:=A;
+	if (aux <> nil) then
 	begin
-		aux:= A;
-		if aux^.info.codigo = buscado then
-			if arbolVacioA(aux^.der) and (not arbolVacioA(aux^.izq)) then
-				begin
-				aux2:= aux;
-				aux:= aux^.izq;
-				dispose(aux2);
-				end
-			else
-				if (not arbolVacioA(aux^.der)) and  arbolVacioA(aux^.izq) then
-					begin
-					aux2:=aux;
-					aux:= aux^.der;
-					dispose(aux2);
-					end
-				else
-				begin
-					aux2:=aux;
-					buscando(aux, padre);
-					aux:= padre;
-					aux^.der:= A^.der;
-					aux^.izq:= A^.izq;
-					aux^.bal:= A^.bal;
-					dispose(aux2);
-				end
-		else
-		begin
-			if aux^.info.codigo > buscado then
-				borrar(aux^.izq, buscado)
-			else
-				borrar(aux^.der, buscado);
-		end;
-	end;
+		postordenA(aux^.Izq);
+		postordenA(aux^.Der);
+		dispose(aux);
+	end
 end;
 
-
-procedure buscandoB (var aux: arbolArtD; var padre: arbolArtD);
-begin
-	if aux^.izq <> nil then
-		buscandoB (aux^.izq, padre)
-	else
-		padre:= aux;
-end;
-
-procedure borrarB (var B: arbolArtD; bus: string);
+Procedure postordenB (var B : arbolArtD);
 var
 	aux: arbolArtD;
-	aux2: arbolArtD;
-	padre: arbolArtD;
 begin
-	if not arbolVacioB(aux) then
+	aux:=B;
+	if (aux <> nil) then
 	begin
-		aux:= B;
-		if aux^.info.descri = bus then
-			if arbolVacioB(aux^.der) and (not arbolVacioB(aux^.izq)) then
-			begin
-				aux2:= aux;
-				aux:= aux^.izq;
-				dispose(aux2);
-			end
-			else
-				if (not arbolVacioB(aux^.der)) and  arbolVacioB(aux^.izq) then
-				begin
-					aux2:= aux;
-					aux:= aux^.der;
-					dispose(aux2);
-				end
-				else
-				begin
-					aux2:=aux;
-					buscandoB(aux, padre);
-					aux:= padre;
-					aux^.der:= B^.der;
-					aux^.izq:= B^.izq;
-					aux^.bal:= B^.bal;
-					dispose(aux2);
-				end
-		else
-		begin
-			if aux^.info.descri > bus then
-				borrarB(aux^.izq, bus)
-			else
-				borrarB(aux^.der, bus);
-		end;
-	end;
+		postordenB(aux^.Izq);
+		postordenB(aux^.Der);
+		dispose(aux);
+	end
 end;
 
-procedure borrarNodo (var A: arbolArtC; var B: arbolArtD; buscado: word; bus: string);
+procedure reformaArbol (var A: arbolArtC; var B: arbolArtD; var arA: ArchivoArt);
 begin
-	borrarB (B, bus);
-	borrar (A, buscado);
+	postordenA(A);
+	postordenB(B);
+	cargarArbol (A, B, arA);
 end;
 
 	

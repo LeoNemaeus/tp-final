@@ -1,34 +1,58 @@
 Unit Punto3;
 interface
-uses Menu, Archivo, Arbol, crt, Vector, Tipos;
+uses Vistas, Archivo, Arbol, crt, Vector, Tipos;
 
-Procedure precio_inorden(var A: arbolArtC; var arA:ArchivoArt);
-Procedure opcion3 (var A: arbolArtC; var arA: ArchivoArt);
+ Procedure opcion3(var arA:ArchivoArt);
+ 
+ implementation
 
-
-implementation
-
-Procedure precio_inorden(var A: arbolArtC; var arA:ArchivoArt);
+Procedure opcion3(var arA:ArchivoArt);
 	var
 		datoA: tipoArt;
+		pos: word;
+		I,J: word;
 	Begin
-		if not arbolVacioA(A) then
-		Begin
-			precio_inorden(A^.izq, arA);
-			leerArt(arA, datoA, A^.info.pos); //archivo
+		clrscr;
+		J:=1;
+		I:=0;
+		posicion(arA, pos);
+		repeat
+			leerArt(arA, datoA, I); //archivo
 			presListPre; //menu
 			writeln('                     Codigo:-------------',datoA.codigo);
 			writeln('                     Descriocion:--------', datoA.descri);
 			writeln('                     Precio de venta:----',datoA.pVenta:5:2);
-			writeln(' ');
+			writeln;
+			I:=I+1;
+			if I < pos then
+			begin
+				leerArt(arA, datoA, I); //archivo
+				writeln('                     Codigo:-------------',datoA.codigo);
+				writeln('                     Descriocion:--------', datoA.descri);
+				writeln('                     Precio de venta:----',datoA.pVenta:5:2);
+				writeln;
+				I:=I+1;
+				if I < pos then
+				begin
+					leerArt(arA, datoA, I); //archivo
+					writeln('                     Codigo:-------------',datoA.codigo);
+					writeln('                     Descriocion:--------', datoA.descri);
+					writeln('                     Precio de venta:----',datoA.pVenta:5:2);
+					writeln;
+					I:=I+1;
+					if I < pos then
+					begin
+						leerArt(arA, datoA, I); //archivo
+						writeln('                     Codigo:-------------',datoA.codigo);
+						writeln('                     Descriocion:--------', datoA.descri);
+						writeln('                     Precio de venta:----',datoA.pVenta:5:2);
+						I:=I+1;
+					end;
+				end;
+			end;
 			readkey;
-			precio_inorden(A^.der, arA);
-		end;
+			clrscr;
+		until I=pos;
 	end;
-	
-Procedure opcion3 (var A: arbolArtC; var arA: ArchivoArt);
-Begin
-	precio_inorden(A, arA);
-end;
 
 end.

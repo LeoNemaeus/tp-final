@@ -1,6 +1,6 @@
 unit Punto7;
 interface
-uses Menu, Archivo, Arbol, crt, Vector, Dos, Tipos;
+uses Vistas, Archivo, Arbol, crt, Vector, Dos, Tipos;
 
 procedure opcion7 (var arF: ArchivoFac);
 

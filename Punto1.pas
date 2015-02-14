@@ -1,6 +1,6 @@
 unit Punto1;
 interface
-uses Menu, Archivo, Arbol, crt, Vector, Dos, Tipos;
+uses Vistas, Archivo, Arbol, crt, Vector, Dos, Tipos;
 
 Procedure venta (var A: arbolArtC; var B: arbolArtD; var arA: ArchivoArt; var lim:word; var total:real; var R:reg);
 Procedure factura (var arF: ArchivoFac; var total: real; var lim: word; var R: reg);
@@ -28,7 +28,7 @@ begin
 	repeat
 		presVenFac; //menu
 		codig; //menu
-	{ 	cargarArbol (A, B, arA); }
+		reformaArbol (A, B, arA);
 		readln(op);
 		if op = 1 then
 		begin

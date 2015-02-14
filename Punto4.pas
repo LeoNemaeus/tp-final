@@ -1,6 +1,6 @@
 unit Punto4;
 interface
-uses Menu, Archivo, Arbol, crt, Vector, Tipos;
+uses Vistas, Archivo, Arbol, crt, Vector, Tipos;
 
 procedure opcion4 (var arA: ArchivoArt; var A: arbolArtC; var B: arbolArtD);
 
