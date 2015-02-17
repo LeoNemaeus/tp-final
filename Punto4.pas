@@ -81,11 +81,14 @@ Begin
 					aux.pCosto := cost;
 					presActPre; //menu
 					writeln('                       Ingrese el porcentaje a aplicar');
-					readln(po);
+					gotoxy(24,7);readln(po);
 					aux.pVenta := (po*aux.pCosto)/100;
 					aux.pVenta := aux.pVenta + aux.pCosto;
 					writeln;
-					writeln('                       El precio de venta sera: $',aux.pVenta:5:2);
+					writeln;
+					writeln('                       El nuevo precio de venta sera: $');
+					textcolor(11);
+					gotoxy(57, 10); writeln(aux.pVenta:5:2);
 					readkey;
 					ReEscArt(arA, aux, pos); //archivo
 				end;
@@ -93,11 +96,14 @@ Begin
 				Begin
 					presActPre; //menu
 					writeln('                       Ingrese el porcentaje a aplicar');
-					readln(po);
+					gotoxy(24,7);readln(po);
 					aux.pVenta := (po*aux.pCosto)/100;
 					aux.pVenta := aux.pVenta + aux.pCosto;
-					writeln('  ');
-					writeln('                       El precio de venta sera: $',aux.pVenta:5:2);
+					writeln;
+					writeln;
+					writeln('                       El nuevo precio de venta sera: $');
+					textcolor(11);
+					gotoxy(57, 10); writeln(aux.pVenta:5:2);
 					readkey;
 					ReEscArt(arA, aux, pos); //archivo
 				end;
