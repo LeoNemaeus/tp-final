@@ -171,11 +171,11 @@ implementation
 						presActSto; //menu
 						writeln('                       Detalles del articulo a borrar: ');
 						writeln;
-						writeln('                       Codigo-------------: ',datoA.codigo);
+						writeln('                       Codigo-------------: 00',datoA.codigo);
 						writeln('                       Descripcion--------: ',datoA.descri);
 						writeln('                       Proveedor----------: ',datoA.prove);
 						writeln('                       Stock--------------: ',datoA.stock);
-						writeln('                       Precio de costo----: ',datoA.pCosto:5:2);
+						writeln('                       Precio de costo----: $',datoA.pCosto:5:2);
 						readkey;
 						presActSto; //menu
 						writeln('                       Desea remover el articulo del stock? (s/n)');
@@ -199,7 +199,7 @@ implementation
 				if op=2 then
 				begin
 					presActSto; //menu
-					writeln('                       Ingrese el codigo del producto a borrar: ');
+					writeln('                   Ingrese la descripcion del producto a borrar: ');
 					readln(desc);
 					buscarDesc (B, desc, nodoD, salir); //arbol
 					if (salir=false) then
@@ -208,11 +208,11 @@ implementation
 						presActSto; //menu
 						writeln('                       Detalles del articulo a borrar: ');
 						writeln;
-						writeln('                       Codigo-------------: ',datoA.codigo);
+						writeln('                       Codigo-------------: 00',datoA.codigo);
 						writeln('                       Descripcion--------: ',datoA.descri);
 						writeln('                       Proveedor----------: ',datoA.prove);
 						writeln('                       Stock--------------: ',datoA.stock);
-						writeln('                       Precio de costo----: ',datoA.pCosto:5:2);
+						writeln('                       Precio de costo----: $',datoA.pCosto:5:2);
 						readkey;
 						presActSto; //menu
 						writeln('                       Desea remover el articulo del stock? (s/n)');

@@ -58,13 +58,13 @@ Begin
 		begin
 			leerArt(arA, aux, pos); //archivo
 			presActPre; //menu
-			writeln('              El precio de venta del producto seleccionado es: ',aux.pVenta:5:2);
+			writeln('              El precio de venta del producto seleccionado es: $',aux.pVenta:5:2);
 			writeln('  ');
-			writeln('              El precio de costo del producto seleccionado es: ',aux.pCosto:5:2);
+			writeln('              El precio de costo del producto seleccionado es: $',aux.pCosto:5:2);
 			por:= (aux.pVenta - aux.pCosto)*100;
 			por:= por/aux.pCosto;
 			writeln('  ');
-			writeln('              El porcentaje aplicado es: ', por:3:2);
+			writeln('              El porcentaje aplicado es: ', por:3:2,'%');
 			writeln('  ');
 			writeln('                             Desea modificar el precio? (s/n)');
 			readln(p);
@@ -84,8 +84,9 @@ Begin
 					readln(po);
 					aux.pVenta := (po*aux.pCosto)/100;
 					aux.pVenta := aux.pVenta + aux.pCosto;
-					writeln('  ');
-					writeln('                       El precio de venta sera: ',aux.pVenta:5:2);
+					writeln;
+					writeln('                       El precio de venta sera: $',aux.pVenta:5:2);
+					readkey;
 					ReEscArt(arA, aux, pos); //archivo
 				end;
 				if h=2 then
@@ -96,7 +97,8 @@ Begin
 					aux.pVenta := (po*aux.pCosto)/100;
 					aux.pVenta := aux.pVenta + aux.pCosto;
 					writeln('  ');
-					writeln('                       El precio de venta sera: ',aux.pVenta:5:2);
+					writeln('                       El precio de venta sera: $',aux.pVenta:5:2);
+					readkey;
 					ReEscArt(arA, aux, pos); //archivo
 				end;
 				if h >=3 then

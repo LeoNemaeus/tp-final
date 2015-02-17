@@ -48,16 +48,16 @@ procedure opcion7 (var arF: ArchivoFac);
 					if (aux.fecha.mes = mes) then
 						cont:= cont+aux.total
 					else
-					{ begin }
+					begin
 						if cont > res then
 						begin
 							me:=mes;
 							ani:=anio;
 							res:= cont;
 						end;
-						{ mes:=aux.fecha.mes;
+						mes:=aux.fecha.mes;
 						cont:= aux.total;
-					end;  }
+					end;
 					inc(I);
 				end;
 				presEstVentas; //menu

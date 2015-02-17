@@ -111,11 +111,11 @@ implementation
 	procedure consulta;
 	begin
 		writeln('                            Consultar Articulos por: ');
-		writeln('  ');
+		writeln;
 		writeln('                                   1: Codigo');
-		writeln(' ');
+		writeln;
 		writeln('                                   2: Descripcion');
-		writeln(' ');
+		writeln;
 		writeln('                                   3: Proveedor');
 	end;
 	
@@ -123,15 +123,15 @@ implementation
 	begin
 		clrscr;
 		textcolor(12);
-		writeln(' ');
+		writeln;
 		writeln('                                   ERROR');
-		writeln(' ');
-		writeln(' ');
+		writeln;
+		writeln;
 		writeln('                            Codigo no encontrado!');
 		textcolor(15);
-		writeln(' ');
+		writeln;
 		writeln('                     Si desea buscar nuevamente precione: 1');
-		writeln('                            ');
+		writeln;
 		writeln('                     De lo contrario precione: 2');
 	end;
 	
@@ -139,15 +139,15 @@ implementation
 	begin
 		clrscr;
 		textcolor(12);
-		writeln(' ');
+		writeln;
 		writeln('                                   ERROR');
-		writeln(' ');
-		writeln(' ');
+		writeln;
+		writeln;
 		writeln('                        Descripcion no encontrada!');
 		textcolor(15);
-		writeln(' ');
+		writeln;
 		writeln('                     Si desea buscar nuevamente precione: 1');
-		writeln('                            ');
+		writeln;
 		writeln('                     De lo contrario precione: 2');
 	end;
 	
@@ -155,8 +155,8 @@ implementation
 	begin
 		clrscr;
 		textcolor(15);
-		writeln(' ');
-		writeln(' ');
+		writeln;
+		writeln;
 		writeln('                         Por favor escriba nuevamente');
 	end;
 	
@@ -167,8 +167,8 @@ implementation
 		gotoxy(30,2);
 		writeln('VENTA Y FACTURACION  ');
 		textcolor(15);
-		writeln('  ');
-		writeln('  ');
+		writeln;
+		writeln;
 	end;
 	
 	procedure presActSto;
@@ -178,8 +178,8 @@ implementation
 		gotoxy(30,2);
 		writeln('ACTUALIZACION DE STOCK  ');
 		textcolor(15);
-		writeln('  ');
-		writeln('  ');
+		writeln;
+		writeln;
 	end;
 
 	procedure presListPre;
@@ -199,8 +199,8 @@ implementation
 		gotoxy(30,2);
 		writeln('ACTUALIZACION DE PRECIOS  ');
 		textcolor(15);
-		writeln('  ');
-		writeln('  ');
+		writeln;
+		writeln;
 	end;
 
 	procedure presConsFac;
@@ -210,8 +210,8 @@ implementation
 		gotoxy(30,2);
 		writeln('CONSULTA DE FACTURAS  ');
 		textcolor(15);
-		writeln('  ');
-		writeln('  ');
+		writeln;
+		writeln;
 	end;
 	
 	procedure presConsArt;
@@ -221,9 +221,9 @@ implementation
 		gotoxy(30,2);
 		writeln('CONSULTA DE ARTICULOS  ');
 		textcolor(15);
-		writeln('  ');
-		writeln('  ');
-		writeln('  ');
+		writeln;
+		writeln;
+		writeln;
 	end;
 	
 	procedure presEstVentas;
@@ -233,8 +233,8 @@ implementation
 		gotoxy(30,2);
 		writeln('ESTADISTICAS DE VENTAS  ');
 		textcolor(15);
-		writeln('  ');
-		writeln('  ');
+		writeln;
+		writeln;
 	end;
 	
 	procedure presPedArt;
@@ -244,19 +244,20 @@ implementation
 		gotoxy(30,2);
 		writeln('PEDIDO DE ARTICULOS FALTANTES  ');
 		textcolor(15);
-		writeln('  ');
-		writeln('  ');
+		writeln;
+		writeln;
 	end;
 	
 	Procedure iva;
 	Begin
 		presVenFac;
 		writeln('               Seleccione la condicion del comprador frente al IVA:');
-		writeln(' ');
+		writeln;
+		writeln;
 		writeln('                           1 : Responsable Inscripto');
-		writeln(' ');
+		writeln;
 		writeln('                           2 : Responsable Monotributo');
-		writeln(' ');
+		writeln;
 		writeln('                           3 : Consumidor Final');
 	end;
 
@@ -280,7 +281,7 @@ implementation
 		gotoxy(67,10); writeln('|');gotoxy(10,10); writeln('|');
 		gotoxy(67,11); writeln('|');gotoxy(10,11); writeln('|');
 		gotoxy(67,12); writeln('|');gotoxy(10,12); writeln('|');
-		textcolor(8);
+		textcolor(7);
 		gotoxy(20,3); writeln('DON JUSTO S.A.   Cuit: 30-515447847-9');
 		gotoxy(17,4); writeln('12 de Abril 258-Colon-E.R. Tel 03447-422672');
 		gotoxy(1,5); writeln;
@@ -304,9 +305,9 @@ implementation
 				gotoxy(67,J+2); writeln('|');gotoxy(10,J+2); writeln('|');
 				gotoxy(67,J+3); writeln('|');gotoxy(10,J+3); writeln('|');
 				textcolor(15);
-				gotoxy(17,J);writeln(aux.venta[I].cantidad,'x',aux.venta[I].pUnitario:5:2);
+				gotoxy(17,J);writeln(aux.venta[I].cantidad,'x $',aux.venta[I].pUnitario:5:2);
 				gotoxy(50,J); writeln('$',aux.venta[I].pFila:5:2);
-				gotoxy(17,J+1);writeln(aux.venta[I].codigo,' - ',aux.venta[I].descri);
+				gotoxy(17,J+1);writeln('00',aux.venta[I].codigo,' - ',aux.venta[I].descri);
 				writeln;
 				J:=J+3;
 			end;
@@ -319,9 +320,9 @@ implementation
 		gotoxy(10,J+4); writeln(' --------------------------------------------------------');
 		textcolor(15);
 		gotoxy(37,J+1);writeln('Total:');
-		textcolor(12);
+		textcolor(14);
 		gotoxy(48,J+1); writeln('$', aux.total:5:2);
-		textcolor(8);
+		textcolor(7);
 		gotoxy(25,J+3);writeln('Gracias por su compra!');
 		readkey;
 	End;
@@ -329,12 +330,12 @@ implementation
 	procedure buscarFac;
 	begin
 		writeln ('                          Desea buscar factura por: ');
-		writeln('  ');
-		writeln(' ');
+		writeln;
+		writeln;
 		writeln('                          1 : Numero de Factura');
-		writeln('  ');
+		writeln;
 		writeln('                          2 : Fecha de Facturacion');
-		writeln('  ');
+		writeln;
 		writeln('                          3 : Listar todas las facturas');
 	end;
 
@@ -345,35 +346,35 @@ implementation
 		gotoxy(30,2);
 		writeln('VENTA Y FACTURACION  ');
 		textcolor(15);
-		writeln('  ');
-		writeln('  ');
+		writeln;
+		writeln;
 		writeln('                       De que forma se abonara la compra: ');
-		writeln(' ');
-		writeln(' ');
+		writeln;
+		writeln;
 		writeln('                                 1 : Credito');
-		writeln(' ');
+		writeln;
 		writeln('                                 2 : Contado');
 	end;
 
 	procedure cambioStock (stock: word);
 	begin
 		writeln('                    El stock del producto buscado es: ', stock);
-		writeln('  ');
+		writeln;
 		writeln('                                 Usted desea: ');
-		writeln('  ');
-		writeln('  ');
+		writeln;
+		writeln;
 		writeln('                    1 :    Agregar stock');
-		writeln('  ');
+		writeln;
 		writeln('                    2 :    Remover stock');
 	end;
 	
 	Procedure codig;
 	Begin
 		writeln('                 Seleccione la opcion de busqueda del articulo: ');
-		writeln('  ');
-		writeln('  ');
+		writeln;
+		writeln;
 		writeln('                       1: Busqueda por Codigo ');
-		writeln('  ');
+		writeln;
 		writeln('                       2: Busqueda por Descripcion ');
 	end;
 	
@@ -381,7 +382,7 @@ implementation
 	begin
 		textcolor(12);
 		writeln('                      EL STOCK DEL PRODUCTO NO ES SUFICIENTE! ');
-		writeln('  ');
+		writeln;
 		textcolor(15);
 		writeln('                  La venta NO SE HA REALIZADO. Usted solo posee: ', stock);
 		readkey;
@@ -390,25 +391,25 @@ implementation
 	procedure modificarprecio;
 	begin
 		writeln('                              Desea modificar: ');
-		writeln(' ');
+		writeln;
 		writeln('                       1 : Precio de Costo y/o porcentaje');
-		writeln(' ');
+		writeln;
 		writeln('                       2 : Porcentaje de Ganancia');
 	end;
 	
 	procedure opcionEst;
 	begin
 		writeln('                         Seleccione la opcion que desee:');
-		writeln(' ');
+		writeln;
 		writeln('                       1 : Mes en que mas se vendio');
-		writeln(' ');
+		writeln;
 		writeln('                       2 : Total recaudado en el dia de la fecha');
 	end;
 	
 	procedure Stock (stock:word);
 	begin
 		writeln('                       El stock actual es: ',stock);
-		writeln('  ');
+		writeln;
 		writeln('                       Actualizacion fializada con exito!');
 		readkey;
 	end;
@@ -416,7 +417,7 @@ implementation
 	procedure cierre;
 	begin
 		writeln('                         1 : Continuar');
-		writeln('  ');
+		writeln;
 		writeln('                         2 : Finalizar');
 	end;
 	
@@ -425,15 +426,15 @@ implementation
 		po: real;
 	begin
 		presConsArt; //menu
-		writeln('                         Codigo:----------------:',aux.codigo);
-		writeln('                         Descripcion:-----------:', aux.descri);
-		writeln('                         Proveedor:-------------:',aux.prove);
-		writeln('                         Stock:-----------------:',aux.stock);
-		writeln('                         Precio de venta:-------:',aux.pVenta:5:2);
-		writeln('                         Precio de costo:-------:',aux.pCosto:5:2);
+		writeln('                         Codigo:----------------: 00',aux.codigo);
+		writeln('                         Descripcion:-----------: ',aux.descri);
+		writeln('                         Proveedor:-------------: ',aux.prove);
+		writeln('                         Stock:-----------------: ',aux.stock);
+		writeln('                         Precio de venta:-------: $',aux.pVenta:5:2);
+		writeln('                         Precio de costo:-------: $',aux.pCosto:5:2);
 		po:=(aux.pVenta-aux.pCosto)*100;
 		po:= po/aux.pCosto;
-		writeln('                         Porcentaje de ganancias:',po:3:2);
+		writeln('                         Porcentaje de ganancias: ',po:3:2,'%');
 		readkey;
 	end;
 	

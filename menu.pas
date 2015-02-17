@@ -9,7 +9,7 @@ implementation
 Procedure cuerpo (var A: arbolArtC; var B: arbolArtD; var arF: ArchivoFac; var arA: ArchivoArt);
 var
 	op: word;
-Begin
+Begin {Principal}
 	clrscr;
 	crear (arA, arF); //archivo
 	cargarArbol (A, B, arA); //arbol

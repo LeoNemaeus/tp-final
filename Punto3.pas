@@ -10,42 +10,41 @@ Procedure opcion3(var arA:ArchivoArt);
 	var
 		datoA: tipoArt;
 		pos: word;
-		I,J: word;
+		I: word;
 	Begin
 		clrscr;
-		J:=1;
 		I:=0;
 		posicion(arA, pos);
 		repeat
 			leerArt(arA, datoA, I); //archivo
 			presListPre; //menu
-			writeln('                     Codigo:-------------',datoA.codigo);
-			writeln('                     Descriocion:--------', datoA.descri);
-			writeln('                     Precio de venta:----',datoA.pVenta:5:2);
+			writeln('                     Codigo:------------- 00',datoA.codigo);
+			writeln('                     Descriocion:-------- ', datoA.descri);
+			writeln('                     Precio de venta:---- $',datoA.pVenta:5:2);
 			writeln;
 			I:=I+1;
 			if I < pos then
 			begin
 				leerArt(arA, datoA, I); //archivo
-				writeln('                     Codigo:-------------',datoA.codigo);
-				writeln('                     Descriocion:--------', datoA.descri);
-				writeln('                     Precio de venta:----',datoA.pVenta:5:2);
+				writeln('                     Codigo:------------- 00',datoA.codigo);
+				writeln('                     Descriocion:-------- ', datoA.descri);
+				writeln('                     Precio de venta:---- $',datoA.pVenta:5:2);
 				writeln;
 				I:=I+1;
 				if I < pos then
 				begin
 					leerArt(arA, datoA, I); //archivo
-					writeln('                     Codigo:-------------',datoA.codigo);
-					writeln('                     Descriocion:--------', datoA.descri);
-					writeln('                     Precio de venta:----',datoA.pVenta:5:2);
+					writeln('                     Codigo:------------- 00',datoA.codigo);
+					writeln('                     Descriocion:-------- ', datoA.descri);
+					writeln('                     Precio de venta:---- $',datoA.pVenta:5:2);
 					writeln;
 					I:=I+1;
 					if I < pos then
 					begin
 						leerArt(arA, datoA, I); //archivo
-						writeln('                     Codigo:-------------',datoA.codigo);
-						writeln('                     Descriocion:--------', datoA.descri);
-						writeln('                     Precio de venta:----',datoA.pVenta:5:2);
+						writeln('                     Codigo:------------- 00',datoA.codigo);
+						writeln('                     Descriocion:-------- ', datoA.descri);
+						writeln('                     Precio de venta:---- $',datoA.pVenta:5:2);
 						I:=I+1;
 					end;
 				end;

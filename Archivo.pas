@@ -3,8 +3,8 @@ Unit Archivo;
 interface
 uses Tipos;
 const
-	rutaA = 'C:\Users\Giuliana\Documents\tp-final\db\articulos2.dat';
-	rutaF = 'C:\Users\Giuliana\Documents\tp-final\db\facturas2.dat';
+	rutaA = 'C:\TP Final Alg\db\articulos2.dat';
+	rutaF = 'C:\TP Final Alg\db\facturas2.dat';
 
 	procedure crear (var arA:ArchivoArt; var arF: ArchivoFac);
 	Procedure escribirArt(var arA:ArchivoArt; var datoA:tipoArt);
