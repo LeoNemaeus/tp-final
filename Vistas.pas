@@ -115,8 +115,6 @@ implementation
 		writeln('                                   1: Codigo');
 		writeln;
 		writeln('                                   2: Descripcion');
-		writeln;
-		writeln('                                   3: Proveedor');
 	end;
 	
 	Procedure errorcod;
@@ -130,9 +128,9 @@ implementation
 		writeln('                            Codigo no encontrado!');
 		textcolor(15);
 		writeln;
-		writeln('                     Si desea buscar nuevamente precione: 1');
+		writeln('                     Si desea buscar nuevamente presione: 1');
 		writeln;
-		writeln('                     De lo contrario precione: 2');
+		writeln('                     De lo contrario presione: 2');
 	end;
 	
 	procedure errordes;
@@ -146,9 +144,9 @@ implementation
 		writeln('                        Descripcion no encontrada!');
 		textcolor(15);
 		writeln;
-		writeln('                     Si desea buscar nuevamente precione: 1');
+		writeln('                     Si desea buscar nuevamente presione: 1');
 		writeln;
-		writeln('                     De lo contrario precione: 2');
+		writeln('                     De lo contrario presione: 2');
 	end;
 	
 	procedure repetir;
@@ -410,7 +408,7 @@ implementation
 	begin
 		writeln('                       El stock actual es: ',stock);
 		writeln;
-		writeln('                       Actualizacion fializada con exito!');
+		writeln('                       Actualizacion finalizada con exito!');
 		readkey;
 	end;
 	

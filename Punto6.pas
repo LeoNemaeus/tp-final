@@ -49,30 +49,6 @@ procedure opcion6 (var arA: ArchivoArt; var A: arbolArtC; var B: arbolArtD);
 					consultaArt (aux);
 				end;
 			end;
-			3: Begin
-				presConsArt; //menu
-				writeln('                             Ingrese el proveedor: ');
-				readln(pro);
-				posicion(arA, pos); //archivo
-				noencon:=0;
-				I:=0;
-				while I< pos do
-				begin	
-					leerArt(arA, aux, I); //archivo
-					if aux.prove = pro then
-					begin
-						noencon:=1;
-						consultaArt (aux);
-					end;
-					inc(I)
-				end;
-				if noencon=0 then
-				begin
-					presConsArt; //menu
-					writeln('                          Proveedor no encontrado!');
-					readkey;
-				end;
-			end;
 		end;
 	end;
 	

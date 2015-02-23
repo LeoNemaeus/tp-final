@@ -19,6 +19,7 @@ type
                     stockMin:byte;
                     pVenta:real;
                     pCosto:real;
+					activo: boolean;
                 end;
  
 {

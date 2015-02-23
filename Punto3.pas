@@ -19,7 +19,7 @@ Procedure opcion3(var arA:ArchivoArt);
 			leerArt(arA, datoA, I); //archivo
 			presListPre; //menu
 			writeln('                     Codigo:------------- 00',datoA.codigo);
-			writeln('                     Descriocion:-------- ', datoA.descri);
+			writeln('                     Descripcion:-------- ', datoA.descri);
 			writeln('                     Precio de venta:---- $',datoA.pVenta:5:2);
 			writeln;
 			I:=I+1;
@@ -27,7 +27,7 @@ Procedure opcion3(var arA:ArchivoArt);
 			begin
 				leerArt(arA, datoA, I); //archivo
 				writeln('                     Codigo:------------- 00',datoA.codigo);
-				writeln('                     Descriocion:-------- ', datoA.descri);
+				writeln('                     Descripcion:-------- ', datoA.descri);
 				writeln('                     Precio de venta:---- $',datoA.pVenta:5:2);
 				writeln;
 				I:=I+1;
@@ -35,7 +35,7 @@ Procedure opcion3(var arA:ArchivoArt);
 				begin
 					leerArt(arA, datoA, I); //archivo
 					writeln('                     Codigo:------------- 00',datoA.codigo);
-					writeln('                     Descriocion:-------- ', datoA.descri);
+					writeln('                     Descripcion:-------- ', datoA.descri);
 					writeln('                     Precio de venta:---- $',datoA.pVenta:5:2);
 					writeln;
 					I:=I+1;
@@ -43,7 +43,7 @@ Procedure opcion3(var arA:ArchivoArt);
 					begin
 						leerArt(arA, datoA, I); //archivo
 						writeln('                     Codigo:------------- 00',datoA.codigo);
-						writeln('                     Descriocion:-------- ', datoA.descri);
+						writeln('                     Descripcion:-------- ', datoA.descri);
 						writeln('                     Precio de venta:---- $',datoA.pVenta:5:2);
 						I:=I+1;
 					end;

@@ -2,13 +2,17 @@ Unit Menu;
 interface
 Uses crt, Arbol, Archivo, Vector, Vistas, Dos, Tipos, Punto1, Punto2, Punto3, Punto4, Punto5, Punto6, Punto7, Punto8;
 
-Procedure cuerpo (var A: arbolArtC; var B: arbolArtD; var arF: ArchivoFac; var arA: ArchivoArt);
+Procedure cuerpo;
 
 implementation
 
-Procedure cuerpo (var A: arbolArtC; var B: arbolArtD; var arF: ArchivoFac; var arA: ArchivoArt);
+Procedure cuerpo;
 var
 	op: word;
+	A: arbolArtC;
+	B: arbolArtD;
+	arF: ArchivoFac;
+	arA: ArchivoArt;
 Begin {Principal}
 	clrscr;
 	crear (arA, arF); //archivo
